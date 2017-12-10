@@ -1,0 +1,167 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible"><meta content="width=device-width, initial-scale=1" name="viewport"><title>Designing interactive tables: keyboard navigation and selection</title><meta content="Nicki Vance: Design Games User Experience" property="description"><link href="http://www.nickivance.com/favicon.ico" rel="icon" type="image/ico"><link href="http://www.nickivance.com/styles/styles.css" rel="stylesheet" type="text/css"></head><body><div class="nav"><h1 id="nicki-vancehttpwwwnickivancecom"><a href="http://www.nickivance.com/">Nicki Vance</a></h1>
+<ul>
+  <li><a href="http://www.nickivance.com">Home</a></li>
+  <li><a href="http://www.nickivance.com/writing/index.html">Writings</a></li>
+</ul>
+</div><div class="content-background"><div class="content-layout"><div class="postIntro"><h1 id="designing-interactive-tables-br-keyboard-navigation-and-selection">Designing interactive tables: <br /> keyboard navigation and selection</h1>
+</div><div class="date"><p>October 23, 2017</p>
+</div><div class="postBody"><p>Interactive tables are an extremely useful feature of many digital products. Think Excel or Google Spreadsheets, Gmail, Quicken, Jira, and many business tools. People use these programs at home and on the job to review and operate on large amounts of data.</p>
+
+<p>This article covers some considerations I encountered when designing an interactive table that supported both mouse and keyboard inputs. Hopefully, it's helpful to those of you working on a project that includes interactive tables.</p>
+
+<h2 id="lets-start-with-a-short-definition-of-an-interactive-table">Let's start with a short definition of an interactive table</h2>
+
+<p>Excel is a classic example of an interactive table. It's a tool for editing and organizing data. You can select data, copy it, apply functions, and so much more.</p>
+<figure style="max-width: 555px"><img src="spreadsheet.png" /><figcaption>A screenshot of Google Spreadsheets because it's close enough for our purposes but I talk about Excel here because it's the original program I learned from.</figcaption></figure><p>My experience with interactive tables comes from designing a personal finance app, Moneyhawk. Central to the app is a table of bank transactions. People who use Moneyhawk need to be able to edit data in one or more of their transactions.</p>
+
+<p>For example, I want people to be able to change the payee on a dozen bank transactions from "SQ 34COF#222" to something more readable like, "34th St Coffee".</p>
+<iframe allowFullScreen frameborder="0" height="564" mozallowfullscreen src="https://player.vimeo.com/video/246649490" webkitAllowFullScreen width="640"></iframe><h2 id="weve-got-a-goal-how-do-we-get-there">We've got a goal, how do we get there?</h2>
+
+<p>I started by breaking down the desired functionality into basic actions:</p>
+
+<ul>
+  <li>select a transaction</li>
+  <li>select multiple transactions</li>
+  <li>edit selected transaction(s)</li>
+</ul>
+
+<p>Are the multiple transactions all adjacent or here-and-there? Let's split the multiple transactions selection into two actions:</p>
+
+<ul>
+  <li>select multiple transactions adjacent to each other</li>
+  <li>select multiple transactions spread out through the list</li>
+</ul>
+
+<p>What if someone wants to clear their selection? Or select everything? (The latter is especially likely if someone used search to filter the list to the set of transactions they want to change.)</p>
+
+<ul>
+  <li>select all transactions</li>
+  <li>deselect a transaction</li>
+  <li>deselect all transactions</li>
+</ul>
+
+<p>Here you can see the selection and deselection my partner and I built:</p>
+<iframe allowFullScreen frameborder="0" height="564" mozallowfullscreen src="https://player.vimeo.com/video/246649640" webkitAllowFullScreen width="640"></iframe><p>No surprises, right? These interactions should look familiar.</p>
+
+<p>The design here was mostly about reusing the same kinds of interactions we see in apps like Finder and other file management programs. Click on a row to select it. Click on another row and the previous selection is cleared and the target row is selected. We use keys to modify the click's action. <em>Shift + click</em> selects everything between a selected row (which one if multiple are selected?) and the target row. <em>Command + click</em> adds toggles the selection of the target row.</p>
+
+<p>I don't want these few paragraphs and a quick video to imply that building this was trivial. Discussing the intricacies of designing click functionality is beyond the scope of this article. To give you a peek, here are a few considerations:</p>
+
+<ul>
+  <li>What if someone double clicks? Is that the same as a click?</li>
+  <li>What if someone clicks and holds the click for a long time? What is their intention?</li>
+  <li>Do you want a hover state for the objects you can click on?</li>
+  <li>What should the cursor look like?</li>
+  <li>Is there an active state that changes the appearance when the user clicks down? Or when they release the click? What meaning do these visual changes convey?</li>
+</ul>
+
+<h2 id="designing-for-keyboard-input">Designing for keyboard input</h2>
+
+<p>Ok, we're pretty happy with what we've got above. But how do we do the same actions with a keyboard? How do we use a keyboard to tell a computer that we want <em>a</em>,<em>b</em>, and <em>e</em> transactions selected and we want to edit their payee?</p>
+
+<p>Maybe this question seems too simple. Of course we use a cursor or a pointer of some kind! I actually feel hesitant about this answer because using a cursor feels too obvious and <strong>obvious answers hamper ingenuity.</strong></p>
+
+<p>But I don't want to push the envelope with keyboard selection because it's worthwhile to work with pre-existing systems when they are widely familiar.</p>
+
+<p>Many, many people are accustomed to using cursors for text interfaces. The text interface is a series of tiny cells. Each cell can hold a single character and so we move our cursor left, right, up, down to point at an empty cell or a character we want to change.</p>
+<figure style="max-width: 432px"><iframe allowFullScreen frameborder="0" height="564" mozallowfullscreen src="https://player.vimeo.com/video/246649497" webkitAllowFullScreen width="640"></iframe><figcaption>In this text editor, there are 432 characters and just as many destinations for our cursor.</figcaption></figure><p>Ok, that's a good start. We can use arrows to move a cursor around our screen so we can point at stuff. But it can be really slow to move your cursor through thousands of characters to make edits. A table helps us create chunks of information that we can organize to be more easily navigated and discovered.</p>
+<figure style="max-width: 555px"><img src="spreadsheet_chunks.png" /><figcaption>In a this table, our data is in chunks. Instead of navigating the 180 characters in this table, we can navigate the 60 cells.</figcaption></figure><p>Excel offers us a table to chunk information into cells. Each cell of the table is its own text interface that can do incredible functions and equations, and store images and masses of text. Heck, these little text interfaces can even reference each other!</p>
+
+<p>When you move around in Excel, either with a mouse or keyboard, a border around the cell matches your movements. Like a text cursor, this cell border is the <strong>pointer</strong> that indicates your current <strong>target</strong> for any actions. When you click on a cell, the pointer moves at the same time that the action occurs, relegating the pointer to a piece of feedback.</p>
+<figure style="max-width: 550px"><iframe allowFullScreen frameborder="0" height="564" mozallowfullscreen src="https://player.vimeo.com/video/246649507" webkitAllowFullScreen width="640"></iframe><figcaption>Look at how fast we can zoom around this screen!</figcaption></figure><h2 id="pointing-at-rows-or-cells">Pointing at rows or cells?</h2>
+
+<p>In Moneyhawk, I chose to have row pointers instead of cell pointers for two reasons:</p>
+
+<ol>
+  <li>Transactions are more significant objects than their parts. I chose to emphasize transactions.</li>
+  <li>I wanted to limit the number of decisions someone has to make when they're using a keyboard. This helps with speed and reduces cognitive load.</li>
+</ol>
+<figure style="max-width: 550px"><iframe allowFullScreen frameborder="0" height="564" mozallowfullscreen src="https://player.vimeo.com/video/246649501" webkitAllowFullScreen width="640"></iframe><figcaption>Moneyhawk's pointer is the blue row outline. A selected row has a blue background to differentiate from the pointer.</figcaption></figure><h2 id="tradeoffs-between-navigation-and-memorable-keyboard-commands">Tradeoffs between navigation and memorable keyboard commands</h2>
+
+<p>Instead of navigating to a cell and hitting an edit command, you navigate to the row and hit one of 4 edit commands that correspond to the cell, or field, that you want to edit. There are 3 extra edit commands to remember (hopefully eased by tying them to the first letter of the field name – <em>cmd + p</em> for editing payee) but there are only <em>n</em> rows to navigate instead of <em>n</em> * 4 cells.</p>
+
+<p>I wouldn't suggest that Excel take this route because the promise of Excel is flexibility. You can assign any meaning you want to the rows and columns.</p>
+
+<p>Here's the keyboard command list for Moneyhawk:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Command</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>arrow keys</td>
+      <td>move pointer up/down a row</td>
+    </tr>
+    <tr>
+      <td>Spacebar</td>
+      <td>select a transaction, select multiple transactions, deselect a tranasction</td>
+    </tr>
+    <tr>
+      <td>CMD + a</td>
+      <td>select all transactions</td>
+    </tr>
+    <tr>
+      <td>Escape</td>
+      <td>deselect all transactions</td>
+    </tr>
+  </tbody>
+  <tbody>
+    <tr>
+      <td>CMD + p</td>
+      <td>edit payee of selected transaction(s)</td>
+    </tr>
+    <tr>
+      <td>CMD + t</td>
+      <td>edit tag(s) of selected transaction(s)</td>
+    </tr>
+    <tr>
+      <td>CMD + k</td>
+      <td>edit category(ies) of selected transaction(s)</td>
+    </tr>
+    <tr>
+      <td>CMD + n</td>
+      <td>edit notes of selected transaction(s)</td>
+    </tr>
+    <tr>
+      <td>CMD + c</td>
+      <td>copy selected transactions</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Note: The spacebar handles most of the selection and deselection actions based on where the pointer points. The keyboard command for selecting or deselecting a transaction is actually a combination of these two actions: toggle selection.</p>
+
+<p>My partner and I felt strongly about including keyboard commands so we actually built them first, before adding the mouse functionality. I recommend building the keyboard commands out first because it's easier to map mouse actions to keyboard actions than vice versa.</p>
+
+<h2 id="another-example-of-a-keyboard-interface">Another example of a keyboard interface</h2>
+
+<p>I want to give a shout out to Gmail which served as an example for me in my design work. You may not know this, but you can navigate pretty quickly through <a href="https://support.google.com/mail/answer/6594?co=GENIE.Platform%3DDesktop&amp;hl=en">Gmail with keyboard commands</a>. The pointer in this system is a little blue bar on the left edge of the email bar.</p>
+<figure style="max-width: 287px"><img src="gmail_pointer.png" /><figcaption>Admit it, you still email yourself sometimes.</figcaption></figure><p>Sometimes it disappears but that's a story for another post. Let me know if you have a guess or a certainty why that blue pointer disappears.</p>
+
+<p>Do you have any favorite keyboard-based interfaces? Please share!</p>
+
+<h2 id="in-conclusion">In conclusion…</h2>
+
+<p>Hopefully, you've found some useful tidbits in here for the next time you work on a keyboard interface or an interactive table. For future posts, you can <a href="https://tinyletter.com/moneyhawkapp">join the Moneyhawk mailing list</a>.</p>
+
+<p>Thanks for reading. If you think this is worth sharing, I'd be grateful if you would. Cheers!</p>
+</div></div></div><div class="footer"><div class="nav"><ul>
+  <li><a href="http://www.nickivance.info/index.html">Home</a></li>
+  <li><a href="http://www.nickivance.com/writing/index.html">Writings</a></li>
+</ul>
+</div><p>Want occasional updates sent to your inbox? Join the <a href="https://tinyletter.com/nickivance">mailing list</a>.</p>
+
+<p>Email me at: <a href="mailto:nicki@boxingindustries.com">nicki@boxingindustries.com</a></p>
+
+<p>I'm also on Twitter: <a href="https://twitter.com/wootbeep">@wootbeep</a>.</p>
+</div></body></html><footer><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-90558965-3', 'auto');
+ga('send', 'pageview');</script></footer>

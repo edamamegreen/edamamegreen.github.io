@@ -1,13 +1,12 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible"><meta content="width=device-width, initial-scale=1" name="viewport"><title>Laws Of Repulsion: Building A Herding Dog Game</title><meta content="Nicki Vance: Design Games User Experience" property="description"><link href="favicon.ico" rel="icon" type="image/ico"><link href="styles/styles.css" rel="stylesheet" type="text/css"></head><body><div class="nav"><h1 id="nicki-vancewwwnickivancecom"><a href="www.nickivance.com">Nicki Vance</a></h1>
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible"><meta content="width=device-width, initial-scale=1" name="viewport"><title>Laws Of Repulsion: Building A Herding Dog Game</title><meta content="Nicki Vance: Design Games User Experience" property="description"><link href="http://www.nickivance.com/favicon.ico" rel="icon" type="image/ico"><link href="http://www.nickivance.com/styles/styles.css" rel="stylesheet" type="text/css"></head><body><div class="nav"><h1 id="nicki-vancehttpwwwnickivancecom"><a href="http://www.nickivance.com/">Nicki Vance</a></h1>
 <ul>
-  <li><a href="../index.html">Home</a></li>
-  <li><strong><a href="index.html">Writing</a></strong></li>
-  <li><a href="../contact/index.html">Contact</a></li>
+  <li><a href="http://www.nickivance.com">Home</a></li>
+  <li><a href="http://www.nickivance.com/writing/index.html">Writings</a></li>
 </ul>
 </div><div class="content-background"><div class="content-layout"><div class="postIntro"><h1 id="laws-of-repulsion-building-a-herding-dog-game">Laws Of Repulsion: Building A Herding Dog Game</h1>
 </div><div class="date"><p>November 15, 2017</p>
 </div><div class="postBody"><p>My latest project has been the basic game mechanics for herding humans with a dog. Why herd humans with a dog? You'll find out if I ever finish this game. I don't want to spoil it in advance.</p>
-<figure style="max-width: 555px"><img src="/images/20171115_laws-of-repulsion/human-dog.png" /></figure><p>My partner and I started this project earlier this year. In one short pair programming session, we built a dog (a box with a nose) that would animate to wherever you clicked or tapped on the screen.</p>
+<figure style="max-width: 555px"><img src="human-dog.png" /></figure><p>My partner and I started this project earlier this year. In one short pair programming session, we built a dog (a box with a nose) that would animate to wherever you clicked or tapped on the screen.</p>
 <iframe src="https://player.vimeo.com/video/242907307" width="640" height="561" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe><p>My goal has been to get a simple version of the game play working that I can evaluate whether it's fun to herd humans with a dog and thus whether the rest of the game is worth building.</p>
 
 <h2 id="its-simple-right">It's simple, right?</h2>
@@ -54,7 +53,7 @@
 <p>Since I'm working with a web browser, I'm already using the pixel grid. But it's been difficult because my characters are larger than a pixel; so which of its many pixels defines a character's location? Keeping track of those pixels gets complicated.</p>
 
 <p>By building my own grid, I can group the pixels together, say in 40px by 40px boxes, and my characters can be located <em>within</em> the box. Now, the location of my human is simply a pair of coordinates on the grid (similar to the x,y coordinates of graphing equations). It's much simpler.</p>
-<figure style="max-width: 555px"><img src="/images/20171115_laws-of-repulsion/human-dog-grid.png" /></figure><p>Having a visible grid made it easier for me to debug because I could see when things weren't lined up right.</p>
+<figure style="max-width: 555px"><img src="human-dog-grid.png" /></figure><p>Having a visible grid made it easier for me to debug because I could see when things weren't lined up right.</p>
 
 <h2 id="moving-on-a-grid-sensing-walls-and-the-dog">Moving on a grid, sensing walls and the dog</h2>
 <p>Once I had the human and dog on the grid, I wanted the human to move about the grid without input from me.</p>
@@ -106,10 +105,17 @@ I don't think this prototype gives me a definitive "yes" but it doesn't tell me 
 <p>Thanks for reading! Let me know if you have any questions or ideas for what to try next with the dog herding.</p>
 </div></div></div><div class="footer"><div class="nav"><ul>
   <li><a href="http://www.nickivance.info/index.html">Home</a></li>
-  <li><strong><a href="http://www.nickivance.com/writing/index.html">Writing</a></strong></li>
-  <li><a href="http://www.nickivance.com/contact/index.html">Contact</a></li>
+  <li><a href="http://www.nickivance.com/writing/index.html">Writings</a></li>
 </ul>
-</div><p>Want occasional updates? Join the <a href="/">mailing list</a>.</p>
+</div><p>Want occasional updates sent to your inbox? Join the <a href="https://tinyletter.com/nickivance">mailing list</a>.</p>
+
+<p>Email me at: <a href="mailto:nicki@boxingindustries.com">nicki@boxingindustries.com</a></p>
 
 <p>I'm also on Twitter: <a href="https://twitter.com/wootbeep">@wootbeep</a>.</p>
-</div></body></html>
+</div></body></html><footer><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-90558965-3', 'auto');
+ga('send', 'pageview');</script></footer>
