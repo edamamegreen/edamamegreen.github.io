@@ -1,0 +1,117 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible"><meta content="width=device-width, initial-scale=1" name="viewport"><title>The So Fresh 9000: A washing machine interface built with state charts</title><meta content="Nicki Vance: Design Games User Experience" property="description"><link href="http://www.nickivance.com/favicon.ico" rel="icon" type="image/ico"><link href="http://www.nickivance.com/styles/styles.css" rel="stylesheet" type="text/css"></head><body><div class="nav"><h1 id="nicki-vancehttpwwwnickivancecom"><a href="http://www.nickivance.com/">Nicki Vance</a></h1>
+<ul>
+  <li><a href="http://www.nickivance.com">Home</a></li>
+  <li><a href="http://www.nickivance.com/writing/index.html">Writings</a></li>
+</ul>
+</div><div class="content-background"><div class="content-layout"><div class="postIntro"><h1 id="the-so-fresh-9000-br-a-washing-machine-interface-built-with-state-charts">The So Fresh 9000: <br /> A washing machine interface built with state charts</h1>
+</div><div class="date"><p>November 4, 2017</p>
+</div><div class="postBody"><h2 id="summary">Summary</h2>
+<p>I had a bad experience with a washing machine so I tried building my own using a state machine. The project has convinced me that I want to keep doing product design with state machines and state charts.</p>
+
+<h2 id="the-cabrio-that-never-stops">The Cabrio that never stops</h2>
+
+<p>A year ago, I was trying to wash the linens at a friend's vacation home before I left for the airport. I was using Whirlpool's Cabrio WTW7300DW.</p>
+<figure style="max-width: 555px"><img src="cabrio_interface.png" /><figcaption>Not sure what the green, red, and blue lights in the center mean.</figcaption></figure><p>With seven minutes left on the wash, the Cabrio got stuck in a loop. Each time I went back to check on it, it still showed seven minutes and the linens were spinning in water, far too wet to put in the dryer. Doesn't this machine have a spinning teacups mode for extracting as much water as possible?</p>
+
+<p>Obviously there's an error but there's nothing telling me what's wrong.</p>
+
+<p><strong>Problem #1:</strong> no user feedback for an error.</p>
+
+<p><strong>Problem #2:</strong> the error is looping. Why is there a state with no exit?</p>
+
+<p>My options are just to pause the cycle and try to run another cycle. Preferably just the spin cycle.
+<strong>Problem #3:</strong> I didn't notice the option to Rinse &amp; Spin.</p>
+
+<p>On the interface, this is a small label above something labeled Utility Tools. Is it an option I can select? I'm not sure.</p>
+<figure style="max-width: 555px"><img src="cabrio_utilitytools.png" /><figcaption>Tools that are so full of utility.</figcaption></figure><p>I stumbled on the solution. I shuffled the linens around in the wash tub and once I started the machine again, the time remaining began to count down. Turns out the laundry was unbalanced and for some reason that was preventing the cycle from finishing.</p>
+
+<p>The machine is top-loaded so the laundry sits in a vertically-oriented cylinder that is spun by a motor. If the laundry is unevenly distributed, more weight on one side of the cylinder than the other, then the cylinder will wobble as it spins. An unbalanced laundry tub can cause wear on the motor and its connections to the tub. It can also makes disturbing thumping noises.</p>
+
+<p>I'm not sure why the unbalanced load caused the machine to loop. Seems like it would do more damage that way.</p>
+
+<p>Anyway, this is how the story starts. I was worried about either missing a flight or creating a moldy laundry monster for the next vacationers. It was a crappy product experience.</p>
+
+<p>But I don't want to just throw shade, I decided to try to make something better.</p>
+
+<h2 id="the-problem-to-solve">The problem to solve</h2>
+<p>My goal was to build a washing machine interface that:</p>
+
+<ul>
+  <li>
+    <p>allows users to choose their wash preferences or use presets</p>
+  </li>
+  <li>
+    <p>runs the wash based on the user inputs</p>
+  </li>
+  <li>
+    <p>displays the time remaining</p>
+  </li>
+  <li>
+    <p>displays an error when the machine is unbalanced</p>
+  </li>
+</ul>
+
+<p>In addition to these basic goals, I included the usual things you expect from a washing machine. For example, if you open the door, it should pause which means that it remembers what it was doing and resumes when you close the door. Give it an elephant's memory. I won't list the rest of these details here.</p>
+
+<h2 id="the-solution">The solution</h2>
+<p>The solution could've been much simpler. I could've just drawn you a picture or even marked up a photo of the current interface to say "Add an error message here when the sensor registers an unbalanced load!"</p>
+<figure style="max-width: 555px"><img src="cabrio_adderror.png" /></figure><p>I wanted to work through designing the whole system to see how things like settings and sensors on the machine could work together to present a clear, usable interface.</p>
+
+<p>So I built a web-based prototype of the interface that I could interact with and move through its various states.</p>
+<iframe src="https://player.vimeo.com/video/241496116" width="640" height="230" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe><p>For unbalanced loads, I've simply made an unbalanced load message appear on the interface that is cleared if the balance is regained. I'm just working with the interface here so I've made assumptions about the physical sensors and how frequently they report back to the washing machine's control system.</p>
+
+<h2 id="how-its-made">How it's made</h2>
+
+<p>The washing machine prototype is basically a functioning website.</p>
+
+<p>The core of the program is a state machine. The state machine is terrifically useful because it controls the app by moving between states. For example, when the washing machine is inactive, it's in the Dim-Display state. I can tell the interface to dim the display when the washing machine is in this state.</p>
+<figure style="max-width: 555px"><img src="cabrio_adderror.png" /></figure><p>Then, when someone presses the Start button, the machine knows to transition from the Dim-Display state into the Ready state.</p>
+
+<p>The awesome thing about state machines is that you create a system of logic for your program to follow. Based on this state machine in this chart, there is no way to move from the Ready state to the Done state. So in creating the machine, I can declare the behavior I want and prevent behavior I don't want.</p>
+
+<p>I built the state machine with a tool my partner, <a href="https://kevinlynagh.com/">Kevin</a>, has been working on. He hasn't shared anything about it publicly yet so just ask if you're curious.</p>
+
+<p>I was able to define the state machine in code which generates an interactive chart. Being able to see the chart and navigate it helps me test out the system I've created. I can explore the possibilities I've created and look for gaps in functionality or behavior I want to prevent.</p>
+
+<p>In addition to defining the state machine, I can code up an interface that responds to events in the system. That's what you saw above.</p>
+
+<h2 id="statecharts-make-design-better">Statecharts make design better</h2>
+<p>My process for designing interfaces used to start with</p>
+
+<ol>
+  <li>
+    <p>a bit of writing – goals, use cases, a list of screens I think I need to draw,</p>
+  </li>
+  <li>
+    <p>an information architecture diagram,</p>
+  </li>
+  <li>
+    <p>sketching out the screens,</p>
+  </li>
+</ol>
+
+<p>and so on.</p>
+
+<p>None of these tools does a good job of conveying the underlying functionality of the system.</p>
+
+<p>The information architecture is the closest I used to come to looking at the system from a high level. And to be honest, an information architecture is a poor representation of a program. It's a rough approximation of how websites used to be built using just HTML and CSS, before programs on servers began generating the HTML, CSS, and Javascript that web browsers read. Information architecture is best used for communicating how a website will be organized.</p>
+
+<p>With a state chart I can define the control system that affects how people interact with what I'm designing.</p>
+
+<p>I'm curious to try this out with other folks. I hope state machines will make it easier for the teams I work with to align and get a prototype working quickly.</p>
+</div></div></div><div class="footer"><div class="nav"><ul>
+  <li><a href="http://www.nickivance.info/index.html">Home</a></li>
+  <li><a href="http://www.nickivance.com/writing/index.html">Writings</a></li>
+</ul>
+</div><p>Want occasional updates sent to your inbox? Join the <a href="https://tinyletter.com/nickivance">mailing list</a>.</p>
+
+<p>Email me at: <a href="mailto:nicki@boxingindustries.com">nicki@boxingindustries.com</a></p>
+
+<p>I'm also on Twitter: <a href="https://twitter.com/wootbeep">@wootbeep</a>.</p>
+</div></body></html><footer><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-90558965-3', 'auto');
+ga('send', 'pageview');</script></footer>
