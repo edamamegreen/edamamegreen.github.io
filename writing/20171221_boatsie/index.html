@@ -5,7 +5,7 @@
 </ul>
 </div><div class="content-background"><div class="content-layout"><div class="postIntro"><h1 id="floatin-my-boat-with-css-animation-br-troubleshooting-stutter-caused-by-animating-layout-properties">Floatin' my boat with CSS animation: <br /> Troubleshooting stutter caused by animating layout properties</h1>
 </div><div class="date"><p>December 21, 2017</p>
-</div><div class="postBody"><iframe src="https://player.vimeo.com/video/248240115" width="640" height="275" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe><p>I've been building a simple CSS animation of a boat traveling across the viewport, puffing smoke as it goes. This article is a write-up for others who are building CSS animations and might benefit from a few of the things I learned on this project, namely:</p>
+</div><div class="postBody"><figure style="max-width: 555px"><video autoplay="true" controls="true" height="300px" loop="true" poster="poster.png" src="boatsie7.mp4"></video><figcaption>Meep meep!</figcaption></figure><p>I've been building a simple CSS animation of a boat traveling across the viewport, puffing smoke as it goes. This article is a write-up for others who are building CSS animations and might benefit from a few of the things I learned on this project, namely:</p>
 
 <ul>
   <li>why you shouldn't animate properties that affect layout</li>
@@ -36,13 +36,13 @@
 <p>First, I made the boat move side-to-side. This animation is created by changing the margin-left property. I borrowed this idea from somewhere else but the source escapes me. We'll talk later about why animating margin-left isn't a great idea.</p>
 
 <p>The animation loop consists of moving across the screen, flipping the boat when it reaches the end of the page using the <code>transform: rotateY()</code> property, and moving back across the screen.</p>
-<iframe src="https://player.vimeo.com/video/248235397" width="640" height="279" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe><h2 id="rocking-up-and-down">Rocking up and down</h2>
+<figure style="max-width: 555px"><video autoplay="true" controls="true" height="300px" loop="true" poster="poster.png" src="boatsie1.mp4"></video></figure><h2 id="rocking-up-and-down">Rocking up and down</h2>
 
 <p>The rocking motion is an animation of the <code>transform: rotate</code> property. This is the 2D rotate property.</p>
 
 <p>I didn't want the boat the edges of the bottom of the boat to come out of the water because it would ruin the illusion that this is a boat sitting in water. For this effect, I positioned the boat lower and used the boat's parent div as a clipping path (<a href="https://css-tricks.com/clipping-masking-css/">CSS-Tricks article on clipping paths</a>).</p>
-<iframe src="https://player.vimeo.com/video/248235436" width="640" height="276" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe><p>With a clipping path:</p>
-<iframe src="https://player.vimeo.com/video/248235415" width="640" height="275" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe><p>I ended up adding the rocking motion to the same animation that moves the boat side-to-side. I would like a way to combine multiple animations but I couldn't because both animations used the same property, <code>transform</code>.</p>
+<figure style="max-width: 555px"><video autoplay="true" controls="true" height="300px" loop="true" poster="poster.png" src="boatsie2.mp4"></video></figure><p>With a clipping path:</p>
+<figure style="max-width: 555px"><video autoplay="true" controls="true" height="300px" loop="true" poster="poster.png" src="boatsie3.mp4"></video></figure><p>I ended up adding the rocking motion to the same animation that moves the boat side-to-side. I would like a way to combine multiple animations but I couldn't because both animations used the same property, <code>transform</code>.</p>
 
 <p>In the side-to-side animation, I have <code>transform: rotateY()</code> and in the rocking, I have <code>transform: rotate()</code>. Even though <code>rotate</code> and <code>rotateY</code> are different, they still define the transform. If I created two separate animations and applied them to the same element, the CSS would use the transform instructions from the latter animation. The highest rule of CSS: there can be only one [of each property declaration]!</p>
 
@@ -59,11 +59,11 @@
 </code></pre>
 
 <p>Here's the boat with smoke:</p>
-<iframe src="https://player.vimeo.com/video/248235450" width="640" height="276" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe><p>Next, I needed to make the smoke puff. I experimented with the movement and opacity in an animation on the first circle.</p>
-<iframe src="https://player.vimeo.com/video/248235465" width="640" height="276" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe><p>This just took a bit of troubleshooting. Let me know if you have a tool for generating the frames of an animation. That would make this process a little easier than watching the animation over and over.</p>
+<figure style="max-width: 555px"><video autoplay="true" controls="true" height="300px" loop="true" poster="poster.png" src="boatsie4.mp4"></video></figure><p>Next, I needed to make the smoke puff. I experimented with the movement and opacity in an animation on the first circle.</p>
+<figure style="max-width: 555px"><video autoplay="true" controls="true" height="300px" loop="true" poster="poster.png" src="boatsie5.mp4"></video></figure><p>This just took a bit of troubleshooting. Let me know if you have a tool for generating the frames of an animation. That would make this process a little easier than watching the animation over and over.</p>
 
 <p>I originally had three circles but when I started applying the same puffing animation to each circle and staggering them with a delay, I realized I might not need all three. Two seemed to do the trick.</p>
-<iframe src="https://player.vimeo.com/video/248235488" width="640" height="275" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe><p>Looks pretty good, eh? You've probably noticed by now that when the boat flips and the smoke flips, a puff of smoke makes an incredible jump in space that indicates some very improbable fluid dynamics.</p>
+<figure style="max-width: 555px"><video autoplay="true" controls="true" height="300px" loop="true" poster="poster.png" src="boatsie6.mp4"></video></figure><p>Looks pretty good, eh? You've probably noticed by now that when the boat flips and the smoke flips, a puff of smoke makes an incredible jump in space that indicates some very improbable fluid dynamics.</p>
 
 <p>I spent a bit of time drawing little timelines to visualize how I could make the puffing animation a factor of the boat's animation so that the puffs would dissipate conveniently before the boat flips.</p>
 <figure style="max-width: 555px"><img src="timing.jpg" /><figcaption>I mistakenly assumed that the delay occurs with every cycle of the animation.</figcaption></figure><p>This syncing is something I still haven't resolved. I've got bigger fish to fry.</p>
@@ -93,14 +93,14 @@
 <p>He suggested a quick test, push the browser width to extremes to see if the problem gets worse.</p>
 
 <p>Making the browser width very small had a telling result:</p>
-<iframe src="https://player.vimeo.com/video/248240479" width="640" height="480" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe><p>The duration of this animation is 10 seconds so the boat has to move the width of the viewport in 10 seconds. The browser has to divide up the width of the viewport into 10 seconds x 60 frames per second = 600 frames. When the browser divides the width of the viewport by 600, there is bound to be some rounding because it's unlikely that the viewport width is a multiple of 600.</p>
+<figure style="max-width: 555px"><video autoplay="true" controls="true" height="300px" loop="true" poster="poster.png" src="stutter.mp4"></video></figure><p>The duration of this animation is 10 seconds so the boat has to move the width of the viewport in 10 seconds. The browser has to divide up the width of the viewport into 10 seconds x 60 frames per second = 600 frames. When the browser divides the width of the viewport by 600, there is bound to be some rounding because it's unlikely that the viewport width is a multiple of 600.</p>
 
 <p>Ok, so we have some pixel rounding. If my viewport is 601 pixels wide, my little boat will have to jump one extra pixel at some point.</p>
 
 <p>If my viewport is less than 600 pixels wide, then my boat will have to pause a lot because multiple frames will round to the same pixel position.</p>
 
 <p>I replaced all of my <code>margin-left</code>s with <code>transform: translate</code> and the result is much smoother.</p>
-<iframe src="https://player.vimeo.com/video/248240115" width="640" height="275" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe><h2 id="wrapping-up">Wrapping Up</h2>
+<figure style="max-width: 555px"><video autoplay="true" controls="true" height="300px" loop="true" poster="poster.png" src="boatsie7.mp4"></video></figure><h2 id="wrapping-up">Wrapping Up</h2>
 
 <p>This is where I'm stopping. I tried to make two more changes but got stuck.</p>
 
@@ -121,7 +121,7 @@
 
 <h2 id="props-to-glitchme">Props to Glitch.me</h2>
 
-<p>I began this animation using a cool live development tool called Glitch.me. It was a great way to get started quickly because Glitch creates the basic files for you to jump in and start editing. I didn't have to worry about setting up my project files and creating a git repo. Also, Glitch has a cute interface that is wonderfully different than everything else out there.</p>
+<p>I began this animation using a cool live development tool called <a href="http://glitch.me/">Glitch.me</a>. It was a great way to get started quickly because Glitch creates the basic files for you to jump in and start editing. I didn't have to worry about setting up my project files and creating a git repo. Also, Glitch has a cute interface that is wonderfully different than everything else out there.</p>
 
 <p>I eventually moved the code into a local git repo and finished building it there. I wanted to document the process of creating this animation. My favorite way to do this is by making commits in a git repo so I can roll back the code and snapshot significant steps.</p>
 
