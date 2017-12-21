@@ -1,0 +1,147 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible"><meta content="width=device-width, initial-scale=1" name="viewport"><title>Floatin&#39; my boat with CSS animation: Troubleshooting stutter caused by animating layout properties</title><meta content="Nicki Vance: Design Games User Experience" property="description"><link href="http://www.nickivance.com/favicon.ico" rel="icon" type="image/ico"><link href="http://www.nickivance.com/styles/styles.css" rel="stylesheet" type="text/css"></head><body><div class="nav"><h1 id="nicki-vancehttpwwwnickivancecom"><a href="http://www.nickivance.com/">Nicki Vance</a></h1>
+<ul>
+  <li><a href="http://www.nickivance.com">Home</a></li>
+  <li><a href="http://www.nickivance.com/writing/index.html">Writings</a></li>
+</ul>
+</div><div class="content-background"><div class="content-layout"><div class="postIntro"><h1 id="floatin-my-boat-with-css-animation-br-troubleshooting-stutter-caused-by-animating-layout-properties">Floatin' my boat with CSS animation: <br /> Troubleshooting stutter caused by animating layout properties</h1>
+</div><div class="date"><p>December 21, 2017</p>
+</div><div class="postBody"><iframe src="https://player.vimeo.com/video/248240115" width="640" height="275" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe><p>I've been building a simple CSS animation of a boat traveling across the viewport, puffing smoke as it goes. This article is a write-up for others who are building CSS animations and might benefit from a few of the things I learned on this project, namely:</p>
+
+<ul>
+  <li>why you shouldn't animate properties that affect layout</li>
+  <li>how to layer multiple animations</li>
+</ul>
+
+<p>None of these are new discoveries. I just want to add to the examples out there that we all use to help each other learn.</p>
+
+<p>If you were hoping for a good beginner's tutorial, I highly recommend <a href="https://www.kirupa.com/html5/learn_animation.htm">Kirupa's free tutorials.</a> These are clear, to-the-point, and come in both article and video formats.</p>
+
+<h2 id="the-basic-boat">The Basic Boat</h2>
+
+<p>First, I drew a little boat in Sketch and exported it as an svg. From the Sketch svg, I copied out the lines that were clearly useful and discarded the additional info.</p>
+<figure style="max-width: 555px"><img src="boatsie.svg" style="border: 0" /><figcaption>This little tugboat is called "Boatsie".</figcaption></figure><p>The animation comes in three parts:</p>
+
+<ul>
+  <li>the boat moving side-to-side</li>
+  <li>the boat rocking up and down</li>
+  <li>the engine smoke puffing up and away behind the boat</li>
+</ul>
+
+<h2 id="transitions-vs-animations">Transitions vs Animations</h2>
+
+<p>It's always worth asking yourself if you should be using a transition or an animation. In my case, I want this animation to run continuously so I need to use the animation property. For more discussion about animation vs transition, see the <a href="https://cssanimation.rocks/transition-vs-animation/">cssanimation.rocks article on the topic.</a></p>
+
+<h2 id="moving-side-to-side">Moving Side-to-side</h2>
+
+<p>First, I made the boat move side-to-side. This animation is created by changing the margin-left property. I borrowed this idea from somewhere else but the source escapes me. We'll talk later about why animating margin-left isn't a great idea.</p>
+
+<p>The animation loop consists of moving across the screen, flipping the boat when it reaches the end of the page using the <code>transform: rotateY()</code> property, and moving back across the screen.</p>
+<iframe src="https://player.vimeo.com/video/248235397" width="640" height="279" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe><h2 id="rocking-up-and-down">Rocking up and down</h2>
+
+<p>The rocking motion is an animation of the <code>transform: rotate</code> property. This is the 2D rotate property.</p>
+
+<p>I didn't want the boat the edges of the bottom of the boat to come out of the water because it would ruin the illusion that this is a boat sitting in water. For this effect, I positioned the boat lower and used the boat's parent div as a clipping path (<a href="https://css-tricks.com/clipping-masking-css/">CSS-Tricks article on clipping paths</a>).</p>
+<iframe src="https://player.vimeo.com/video/248235436" width="640" height="276" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe><p>With a clipping path:</p>
+<iframe src="https://player.vimeo.com/video/248235415" width="640" height="275" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe><p>I ended up adding the rocking motion to the same animation that moves the boat side-to-side. I would like a way to combine multiple animations but I couldn't because both animations used the same property, <code>transform</code>.</p>
+
+<p>In the side-to-side animation, I have <code>transform: rotateY()</code> and in the rocking, I have <code>transform: rotate()</code>. Even though <code>rotate</code> and <code>rotateY</code> are different, they still define the transform. If I created two separate animations and applied them to the same element, the CSS would use the transform instructions from the latter animation. The highest rule of CSS: there can be only one [of each property declaration]!</p>
+
+<h2 id="engine-smoke">Engine smoke</h2>
+
+<p>The smoke was a bit trickier than the other two movements. To begin with, the smoke needs to move with the boat. That's easy, just apply the same side-to-side animation as the boat. Since the boat animation merges side-to-side and rocking motions, I had to create a new animation just for the side-to-side and apply this to the smoke.</p>
+
+<p>The smoke is made up of a container svg, which takes the side-to-side animation, and small svg circles as children.</p>
+
+<pre><code>&lt;svg class="smoke" width="100px" height="40px" viewBox"0 0 153 40"&gt;
+     &lt;circle class="one" fill="gray" cx="47" cy="35" r="4"&gt;&lt;/circle&gt;
+     &lt;circle class="two" fill="gray" cx="47" cy="35" r="4"&gt;&lt;/circle&gt;
+&lt;/svg&gt;
+</code></pre>
+
+<p>Here's the boat with smoke:</p>
+<iframe src="https://player.vimeo.com/video/248235450" width="640" height="276" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe><p>Next, I needed to make the smoke puff. I experimented with the movement and opacity in an animation on the first circle.</p>
+<iframe src="https://player.vimeo.com/video/248235465" width="640" height="276" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe><p>This just took a bit of troubleshooting. Let me know if you have a tool for generating the frames of an animation. That would make this process a little easier than watching the animation over and over.</p>
+
+<p>I originally had three circles but when I started applying the same puffing animation to each circle and staggering them with a delay, I realized I might not need all three. Two seemed to do the trick.</p>
+<iframe src="https://player.vimeo.com/video/248235488" width="640" height="275" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe><p>Looks pretty good, eh? You've probably noticed by now that when the boat flips and the smoke flips, a puff of smoke makes an incredible jump in space that indicates some very improbable fluid dynamics.</p>
+
+<p>I spent a bit of time drawing little timelines to visualize how I could make the puffing animation a factor of the boat's animation so that the puffs would dissipate conveniently before the boat flips.</p>
+<figure style="max-width: 555px"><img src="timing.jpg" /><figcaption>I mistakenly assumed that the delay occurs with every cycle of the animation.</figcaption></figure><p>This syncing is something I still haven't resolved. I've got bigger fish to fry.</p>
+
+<h2 id="why-you-shouldnt-animate-layout-changes">Why you shouldn't animate layout changes</h2>
+
+<p>My partner noticed that the animation wasn't quite smooth.</p>
+
+<p>We recorded the animation using Chrome Dev Tools and found that nothing was slowing the animation down.</p>
+<figure style="max-width: 555px"><img src="perf.png" /><figcaption>You can see that there is a frame rendered approximately every 16 seconds, as expected. The blocks of color show when the browser is thinking and there are gaps in there so we aren't pressed for time.</figcaption></figure><p>How did we figure this out?</p>
+
+<p>The browser carries out any instructions one at a time. We're computing on a single thread here. To animate a change, the browser has to calculate all those fancy in-between frames for us and render them.</p>
+
+<p>If carrying out computing instructions takes too long, the render doesn't happen regularly and results in a visible lag. If the lag is great enough, the browser is smart enough that it can skip a frame to try and catch up. You might see an even larger visible jump in your animation.</p>
+
+<p>If you zoom in, Chrome Dev Tools shows you how long each of these instructions takes. It's really incredible how much detail is in the performance readout. You can zoom in and out of huge amounts of data quickly and easily. This tool is really one of the best interactive data visualizations I've ever seen.</p>
+
+<p>In my case, you could see that the frames were still being rendered at the expected frame rate.</p>
+
+<p>At this point, my partner asked me how I was animating the boat. When I mentioned the margin-left, he explained two valuable lessons he has learned:</p>
+
+<ol>
+  <li>The browser rounds pixels, sometimes resulting in imprecise graphics.</li>
+  <li>Every time you change a layout property, the browser recalculates the entire layout, even if nothing but the element in question was affected.</li>
+</ol>
+
+<p>He suggested a quick test, push the browser width to extremes to see if the problem gets worse.</p>
+
+<p>Making the browser width very small had a telling result:</p>
+<iframe src="https://player.vimeo.com/video/248240479" width="640" height="480" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe><p>The duration of this animation is 10 seconds so the boat has to move the width of the viewport in 10 seconds. The browser has to divide up the width of the viewport into 10 seconds x 60 frames per second = 600 frames. When the browser divides the width of the viewport by 600, there is bound to be some rounding because it's unlikely that the viewport width is a multiple of 600.</p>
+
+<p>Ok, so we have some pixel rounding. If my viewport is 601 pixels wide, my little boat will have to jump one extra pixel at some point.</p>
+
+<p>If my viewport is less than 600 pixels wide, then my boat will have to pause a lot because multiple frames will round to the same pixel position.</p>
+
+<p>I replaced all of my <code>margin-left</code>s with <code>transform: translate</code> and the result is much smoother.</p>
+<iframe src="https://player.vimeo.com/video/248240115" width="640" height="275" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe><h2 id="wrapping-up">Wrapping Up</h2>
+
+<p>This is where I'm stopping. I tried to make two more changes but got stuck.</p>
+
+<ol>
+  <li>
+    <p>I still haven't fixed the smoke puffs that flip when the boat reaches the end of the screen. I admit I'm stumped.</p>
+  </li>
+  <li>
+    <p>I want the boat to cross the screen at the same speed, regardless of viewport width.</p>
+  </li>
+</ol>
+
+<p>On this second point, I tried using <code>calc</code> to try and turn a <code>vw</code> length value (px) into a time value (seconds). I couldn't find a way to make it work.</p>
+
+<p>The other option is to use Javascript, something I've been avoiding with this whole project. It appeals to me to be able to use CSS as much as possible.</p>
+
+<p>Returning to my goals, when I put this on my website, I will probably have the boat go off the edges of the page instead of turning around so that will solve problem #1.</p>
+
+<h2 id="props-to-glitchme">Props to Glitch.me</h2>
+
+<p>I began this animation using a cool live development tool called Glitch.me. It was a great way to get started quickly because Glitch creates the basic files for you to jump in and start editing. I didn't have to worry about setting up my project files and creating a git repo. Also, Glitch has a cute interface that is wonderfully different than everything else out there.</p>
+
+<p>I eventually moved the code into a local git repo and finished building it there. I wanted to document the process of creating this animation. My favorite way to do this is by making commits in a git repo so I can roll back the code and snapshot significant steps.</p>
+
+<hr />
+
+<p>I'll update here when I've added the animation to my site.
+Thanks for reading!</p>
+</div></div></div><div class="footer"><div class="nav"><ul>
+  <li><a href="http://www.nickivance.info/index.html">Home</a></li>
+  <li><a href="http://www.nickivance.com/writing/index.html">Writings</a></li>
+</ul>
+</div><p>Want occasional updates sent to your inbox? Join the <a href="https://tinyletter.com/nickivance">mailing list</a>.</p>
+
+<p>Email me at: <a href="mailto:nicki@boxingindustries.com">nicki@boxingindustries.com</a></p>
+
+<p>I'm also on Twitter: <a href="https://twitter.com/wootbeep">@wootbeep</a>.</p>
+</div></body></html><footer><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-90558965-3', 'auto');
+ga('send', 'pageview');</script></footer>
