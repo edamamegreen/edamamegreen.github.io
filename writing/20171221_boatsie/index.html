@@ -4,7 +4,7 @@
   <li><a href="/writing/index.html">Writings</a></li>
 </ul>
 </div><div class="content-background"><div class="content-layout"><div class="postIntro"><h1 id="floatin-my-boat-with-css-animation-br-troubleshooting-stutter-caused-by-animating-layout-properties">Floatin' my boat with CSS animation: <br /> Troubleshooting stutter caused by animating layout properties</h1>
-</div><div class="date"><p>December 21, 2017</p>
+</div><div class="date"><p>December 21, 2017 (Updated Jan 8, 2018)</p>
 </div><div class="postBody"><figure style="max-width: 555px"><video autoplay="true" controls="true" height="300px" loop="true" poster="poster.png" src="boatsie7.mp4"></video><figcaption>Meep meep!</figcaption></figure><p>I've been building a simple CSS animation of a boat traveling across the viewport, puffing smoke as it goes. This article is a write-up for others who are building CSS animations and might benefit from a few of the things I learned on this project, namely:</p>
 
 <ul>
@@ -40,7 +40,7 @@
 
 <p>The rocking motion is an animation of the <code>transform: rotate</code> property. This is the 2D rotate property.</p>
 
-<p>I didn't want the boat the edges of the bottom of the boat to come out of the water because it would ruin the illusion that this is a boat sitting in water. For this effect, I positioned the boat lower and used the boat's parent div as a clipping path (<a href="https://css-tricks.com/clipping-masking-css/">CSS-Tricks article on clipping paths</a>).</p>
+<p>I didn't want the edges of the bottom of the boat to come out of the water because it would ruin the illusion that this is a boat sitting in water. For this effect, I positioned the boat lower and used the boat's parent div as a clipping path using an inset rectangle (<a href="https://css-tricks.com/clipping-masking-css/">CSS-Tricks article on clipping paths</a>).</p>
 <figure style="max-width: 555px"><video autoplay="true" controls="true" height="300px" loop="true" poster="poster.png" src="boatsie2.mp4"></video></figure><p>With a clipping path:</p>
 <figure style="max-width: 555px"><video autoplay="true" controls="true" height="300px" loop="true" poster="poster.png" src="boatsie3.mp4"></video></figure><p>I ended up adding the rocking motion to the same animation that moves the boat side-to-side. I would like a way to combine multiple animations but I couldn't because both animations used the same property, <code>transform</code>.</p>
 
@@ -129,6 +129,12 @@
 
 <p>I'll update here when I've added the animation to my site.
 Thanks for reading!</p>
+
+<h2 id="update">Update</h2>
+
+<p>I've added the animation to my site. To create a roughly similar boat speed on different size screens, I've used media queries.</p>
+
+<p>I discovered that Chrome made an update recently that undoes my clip-path on the boat. I was totally stumped so Kevin was super helpful again. He is quick about coming up with hypotheses for what might be wrong AND simple tests to check if the hypothesis is on the right track. He turned off the boat's animation and found that the clip-path worked again. So animation is part of the problem. He also tried tinkering with the z-index of the boat and that showed us that by changing the z-index, we could undo the clipping on the still boat. Kevin said there might be a bug in Chrome that is causing the animation to composite funny. Perhaps someone who enjoys digging into bugs like this can provide an explanation. :)</p>
 </div></div></div><div class="footer"><div class="nav"><ul>
   <li><a href="/index.html">Home</a></li>
   <li><a href="/writing/index.html">Writings</a></li>
