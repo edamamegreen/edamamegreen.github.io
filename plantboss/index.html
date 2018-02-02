@@ -1,46 +1,75 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible"><meta content="width=device-width, initial-scale=1" name="viewport"><meta content="/site_image.png" property="og:image"><meta content="Plant Boss: Make it Grow" property="og:title"><title>Plant Boss</title><meta content="Plant Boss: Make it Grow" property="description"><link href="/plantboss/favicon.ico" rel="icon" type="image/ico"><link href="/plantboss/styles/styles.css" rel="stylesheet" type="text/css"></head><body><nav><h1 id="plant-bossplantbossindexhtml"><a href="/plantboss/index.html">Plant Boss</a></h1>
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible"><meta content="width=device-width, initial-scale=1" name="viewport"><meta content="/site_image.png" property="og:image"><meta content="Plant Boss: Make it Grow" property="og:title"><title>Plant Boss</title><meta content="Plant Boss: Make it Grow" property="description"><link href="/plantboss/favicon.ico" rel="icon" type="image/ico"><link href="/plantboss/styles/styles.css" rel="stylesheet" type="text/css"></head><body><nav><h1 id="plant-boss">Plant Boss</h1>
 
-<p>a game about plants</p>
-<div class="tableOfContents"><h2 id="about">About</h2>
-
-<h2 id="latest-update">Latest Update</h2>
-
-<h2 id="design-document">Design Document</h2>
-<ul>
-  <li>Intro</li>
-  <li>Documents</li>
-  <li>Revisions</li>
-  <li>Gameplay</li>
-</ul>
-</div><div class="madeBy"><p>Made by <a href="/index.html">Nicki</a> and <a href="http://www.beccacm.com/">Becca</a> in 2018.</p>
-<br><p>=) <a href="mailto:nicki@boxingindustries.com">Email us</a>, we're friendly.</p>
-<br><p>Follow us on Twitter:</p>
+<p>a plant collector game</p>
+<div class="madeBy"><p>Made by <a href="/index.html">Nicki</a> in 2018.</p>
+<br><p>=) <a href="mailto:nicki@boxingindustries.com">Email</a> to say hi or ask questions.</p>
+<br><p>Find me on Twitter:</p>
 
 <p>Nicki - <a href="https://twitter.com/wootbeep">@wootbeep</a></p>
+</div></nav><div class="content"><img src="hero.png" /><div class="button-container"><a class="button" href="game/index.html">Play the Game</a></div><h2 id="about">About</h2>
 
-<p>Becca - <a href="https://twitter.com/beccacm">@beccacm</a></p>
-</div></nav><div class="content"><img src="hero.png" /><a class="button" href="game/index.html">Play the Game</a><div id="about"><h2 id="about">About</h2>
-
-<p>Plant Boss is a game about growing plants and attracting cool critters.</p>
+<p>Plant Boss is a game about collecting plants and attracting cool critters.</p>
 
 <p>This web game was built with Clojurescript, Rum (a React library), and uses a finite state machine for the control logic.</p>
-</div><div id="next"><h2 id="whats-next">What's Next?</h2>
+<h2 id="goals">Goals</h2>
+<p>The game you see here is a prototype. My goals for this project were to:</p>
 
-<p>At the end of January, I'll circulate the game and gauge reactions. I need to come up with some concrete tests to decide whether to keep working on this game.</p>
-</div><div id="updates"><h2 id="recent-updates">Recent Updates</h2>
+<ul>
+  <li>build a usable web game</li>
+  <li>make people smile</li>
+  <li>keep the scope minimal so I could get to a usable game in less than two months</li>
+  <li>practice cutting features while maintaining the core vision</li>
+</ul>
 
-<p><strong>Jan 26, 2018</strong></p>
+<h2 id="what-worked">What worked?</h2>
 
-<p>All the art is still stand-ins but I've been bringing in test art and a higher fidelity background so I can get my positioning system worked out.</p>
+<p>I did a good job cutting features. It's easier to cut features when they can be added on later without affecting what you're building now.</p>
 
-<p>There are moving critters in the game now! I've added ants and a gecko. The gecko's tongue flicks out but it's so tiny you can barely see it.</p>
-<div class="gecko" style="background: url(gecko.png); height: 55px; width: 47px; animation: gecko 3s steps(41) infinite reverse; transform: scale(1.5); margin: 20px"></div><p>I'm creating these spritesheets by hand in Sketch. This isn't easy because you can't see how the frames you're creating add up to the animation until you've exported the image and got all the CSS properties just right to play it. If there's a V2, I'll do more research and try out other animation methods. There are a lot of great tools out there for creating spritesheets because they're still a memory- and processing-light animation method.</p>
-<img src="hero.png" style="width: 300px" /><p>The game has a new background but it's still stand-in art. I'm working on getting the plants into position and part of that is making them proportionate to the room they're in. This new background is pretty close to the proportions I have in mind.</p>
+<p>For example, I had ideas for magical plants, water plants, desert plants, and eventually, I realized that I could divide the game up into connected spaces. That way, I could start with an indoor room and later add a door the leads to the desert greenhouse or the outdoor garden, and so on. From then on, I happily chucked ideas into this "add a new space for it later" bucket. I no longer had to choose between an indoor plant game and a magical plants game. I just had to prioritize.</p>
 
-<p><strong>Dec 18, 2017</strong></p>
+<p>Some features that were put aside:
++ plant care (watering, fertilizer, pruning, growing from seeds)
++ placing plants
++ choosing pots
++ selling plants
++ a plant editor (I seriously looked into this! But whoa, a whole new project onto itself.)</p>
 
-<p>Wrote the first draft of the design document.</p>
-</div></div></body></html><footer><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+<p>Writing a design document from the get-go was super helpful. I base my design docs on the Race'n'Chase (predecessor to Grand Theft Auto) design document (<a href="http://classes.dma.ucla.edu/Winter12/157A/doc2/gta_gdd.pdf">pdf</a>) from 1995. Let me know if you'd like to see either design doc: mine or Race'n'Chase.</p>
+
+<p>One of my problems with my design document was my conflicting desires to describe what I intended to make now versus record all the ideas for later. I think there need to be separate documents for these two intentions.</p>
+
+<h2 id="whats-missing">What's missing?</h2>
+
+<p>Persistence. There's <strong>no saving</strong> your game. =p When you reload the page, you start over.</p>
+
+<p><strong>The critters show up too regularly.</strong> Like <a href="https://en.wikipedia.org/wiki/Neko_Atsume">Neko Atsume</a>, I'd like the critters to stop showing up if you haven't touched the game in a while, as an incentive to stay engaged.</p>
+
+<p><strong>The critters show up any time.</strong> There's no mystery or discovery after the first minute because all of the critters appear immediately. To keep things interesting, critters should only show up if there are certain plants in play.</p>
+
+<p><strong>The money keeps accumulating.</strong> Right now, money is "left" by critters. Once I change the critters to show up less frequently and only after recent activity, money will become something that is actually earned, not always available.</p>
+
+<p><strong>Music.</strong> I think every game needs music and sound effects. Something upbeat without being annoying.</p>
+
+<h2 id="what-could-have-been-better">What could have been better?</h2>
+
+<p><strong>Plants should grow!</strong> You'll see there's only one plant growing right now and it's quite unrealistically looping.</p>
+
+<p>Growing the plants turned out to be a huge challenge. I had a little round cactus that grew over time simply by increasing its scale but most plants don't grow in equal proportions so it wasn't going to work for vines or leafy plants.</p>
+
+<p><strong>Animating everything!</strong> I would have loved to do more critters. And it would be great to animate the curtains and plants rustling in the wind. It would be especially tricky to animate the plants blowing in the wind but also make them grow over time. I might need a dozen growth sizes and an breeze animation for each of those. Whew!</p>
+
+<p><strong>Art.</strong> There's a bit of work to be done with the color palette. Heck, I'd consider an entirely different illustration style. What's most noticeable now is the dark brown for the window sill, bench top, and stairs. This dark color draws too much attention and creates undesirably dominant shapes. I'd like a subtle background that pushes the shapes of the plants forward.</p>
+
+<p>I definitely wasted time trying to make the game responsive. For this first version, I should've started with a fixed size and put off responsiveness until later.</p>
+
+<h2 id="whats-up-with-the-clock">What's up with the clock?</h2>
+
+<p>It's a debug tool. =) It advances time when clicked so I can check things without waiting for time to pass. I left it in because I think it could be something you can purchase in the game someday.</p>
+
+<h2 id="whats-next">What's Next?</h2>
+
+<p>I'll circulate the game and see how it's received. I'll be working on other projects for the next month but I can see myself making little critter animations for fun in my downtime.</p>
+</div></body></html><footer><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
