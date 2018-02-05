@@ -5,7 +5,7 @@
 <br><p>=) <a href="mailto:nicki@boxingindustries.com">Email</a> to say hi or ask questions.</p>
 <br><p>Find me on Twitter:</p>
 
-<p>Nicki - <a href="https://twitter.com/wootbeep">@wootbeep</a></p>
+<p><a href="https://twitter.com/wootbeep">@wootbeep</a></p>
 </div></nav><div class="content"><img src="hero.png" /><div class="button-container"><a class="button" href="game/index.html">Play the Game</a></div><h2 id="about">About</h2>
 
 <p>Plant Boss is a game about collecting plants and attracting cool critters.</p>
@@ -25,50 +25,57 @@
 
 <p>I did a good job cutting features. It's easier to cut features when they can be added on later without affecting what you're building now.</p>
 
-<p>For example, I had ideas for magical plants, water plants, desert plants, and eventually, I realized that I could divide the game up into connected spaces. That way, I could start with an indoor room and later add a door the leads to the desert greenhouse or the outdoor garden, and so on. From then on, I happily chucked ideas into this "add a new space for it later" bucket. I no longer had to choose between an indoor plant game and a magical plants game. I just had to prioritize.</p>
+<p>For example, I initially had ideas for magical plants, water plants, desert plants. Eventually, I realized that I could divide the game up into connected spaces. I could start with an indoor room and later add a door that leads to the desert greenhouse or the outdoor garden, and so on. From then on, I happily chucked ideas into this "add a new space for it later" bucket. I no longer had to choose between an indoor plant game and a magical plants game. I just had to prioritize.</p>
 
-<p>Some features that were put aside:
-+ plant care (watering, fertilizer, pruning, growing from seeds)
-+ placing plants
-+ choosing pots
-+ selling plants
-+ a plant editor (I seriously looked into this! But whoa, a whole new project onto itself.)</p>
+<p>Some features that were put aside:</p>
 
-<p>Writing a design document from the get-go was super helpful. I base my design docs on the Race'n'Chase (predecessor to Grand Theft Auto) design document (<a href="http://classes.dma.ucla.edu/Winter12/157A/doc2/gta_gdd.pdf">pdf</a>) from 1995. Let me know if you'd like to see either design doc: mine or Race'n'Chase.</p>
+<ul>
+  <li>plant care (watering, fertilizer, pruning, growing from seeds)</li>
+  <li>placing plants in the space</li>
+  <li>choosing pots</li>
+  <li>selling plants</li>
+  <li>a plant editor (I seriously looked into this! But whoa, a whole new project onto itself.)</li>
+</ul>
 
-<p>One of my problems with my design document was my conflicting desires to describe what I intended to make now versus record all the ideas for later. I think there need to be separate documents for these two intentions.</p>
+<p>Writing a design document from the get-go was super helpful. I base my design docs on the Race'n'Chase (predecessor to Grand Theft Auto) design document (<a href="http://classes.dma.ucla.edu/Winter12/157A/doc2/gta_gdd.pdf">pdf</a>) from 1995.</p>
+
+<p>One of my difficulties with my design document was my conflicting desires to describe what I intended to make now versus record all my ideas for later. I think there needs to be separate documents for these two intentions, basically a design document and a roadmap.</p>
 
 <h2 id="whats-missing">What's missing?</h2>
 
 <p>Persistence. There's <strong>no saving</strong> your game. =p When you reload the page, you start over.</p>
 
-<p><strong>The critters show up too regularly.</strong> Like <a href="https://en.wikipedia.org/wiki/Neko_Atsume">Neko Atsume</a>, I'd like the critters to stop showing up if you haven't touched the game in a while, as an incentive to stay engaged.</p>
+<p><strong>The critters show up too regularly.</strong> Like <a href="https://en.wikipedia.org/wiki/Neko_Atsume">Neko Atsume</a>, I'd like the critters to stop showing up if you haven't touched the game in a while, as an incentive to come check in later, just like real nature.</p>
 
-<p><strong>The critters show up any time.</strong> There's no mystery or discovery after the first minute because all of the critters appear immediately. To keep things interesting, critters should only show up if there are certain plants in play.</p>
+<p><strong>The critters show up immediately.</strong> There's no mystery or discovery after the first minute because all of the critters have appeared. To keep things interesting, critters should only show up if there are certain plants in play.</p>
 
-<p><strong>The money keeps accumulating.</strong> Right now, money is "left" by critters. Once I change the critters to show up less frequently and only after recent activity, money will become something that is actually earned, not always available.</p>
+<p><strong>The money keeps accumulating.</strong> How is this a problem?? It makes the game end quickly and without any difficult decisions.</p>
+
+<p>Right now, money is "left" by critters. Once I change the critters to show up less frequently and only after recent activity, money will become something that is actually earned, not always available.</p>
 
 <p><strong>Music.</strong> I think every game needs music and sound effects. Something upbeat without being annoying.</p>
 
 <h2 id="what-could-have-been-better">What could have been better?</h2>
 
-<p><strong>Plants should grow!</strong> You'll see there's only one plant growing right now and it's quite unrealistically looping.</p>
-
-<p>Growing the plants turned out to be a huge challenge. I had a little round cactus that grew over time simply by increasing its scale but most plants don't grow in equal proportions so it wasn't going to work for vines or leafy plants.</p>
-
-<p><strong>Animating everything!</strong> I would have loved to do more critters. And it would be great to animate the curtains and plants rustling in the wind. It would be especially tricky to animate the plants blowing in the wind but also make them grow over time. I might need a dozen growth sizes and an breeze animation for each of those. Whew!</p>
-
-<p><strong>Art.</strong> There's a bit of work to be done with the color palette. Heck, I'd consider an entirely different illustration style. What's most noticeable now is the dark brown for the window sill, bench top, and stairs. This dark color draws too much attention and creates undesirably dominant shapes. I'd like a subtle background that pushes the shapes of the plants forward.</p>
-
 <p>I definitely wasted time trying to make the game responsive. For this first version, I should've started with a fixed size and put off responsiveness until later.</p>
 
-<h2 id="whats-up-with-the-clock">What's up with the clock?</h2>
+<p><strong>Plants should grow!</strong> You'll see there's only one plant growing right now and it's quite unrealistically looping.</p>
 
-<p>It's a debug tool. =) It advances time when clicked so I can check things without waiting for time to pass. I left it in because I think it could be something you can purchase in the game someday.</p>
+<p>Growing the plants turned out to be a huge challenge. I had a little round cactus that grew over time simply by increasing its scale. But most plants don't grow in equal proportions. Scaling won't work for vines or leafy plants.</p>
+<figure style="max-width: 555px"><video autoplay="true" controls="true" height="500px" loop="true" src="20180112_plantboss.mp4"></video><figcaption>An early version with growing plants (scaling method).</figcaption></figure><p><strong>Animating everything!</strong> I would have loved to do more critters. And it would be great to animate the curtains and plants rustling in the wind. It would be especially tricky to animate the plants blowing in the wind but also make them grow over time. I might need a dozen growth sizes and an breeze animation for each of those. Whew!</p>
+
+<p><strong>Art.</strong> There's a bit of work to be done with the color palette. Heck, I'd consider an entirely different illustration style.</p>
+
+<p>What's bothering me now is the dark brown for the window sill, bench top, and stairs. This dark color draws too much attention and creates undesirably dominant shapes. I'd like a subtle background that pushes the shapes of the plants forward.</p>
+
+<h2 id="whats-up-with-the-clock">What's up with the clock?</h2>
+<figure style="max-width: 55px"><img src="clock.svg" style="border: 0" /></figure><p>It's a debug tool. =) It advances time when clicked so I can check things without waiting for time to pass. I left it in because I think it could be something you can purchase in the game someday.</p>
 
 <h2 id="whats-next">What's Next?</h2>
 
-<p>I'll circulate the game and see how it's received. I'll be working on other projects for the next month but I can see myself making little critter animations for fun in my downtime.</p>
+<p>I'll circulate the game and see how it's received. Throughout this process, I've realized that even this extremely simple game needs at least a month or two of work (with my skills) before it could be sold. I don't know if that would be worth doing for me personally.</p>
+
+<p>I'll be working on other projects for the next month but I can see myself making little critter animations for fun in my downtime.</p>
 </div></body></html><footer><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)

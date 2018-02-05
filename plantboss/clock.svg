@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="74px" height="86px" viewBox="0 0 74 86" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 40.3 (33839) - http://www.bohemiancoding.com/sketch -->
+    <title>clock</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="greenhouse-copy" transform="translate(-70.000000, -73.000000)">
+            <g id="clock" transform="translate(67.000000, 68.000000)">
+                <g id="clockface">
+                    <path d="M40,86 C45.220615,86 50.1886956,84.9187717 54.6925272,82.9680299 C54.9973536,82.8360006 56.2494509,83.4313363 56.2494509,83.4313363 L64.9296875,90.7314453 L63.3606039,78.5259647 C63.3606039,78.5259647 63.5304599,77.5563031 63.7315703,77.3880006 C71.8418363,70.6007951 77,60.4027744 77,49 C77,28.5654643 60.4345357,12 40,12 C19.5654643,12 3,28.5654643 3,49 C3,60.9631067 8.67756363,71.6001473 17.4851689,78.3635998 C17.7928573,78.599877 18.0927608,79.9849671 18.0927608,79.9849671 L16.4851689,90.7314453 L25.5587213,84.2934684 C25.5587213,84.2934684 26.9292323,83.6268386 27.2554713,83.7465342 C31.228692,85.2042909 35.5214221,86 40,86 Z" id="Oval" fill="#D8D8D8"></path>
+                    <circle id="Oval" fill="#FCFCFC" cx="40" cy="49" r="33"></circle>
+                    <path d="M30,17 C30,11.4771525 23.5081289,7 15.5,7 C7.49187113,7 1,11.4771525 1,17 C1,17.5975979 1.94513834,18.598805 1.94513834,18.598805 L29.261487,18.4272274 C29.261487,18.4272274 30,17.5258012 30,17 Z" id="Oval-2" fill="#D8D8D8" transform="translate(15.500000, 12.799403) rotate(-30.000000) translate(-15.500000, -12.799403) "></path>
+                    <path d="M80,17 C80,11.4771525 73.5081289,7 65.5,7 C57.4918711,7 51,11.4771525 51,17 C51,17.5975979 51.9451383,18.598805 51.9451383,18.598805 L79.261487,18.4272274 C79.261487,18.4272274 80,17.5258012 80,17 Z" id="Oval-2" fill="#D8D8D8" transform="translate(65.500000, 12.799403) rotate(30.000000) translate(-65.500000, -12.799403) "></path>
+                </g>
+                <g id="longarm" transform="translate(35.000000, 21.000000)" fill="#7F7F7F">
+                    <rect id="Rectangle-16" x="3" y="9" width="3" height="20"></rect>
+                    <polygon id="Triangle" points="4.5 0 9 10 0 10"></polygon>
+                </g>
+                <g id="shortarm" transform="translate(35.000000, 32.000000)" fill="#7F7F7F">
+                    <rect id="Rectangle-16" x="3" y="9" width="3" height="10"></rect>
+                    <polygon id="Triangle" points="4.5 0 9 10 0 10"></polygon>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
