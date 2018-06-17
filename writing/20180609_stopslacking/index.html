@@ -1,0 +1,91 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible"><meta content="width=device-width, initial-scale=1" name="viewport"><meta content="Nicki Vance: Design, Games, User Experience" property="og:title"><title>Stop Slacking: integrating Slack into email</title><meta content="Nicki Vance: Design, Games, User Experience" property="description"><link href="/favicon.ico" rel="icon" type="image/ico"><link href="/styles/styles.css" rel="stylesheet" type="text/css"></head><body><div class="nav"><h1 id="nicki-vanceindexhtml"><a href="/index.html">Nicki Vance</a></h1>
+<ul>
+  <li><a href="/index.html">Home</a></li>
+  <li><a href="/writing/index.html">Writings</a></li>
+</ul>
+</div><div class="content-background"><div class="content-layout"><div class="postIntro"><h1 id="stop-slacking-br-integrating-slack-into-email">Stop Slacking: <br /> integrating Slack into email</h1>
+</div><div class="date"><p>June 17, 2018</p>
+</div><div class="postBody"><figure style="max-width: 555px"><img src="slack.png" style="border: 0" /><figcaption>Slack is an endless meeting with no agenda.</figcaption></figure><h2 id="summary">Summary</h2>
+<p>To minimize my data usage and increase my productivity, my partner, <a href="https://kevinlynagh.com/">Kevin,</a> and I built a <strong>reply-via-email service</strong> for <a href="https://slack.com/">Slack</a> (a chat app used by many businesses for internal communication).</p>
+
+<p>Stop Slacking sends you an email when you are mentioned or direct messaged on Slack (the important stuff) and then posts your reply to Slack.</p>
+
+<p>Try it out at <a href="https://www.stopslacking.com/">stopslacking.com.</a></p>
+
+<h2 id="the-setting-or-how-to-work-in-a-campervan">The Setting (or How to Work in a Campervan)</h2>
+
+<p>During April, Kevin and I lived out of a converted minivan in southern New Zealand. On a given morning I'd pat myself on the back for my life choices and then spend the next hour agonizing over connectivity.</p>
+
+<p>When wi-fi wasn't working well, I moved into range of a cell tower and watched the MBs rack up at $10/GB. I quickly became aware of how much data I was using.</p>
+
+<p>In short, I didn't want to be opening Slack more than I needed to. Email was faster and cost less, not to mention it helps me stay focused.</p>
+
+<h2 id="the-big-product-design-decisions">The Big Product Design Decisions</h2>
+
+<p>The design of Stop Slacking started with a few key decisions about medium and functionality. I've outlined these decisions in order of how much different Stop Slacking would have been if we'd made different choices.</p>
+
+<p><strong>1. Stop Slacking is not an official Slack App.</strong></p>
+
+<p>The scope needs to stay small. We just wanted to get something working. The alternative to making an official Slack App is to use their legacy API tokens. A user can access a token for their account on a given workspace and send it to Stop Slacking to create a subscription. Administrators can disallow this functionality and thus control access to their data.</p>
+
+<p>This decision chooses speed over making sure the service works for every workspace.</p>
+
+<p><strong>2. The interface will be email.</strong></p>
+
+<p>Stop Slacking lives only in email. All commands and feedback are sent via email. There's no web interface; it's a text interface like a terminal program.</p>
+
+<p>This satisfies our goal of minimizing data use. Email is a data-light communication channel. We don't have to worry about keeping a web interface light-weight.</p>
+
+<p>Choosing to use a text interface means we need to design for discoverability. All emails from Stop Slacking include footers enumerating options for interacting with Stop Slacking.</p>
+
+<p><strong>3. Replies are posted in Slack as threaded replies.</strong></p>
+
+<p>Slack has two ways to reply to a message. The original method was a general reply, meaning that the reply appeared at the bottom of the channel. Later, Slack added threaded replies. A threaded reply defaults to being truncated beneath the parent message and the entire thread can be opened in a side panel. This is useful when discussions on multiple topics carry on simultaneously in the same channel.</p>
+
+<p>When you reply to a Slack message, do you want it to be a general reply or a threaded reply?</p>
+
+<p>Specifying this choice with each message requires you to type a keyword or character to indicate a general or threaded reply. The error potential goes through the roof for this functionality. Since we're using text, we'd have to correctly identify your command and separate it from your reply and the quoted email that most email clients include. Could we predict all the ways that could go wrong and prevent those errors?</p>
+
+<p>A preference setting might be a solution for people who have a strong preference one way or another but not for people who use both general and threaded replies regularly.</p>
+
+<p>I made the call to keep the product simple with threaded replies only. The reply will always be in-context, even if you are replying hours later.</p>
+
+<p><strong>4. @ mentions and direct messages</strong></p>
+
+<p>Which Slack messages do you want to receive notifications about?</p>
+
+<p>For a busy person, these @ mentions and direct messages cover their most urgent tasks.</p>
+
+<p>On company I work with has such an overflow of Slack messages that the team has learned to @ mention every time they address someone. Urgent has become the norm. (Red flag, anyone?)</p>
+
+<p>Notification source preferences are on the idea list for future features.</p>
+
+<h2 id="omitted-for-brevity">Omitted for Brevity</h2>
+
+<p>In the future, I'll write more about designing the emails (when and what, variation between quoting and threading in email clients) and implementation (a Clojure app on a server, the underside of Slack APIs, and a handful of AWS consoles - S3, SES, SNS, ACM, Cloudfront).</p>
+
+<p>What do you want to hear about?</p>
+
+<h2 id="whats-next">What's Next?</h2>
+
+<p>I've enjoyed working on a text-only interface. And the landing page was fun to build - especially those high-quality "screenshots".</p>
+
+<p>My task now is to test our design decisions against the real-life needs of other people. How do other people want to use Stop Slacking? What do they need to improve their workflow?</p>
+
+<p>I'd love to hear your comments and questions. Feel free to email me at <a href="mailto:nicki@stopslacking.com">nicki@stopslacking.com</a> or <a href="https://tinyletter.com/stopslacking">join the Stop Slacking mailing list.</a></p>
+<figure style="max-width: 555px"><img src="email-msg.png" style="border: 0" /><figcaption>My "screenshot" of an email reply.</figcaption></figure></div></div></div><div class="footer"><div class="nav"><ul>
+  <li><a href="/index.html">Home</a></li>
+  <li><a href="/writing/index.html">Writings</a></li>
+</ul>
+</div><p>Want occasional updates sent to your inbox? Join the <a href="https://tinyletter.com/nickivance">mailing list</a>.</p>
+
+<p>Email me at: <a href="mailto:nicki@boxingindustries.com">nicki@boxingindustries.com</a></p>
+
+<p>I'm also on Twitter: <a href="https://twitter.com/wootbeep">@wootbeep</a>.</p>
+</div></body></html><footer><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-90558965-3', 'auto');
+ga('send', 'pageview');</script></footer>
