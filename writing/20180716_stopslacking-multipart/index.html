@@ -1,0 +1,268 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible"><meta content="width=device-width, initial-scale=1" name="viewport"><meta content="A multipart mishap: adding plain text email support to Stop Slacking" property="og:title"><title>A multipart mishap: adding plain text email support to Stop Slacking</title><meta content="An account of adding plain text email support to Stop Slacking, a reply-by-email service for Slack." property="description"><link href="/favicon.ico" rel="icon" type="image/ico"><link href="/styles/styles.css" rel="stylesheet" type="text/css"></head><body><div class="nav"><h1 id="nicki-vanceindexhtml"><a href="/index.html">Nicki Vance</a></h1>
+<ul>
+  <li><a href="/index.html">Home</a></li>
+  <li><a href="/writing/index.html">Writings</a></li>
+</ul>
+</div><div class="content-background"><div class="content-layout"><div class="postIntro"><h1 id="a-multipart-mishap-br-adding-plain-text-email-support-to-stop-slacking">A Multipart Mishap: <br /> Adding plain text email support to Stop Slacking</h1>
+</div><div class="date"><p>July 23, 2018</p>
+</div><div class="postBody"><p>Recently, I discovered that <a href="https://www.stopslacking.com/">Stop Slacking,</a> a free reply-by-email service I operate, wasn't processing plain text emails. This is a story about troubleshooting with a product design footnote.</p>
+
+<h2 id="step-0-never-ignore-your-error-messages">Step 0: Never ignore your error messages</h2>
+
+<p>A user let me know that nothing happened when they tried to subscribe. Their subscription email looked fine so I reviewed my error message logs for another clue.</p>
+
+<p>For weeks, I had been receiving error messages that said:</p>
+
+<div class="language-text highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>java.lang.IllegalArgumentException: No matching method found: getBodyPart for class java.lang.String
+</pre></div>
+</div>
+</div>
+
+<p>A function called <code>getBodyPart</code> couldn't use the input it was receiving. <code>getBodyPart</code> is used in only one part of Stop Slacking – to parse incoming emails (subscription requests, replies to notifications, emails to me).</p>
+
+<p>I had ignored the error messages. I wasn't familiar with the function <code>getBodyPart</code> because I hadn't written this bit of code. I told myself that if it was really a problem, I'd hear about it or see the problem myself (hah).</p>
+
+<p>Why are only some emails causing an error? What's different about these emails?</p>
+
+<h2 id="step-1-recreate-the-error">Step 1: Recreate the error</h2>
+
+<p>In a Clojure REPL, I put an unsuccessful email through my email parsing function and received the error I expected:</p>
+
+<div class="language-text highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>java.lang.IllegalArgumentException: No matching method found: getBodyPart for class java.lang.String
+</pre></div>
+</div>
+</div>
+
+<p>I have an error in an environment I can play with. Check.</p>
+
+<p>Next, I can step through the function to see what my computer sees. (Fingers crossed the computers remember my empathy when they take over.)</p>
+
+<h2 id="step-2-diagnosing-the-problem">Step 2: Diagnosing the problem</h2>
+
+<p>Here's the Clojure function my computer is trying to carry out when the error occurs:</p>
+
+<div class="language-clojure highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>(<span style="color:#080;font-weight:bold">defn</span> <span style="color:#06B;font-weight:bold">parse-email</span>
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span>  [email]
+<span class="line-numbers"><a href="#n3" name="n3">3</a></span>  (<span style="color:#080;font-weight:bold">-&gt;</span> (MimeMessage.
+<span class="line-numbers"><a href="#n4" name="n4">4</a></span>      (Session/getDefaultInstance (java.util.Properties.))
+<span class="line-numbers"><a href="#n5" name="n5">5</a></span>      (io/input-stream (<span style="color:#080;font-weight:bold">.</span>getBytes (<span style="color:#A60">:content</span> email) <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">UTF-8</span><span style="color:#710">&quot;</span></span>)))
+<span class="line-numbers"><a href="#n6" name="n6">6</a></span>      (<span style="color:#080;font-weight:bold">.</span>getContent)
+<span class="line-numbers"><a href="#n7" name="n7">7</a></span>      (<span style="color:#080;font-weight:bold">.</span>getBodyPart <span style="color:#00D">0</span>)
+<span class="line-numbers"><a href="#n8" name="n8">8</a></span>      (<span style="color:#080;font-weight:bold">.</span>getContent)))
+</pre></div>
+</div>
+</div>
+
+<p>You can see the <code>.getBodyPart</code> function in the middle.</p>
+
+<p>Why does <code>.getBodyPart</code> throw an error when it gets a string? What are the successful emails giving <code>.getBodyPart</code>?</p>
+
+<p>To see what is happening at each step, I've removed the last two instructions from this function and I'll add them back one at a time.</p>
+
+<div class="language-clojure highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>(<span style="color:#080;font-weight:bold">defn</span> <span style="color:#06B;font-weight:bold">parse-email</span>
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span>  [email]
+<span class="line-numbers"><a href="#n3" name="n3">3</a></span>  (<span style="color:#080;font-weight:bold">-&gt;</span> (MimeMessage.
+<span class="line-numbers"><a href="#n4" name="n4">4</a></span>      (Session/getDefaultInstance (java.util.Properties.))
+<span class="line-numbers"><a href="#n5" name="n5">5</a></span>      (io/input-stream (<span style="color:#080;font-weight:bold">.</span>getBytes (<span style="color:#A60">:content</span> email) <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">UTF-8</span><span style="color:#710">&quot;</span></span>)))
+<span class="line-numbers"><a href="#n6" name="n6">6</a></span>      (<span style="color:#080;font-weight:bold">.</span>getContent)))
+</pre></div>
+</div>
+</div>
+
+<p>Compare the outputs:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Input</th>
+      <th style="text-align: left">Output</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">Unsuccessful email</td>
+      <td style="text-align: left"><code>"Hi, this is the body of the email. Such email text."</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Successful email</td>
+      <td style="text-align: left"><code>#object[javax.mail.internet.MimeMultipart 0x6af1733c "javax.mail.internet.MimeMultipart@6af1733c"]</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>When I input the unsuccessful email into <code>parse-email</code>, I get the message body.
+When I input the successful email, I get an object identifier back.</p>
+
+<p>What happens when I follow the next instruction in my program, <code>.getBodyPart</code>?</p>
+
+<div class="language-clojure highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>(<span style="color:#080;font-weight:bold">defn</span> <span style="color:#06B;font-weight:bold">parse-email</span>
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span>  [email]
+<span class="line-numbers"><a href="#n3" name="n3">3</a></span>  (<span style="color:#080;font-weight:bold">-&gt;</span> (MimeMessage.
+<span class="line-numbers"><a href="#n4" name="n4">4</a></span>      (Session/getDefaultInstance (java.util.Properties.))
+<span class="line-numbers"><a href="#n5" name="n5">5</a></span>      (io/input-stream (<span style="color:#080;font-weight:bold">.</span>getBytes (<span style="color:#A60">:content</span> msg) <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">UTF-8</span><span style="color:#710">&quot;</span></span>)))
+<span class="line-numbers"><a href="#n6" name="n6">6</a></span>      (<span style="color:#080;font-weight:bold">.</span>getContent)
+<span class="line-numbers"><a href="#n7" name="n7">7</a></span>      (<span style="color:#080;font-weight:bold">.</span>getBodyPart <span style="color:#00D">0</span>)))
+</pre></div>
+</div>
+</div>
+
+<p>The outputs:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Input</th>
+      <th style="text-align: left">Output</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">Unsuccessful email</td>
+      <td style="text-align: left"><code>java.lang.IllegalArgumentException: No matching method found: getBodyPart for class java.lang.String</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Successful email</td>
+      <td style="text-align: left"><code>#object[javax.mail.internet.MimeBodyPart 0x39370e77 "javax.mail.internet.MimeBodyPart@39370e77"]</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The unsuccessful email gets me the error that started this quest. The successful email gets another object. It's a different identifier this time, interesting.</p>
+
+<p>If I had stopped manipulating the unsuccessful email in the last step, I would've had what I wanted.</p>
+
+<p>I want to see how my successful email message makes it through this program. What happens when I add the second <code>.getContent</code> from my original function?</p>
+
+<div class="language-clojure highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>(<span style="color:#080;font-weight:bold">defn</span> <span style="color:#06B;font-weight:bold">parse-email</span>
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span>  [email]
+<span class="line-numbers"><a href="#n3" name="n3">3</a></span>  (<span style="color:#080;font-weight:bold">-&gt;</span> (MimeMessage.
+<span class="line-numbers"><a href="#n4" name="n4">4</a></span>      (Session/getDefaultInstance (java.util.Properties.))
+<span class="line-numbers"><a href="#n5" name="n5">5</a></span>      (io/input-stream (<span style="color:#080;font-weight:bold">.</span>getBytes (<span style="color:#A60">:content</span> msg) <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">UTF-8</span><span style="color:#710">&quot;</span></span>)))
+<span class="line-numbers"><a href="#n6" name="n6">6</a></span>      (<span style="color:#080;font-weight:bold">.</span>getContent)
+<span class="line-numbers"><a href="#n7" name="n7">7</a></span>      (<span style="color:#080;font-weight:bold">.</span>getBodyPart <span style="color:#00D">0</span>)
+<span class="line-numbers"><a href="#n8" name="n8">8</a></span>      (<span style="color:#080;font-weight:bold">.</span>getContent)))
+</pre></div>
+</div>
+</div>
+
+<p>The outputs:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Input</th>
+      <th style="text-align: left">Output</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">Unsuccessful email</td>
+      <td style="text-align: left">(Not applicable)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Successful email</td>
+      <td style="text-align: left"><code>"Hi, this is the body of the email. Such email text."</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p><br /></p>
+
+<p>In summary, the full set of instructions works for some emails but is too much for other emails.</p>
+
+<p>What's the difference between these two types of emails?</p>
+
+<p>Take a look at the emails themselves. (Note: These have been simplified for readability.)</p>
+
+<p>The successful email:</p>
+
+<div class="language-text highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"> <a href="#n1" name="n1">1</a></span>Return-Path: &lt;sender@example.com&gt;
+<span class="line-numbers"> <a href="#n2" name="n2">2</a></span>Subject: test email
+<span class="line-numbers"> <a href="#n3" name="n3">3</a></span>To: recipient@example.com
+<span class="line-numbers"> <a href="#n4" name="n4">4</a></span>Content-Type: multipart/alternative; boundary=\&quot;123\&quot;
+<span class="line-numbers"> <a href="#n5" name="n5">5</a></span>--123
+<span class="line-numbers"> <a href="#n6" name="n6">6</a></span>Content-Type: text/plain; charset=\&quot;UTF-8\&quot;
+<span class="line-numbers"> <a href="#n7" name="n7">7</a></span>Hi, this is the body of the email. Such email text.
+<span class="line-numbers"> <a href="#n8" name="n8">8</a></span>--123
+<span class="line-numbers"> <a href="#n9" name="n9">9</a></span>Content-Type: text/html; charset=\&quot;UTF-8\&quot;
+<span class="line-numbers"><strong><a href="#n10" name="n10">10</a></strong></span>Content-Transfer-Encoding: quoted-printable
+<span class="line-numbers"><a href="#n11" name="n11">11</a></span>&lt;html&gt;&lt;head&gt;&lt;style&gt;body{font-family:Helvetica,Arial;font-size:13px}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;div&gt;Hi, this is the body of the email. Such email text.&lt;/div&gt;&lt;br&gt;&lt;div&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;
+<span class="line-numbers"><a href="#n12" name="n12">12</a></span>--123--
+</pre></div>
+</div>
+</div>
+
+<p>The unsuccessful email:</p>
+
+<div class="language-text highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>Return-Path: &lt;sender@example.com&gt;
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span>Subject: test email
+<span class="line-numbers"><a href="#n3" name="n3">3</a></span>To: recipient@example.com
+<span class="line-numbers"><a href="#n4" name="n4">4</a></span>Content-Type: text/plain; charset=\&quot;UTF-8\&quot;
+<span class="line-numbers"><a href="#n5" name="n5">5</a></span>Hi, this is the body of the email. Such email text.
+</pre></div>
+</div>
+</div>
+
+<p>You can see that the successful email starts with a <code>Content-Type: multipart</code> and contains two children, <code>text/plain</code> and <code>text/html</code>. The unsuccessful email has only <code>Content-Type: text/plain</code>.</p>
+
+<p>This is the crux of the problem. My program expected only multipart emails, not plain text, or what I like to call "singlepart", emails.</p>
+
+<p>Diagnosis complete.</p>
+
+<h2 id="step-3-resolve-the-problem">Step 3: Resolve the problem.</h2>
+
+<p>Now that I knew the problem, I knew that I needed to detect whether an email was single or multipart and then parse accordingly.</p>
+
+<p>Because I don't know which order the body parts will arrive in, my new function lists the body parts and their types so that I can select the longest of each type. For example, if there are two plain text parts in the email, I grab the longer one and parse it. If needed, I can select html and fall back on the plain text.</p>
+
+<p>I've a newfound admiration for the folks that build email clients and email services because they must anticipate a forest full of sneaky edge cases just waiting to pounce.</p>
+
+<h2 id="playing-with-email-clients">Playing with email clients</h2>
+
+<p>I've discovered that Fastmail sends plain text emails by default and sends multipart emails in response to multipart emails.</p>
+
+<p>You can write and send plain text emails from Gmail if you select "Plain text mode" from the little dropdown in the bottom right corner, to the right of the trash icon. This is handy for testing.</p>
+
+<p>You can also examine the raw email in Gmail by selecting the "Show original" option from the top right dropdown, to the right of the reply arrow on an individual email message.</p>
+
+<p>Now you can look at the email messages you've received and see if they're multipart messages or single part plain text messages.</p>
+
+<p>It's cool that email supports a variety of options because we're all different people with different needs.</p>
+
+<h2 id="product-design-footnote">Product Design Footnote</h2>
+
+<p>Is it worthwhile to support plain text emails? Are you going to support every little edge case?</p>
+
+<p>Plain text emails aren't just an edge case for Stop Slacking.</p>
+
+<p>Folks who want to use lower bandwidth tools like Stop Slacking are highly likely to use plain text email because it is the lowest bandwidth type of email.</p>
+
+<p>The primary purpose of Stop Slacking is to offer a lower bandwidth method for using Slack. I want to support my users in their efforts to use other low bandwidth tools.</p>
+
+<p>This is probably the easiest product design decision I've ever made. :)</p>
+
+<p>Drop me a line if you have any questions, have encountered odd types of emails in your work, or know of a set of raw emails that could be used for testing email parsers.</p>
+</div></div></div><div class="footer"><div class="nav"><ul>
+  <li><a href="/index.html">Home</a></li>
+  <li><a href="/writing/index.html">Writings</a></li>
+</ul>
+</div><p>Want occasional updates sent to your inbox? Join the <a href="https://tinyletter.com/nickivance">mailing list</a>.</p>
+
+<p>Email me at: <a href="mailto:nicki@boxingindustries.com">nicki@boxingindustries.com</a></p>
+
+<p>I'm also on Twitter: <a href="https://twitter.com/wootbeep">@wootbeep</a>.</p>
+</div></body></html><footer><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-90558965-3', 'auto');
+ga('send', 'pageview');</script></footer>
