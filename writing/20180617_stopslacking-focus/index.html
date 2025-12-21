@@ -1,0 +1,150 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible"><meta content="width=device-width, initial-scale=1" name="viewport"><meta content="[Title]" property="og:title"><title>[Title]</title><meta property="description"><link href="/favicon.ico" rel="icon" type="image/ico"><link href="/styles/styles.css" rel="stylesheet" type="text/css"></head><body><div class="nav"><h1 id="nicki-vanceindexhtml"><a href="/index.html">Nicki Vance</a></h1>
+<ul>
+  <li><a href="/index.html">Home</a></li>
+  <li><a href="/writing/index.html">Writings</a></li>
+</ul>
+</div><div class="content-background"><div class="content-layout"><div class="postIntro"><h1 id="title">[Title]</h1>
+</div><div class="date"><p>June 12, 2018</p>
+</div><div class="postBody"><figure style="max-width: 555px"><img src="slack.png" style="border: 0" /><figcaption>Slack is an endless meeting with no agenda.</figcaption></figure><div class="info"><div class="info-header"><p class="info-title">Update </p><p class="info-date">December 21, 2025</p></div><p>This project has been retired. After a couple years, Slack finally introduced this feature. :)</p></div><h2 id="summary">Summary</h2>
+<p>As many people have commented, my project, Stop Slacking, has completed the communication circle, bringing Slack into email.</p>
+
+<p>Slack is "where work happens" as the tagline goes. Many people lauded it as a lifeboat from the ever expanding whirlpool of email.</p>
+
+<p>Email wasn't the problem. Poor communication practices were the problem. Asynchronous group chat requires readers to trace interwoven threads and puzzle over shoddy, unfinished sentences.</p>
+
+<p>I prefer email because I can triage all of my communications much more effectively. So I'm bringing Slack back into email with Stop Slacking.</p>
+
+<h2 id="summary-1">Summary</h2>
+<p>If you're looking for ways to increase your productivity, I recommend you turn off all your notifications, close this browser tab, and dive into some part of your work that you enjoy doing.</p>
+
+<p>Slack was supposed to be the answer to overflowing email inboxes. Instead, it created a second dam and now we have to keep both from overflowing.</p>
+
+<p>The root problem is poor communication. In lieu of retraining all your colleagues, clients, and cousins, the practical solution is to develop your own strategy for staying focused and enlist a set of tools to help you triage.</p>
+
+<h2 id="the-communication-complication">The Communication Complication</h2>
+
+<p>We live in a world of unprecedented ease of communication. It has never been cheaper and we've never had so many different channels to send each other messages. Let's limit this discussion to written communication in a work context. You know, to keep things simple.</p>
+
+<p>Computers are supposed to increase the output of a given human. Instead of plotting points on a graph by hand for an hour, a computer can do this in a fraction of a second.</p>
+
+<p>With all that extra time, we needed connective technologies to bring us more inputs. Once we have our graph, we can use the rest of our hour to write up conclusions or questions and send them off to someone else so more decisions can be made and more tasks can be planned that are yet again augmented by computers.</p>
+
+<p>We don't have to wait for letters to arrive anymore. We have only to wait for the other person to read our email and find time to compose a reply. Now we're in the business of traffic control. How do we fit in all these responses and in which order?</p>
+
+<h1 id="section">#</h1>
+
+<p>To minimize my data usage and increase my productivity, my partner, Kevin, and I built a <strong>reply-via-email service</strong> for <a href="https://slack.com/">Slack</a> (a chat app used by many businesses for internal communication).</p>
+
+<p>Stop Slacking sends you an email when you are mentioned or direct messaged on Slack (the important stuff) and then posts your reply to Slack.</p>
+
+<p>Try it out at <a href="stopslacking.com">stopslacking.com.</a></p>
+
+<h2 id="the-setting-or-how-to-work-in-a-campervan">The Setting (or How to Work in a Campervan)</h2>
+
+<p>During April, Kevin and I lived out of a converted minivan in southern New Zealand. On a given morning I'd pat myself on the back for arranging to work with beautiful mountains in the background and then spend the next hour agonizing over connectivity.</p>
+
+<p>When wifi wasn't working well, I'd move into range of a cell tower and watch the MBs rack up. The website I'm working on is 10MB. With a $10 1GB data addon, I can open this site 100 times. How many sites do you visit in a day?</p>
+
+<p>In short, I didn't want to be opening Slack more than I needed to. Email is a much better way to work when you're low on internet because it's still primarily text (aside from the occasional embedded gif) without javascript.</p>
+
+<h2 id="staying-focused">Staying Focused</h2>
+
+<p>My other big reason to build Stop Slacking was to help me stay in email where I have an easier time focusing and managing tasks.</p>
+
+<p>Can you fire your attention back and forth like a Western gunslinger? Power to you.</p>
+
+<p>Context-switching doesn't work for me. I need to have good, long thinks.</p>
+
+<p>To get in my thinking time, I structure my days in 2-3 hour work blocks. I make sure nothing distracts me so I have:</p>
+
+<ul>
+  <li>no notifications on my computer</li>
+  <li>no notifications on my phone (I keep these off all the time)</li>
+  <li>closed Slack (so the little red dot doesn't catch my attention)</li>
+</ul>
+
+<p>Once or twice a day, I open my email and spend a block of time on correspondence.</p>
+
+<p>Email is a todo list for me. I get emails and  notifications from Google Docs comments, Trello, and Slack, all in one place. I delete anything that has already been resolved or isn't relevant to me. Anything that requires an immediate response (not much) is handled first and then I go through items I received, in the order I received them.</p>
+
+<p>I ain't perfect but this works well for me.</p>
+
+<h2 id="a-confession">A Confession</h2>
+
+<p>My reasons above are genuine but in my heart, I love this project because I get very frustrated using group chat apps for work.</p>
+
+<p>Group chat makes me anxious.</p>
+
+<p>I catch myself checking the icon or window frequently when I have group chat open. My perfectionist side grows frustrated when my questions get lost in the forest. The barely comprehensible, context-less sentences that result from the group chat medium are like fingernails on a chalkboard.</p>
+
+<p>The list could go on. Jason Fried has done a wonderful job <a href="https://m.signalvnoise.com/is-group-chat-making-you-sweat-744659addf7d">outlining the problems with group chat.</a></p>
+
+<p>Whatever the reasons, there have been some fun design decisions to make.</p>
+
+<h2 id="the-big-product-design-decisions">The Big Product Design Decisions</h2>
+
+<p>The design of Stop Slacking started with a few key decisions about medium and functionality. I've outlined these decisions in order of how much different Stop Slacking would have been if we'd made different choices.</p>
+
+<p><strong>1. Stop Slacking is not an official Slack App.</strong></p>
+
+<p>The scope needs to stay small. We just wanted to get something working. The alternative to making an official Slack App is to use their legacy API tokens. A user can access a token for their account on a given workspace and send it to Stop Slacking to create a subscription. Administrators can disallow this functionality and thus control access to their data.</p>
+
+<p>This decision chooses speed over making sure the service works for every workspace.</p>
+
+<p><strong>2. The interface will be email.</strong></p>
+
+<p>In my career, I've primarily designed products with websites or apps as the primary interface. Once, I designed a chatbot to complement an email lifecycle. I usually think of emails as being a gateway to the web interface.</p>
+
+<p>Stop Slacking lives only in email. All commands and feedback are sent via email. There's no web interface; it's a text interface like a terminal program.</p>
+
+<p>This works for Stop Slacking because the main use case is replying to an email notification, so why not make all the other actions be email interactions?</p>
+
+<p>In keeping with our minimal project goal, we've avoided the extra work of creating a web interface.</p>
+
+<p>As a result of this decision, all emails from Stop Slacking include footers with options for interacting with Stop Slacking. Because text interfaces are notoriously undiscoverable.</p>
+
+<p><strong>3. Replies are posted in Slack as threaded replies.</strong></p>
+
+<p>Slack has two ways to reply to a message. The original method was a general reply, meaning that the reply appeared at the bottom of the channel. Later, Slack added threaded replies. A threaded reply defaults to being truncated beneath the parent message and the entire thread can be opened in a side panel. This is useful when discussions on multiple topics carry on simultaneously in the same channel.</p>
+
+<p>When you reply to a Slack message, do you want it to be a general reply or a threaded reply?</p>
+
+<p>We decided against giving you the choice with each message because we'd need a way for you to indicate whether your reply should be general or threaded. The error cases go through the roof in this case. Since we're using text, we have to correctly identify your command and separate it from your reply and the quoted email that most email clients include.</p>
+
+<p>What if you spell it wrong? What if you needed to use the command word in your reply - could we tell the difference reliably?</p>
+
+<p>We decided against creating preferences that you can control. But it's something that might be worth adding later if there is enough desire for it.</p>
+
+<p>Threaded replies made the most sense because the reply will always be in-context, even if you are replying hours later.</p>
+
+<p><strong>4. @ mentions and direct messages</strong></p>
+
+<p>Which Slack messages do you want to receive notifications about?</p>
+
+<p>This could become a preference in the future. To get Stop Slacking out the door, we started with @ mentions and then added direct messages. For a busy person, these cover their most urgent tasks.</p>
+
+<h2 id="omitted-for-brevity">Omitted for Brevity</h2>
+
+<p>In the future, I'll write more about designing the emails (when and what, variation between quoting and threading in email clients) and implementation (a Clojure app on a server, the underside of Slack APIs, and a plethora of AWS consoles - S3, SES, SNS, ACM, Cloudfront).</p>
+
+<p>What do you want to hear about?</p>
+
+<h2 id="whats-next">What's Next?</h2>
+
+<p>It's been fun working on a text-only interface. And the website was fun to build - especially those high-quality "screenshots".</p>
+
+<p>My task now is to test our design decisions against the real-life needs of other people. How do other people want to use Stop Slacking? What do they need to improve their workflow?</p>
+
+<p>I'd love to hear your comments and questions. Feel free to email me at <a href="mailto:nicki@stopslacking.com">nicki@stopslacking.com</a>.</p>
+<figure style="max-width: 555px"><img src="email-msg.png" style="border: 0" /><figcaption>My "screenshot" of an email reply.</figcaption></figure></div></div></div><div class="footer"><div class="nav"><ul>
+  <li><a href="/index.html">Home</a></li>
+  <li><a href="/writing/index.html">Writings</a></li>
+</ul>
+</div><p>Email me at: <a href="mailto:nicki@boxingindustries.com">nicki@boxingindustries.com</a></p>
+</div></body></html><footer><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-90558965-3', 'auto');
+ga('send', 'pageview');</script></footer>
