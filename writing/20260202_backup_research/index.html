@@ -1,0 +1,323 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible"><meta content="width=device-width, initial-scale=1" name="viewport"><meta content="CLI Backup Tools: Restic, Borg, Kopia" property="og:title"><title>CLI Backup Tools: Restic, Borg, Kopia</title><meta property="description"><link href="/favicon.ico" rel="icon" type="image/ico"><link href="/styles/styles.css" rel="stylesheet" type="text/css"></head><body><div class="nav"><h1 id="nicki-vanceindexhtml"><a href="/index.html">Nicki Vance</a></h1>
+<ul>
+  <li><a href="/index.html">Home</a></li>
+  <li><a href="/writing/index.html">Writings</a></li>
+</ul>
+</div><div class="content-background"><div class="content-layout"><div class="postIntro"><h1 id="cli-backup-tools-restic-borg-kopia">CLI Backup Tools: Restic, Borg, Kopia</h1>
+</div><div class="date"><p>February 2, 2026</p>
+</div><div class="postBody"><style>.postBody pre {  overflow-x: auto;  font-size: 0.7em;  line-height: 1.6;}/* Hide line numbers */.postBody pre .line-numbers,.postBody pre .line-number,.postBody pre .lineno,.postBody pre::before {  display: none !important;}.postBody pre code::before {  display: none !important;}.postBody pre code {  counter-reset: none !important;}.postBody pre code::before {  counter-increment: none !important;  content: none !important;}</style><p>Time for some early spring cleaning.</p>
+
+<p>I've got a shoddy backup system in place that needs to be revamped. Dropbox (which can't be fully downloaded onto my laptop, its so large) and five external hard drives, each a snapshot of the Dropbox drive at a different point over the last 10 years and with some other random things thrown onto them.</p>
+
+<p>I used to have Backblaze but quit it years ago for some reason I don't remember.</p>
+
+<p>I'd like to follow the 3-2-1 Backup Rule:</p>
+
+<ul>
+  <li>3 copies of my data</li>
+  <li>2 different media (e.g. cloud and external hard drive)</li>
+  <li>1 copy off-site</li>
+</ul>
+
+<p>I actually have all this covered but not in a consistent fashion – none of the 3 copies are the same or all up-to-date. My off-site drive is in Seattle and hasn't been updated for at least 3 years.</p>
+
+<p>If I could fit my Dropbox onto my laptop then I would maybe do the hacky things and periodically create a whole copy to two empty external hard drives, recycling the drives for each update. But I can't anymore.</p>
+
+<p>I want a tool that helps me make backups with deduplication, so I can add to an existing backup rather than make a whole new copy. I don't want to have to hop around between backups because my 2022 photos are in one backup and my 2023 photos are in another.</p>
+
+<h3 id="my-use-cases">My Use Cases</h3>
+
+<p>I'm not doing anything too fancy nor are the stakes super high.</p>
+
+<p>There are three things I want to be able to do easily:</p>
+
+<ol>
+  <li>
+    <p>Maintain a backup of my data that I can browse occasionally.</p>
+  </li>
+  <li>
+    <p>Backup my recent documents and photos on a monthly basis.</p>
+  </li>
+  <li>
+    <p>Browse and tag my photos.</p>
+  </li>
+</ol>
+
+<p>I have Dropbox and iPhoto both backing up my recent photos from my phone. And any recent documents on my laptop that could be lost between monthly backups is probably in my email or another cloud service, nor is it super important if I didn't already put it in Dropbox, we're basically talking my Downloads folder and the random screenshots I like to take of good or bad UX on the web that I never actually look at again.</p>
+
+<h3 id="testing-backup-tools">Testing backup tools</h3>
+<p>I'm testing out three open source command line tools to see which one I like best.</p>
+
+<p>I don't trust any company fully with my data and it sounds like the open source tools do a solid job, so why not go with free?</p>
+
+<p>I had ChatGPT come up with a very basic testing script so I could get a feel for each tool. Basically, it's a directory with a couple files that I backup, make some changes, backup again, and restore from the original backup. Making some changes allows me to see how the tool handles deduping.</p>
+
+<div class="language-sh highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>mkdir -p ~/backup-test/{src1,src2,src3}
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span>cd ~/backup-test
+<span class="line-numbers"><a href="#n3" name="n3">3</a></span>
+<span class="line-numbers"><a href="#n4" name="n4">4</a></span>echo &quot;file A&quot; &gt; src1/a.txt
+<span class="line-numbers"><a href="#n5" name="n5">5</a></span>echo &quot;file B&quot; &gt; src1/b.txt
+<span class="line-numbers"><a href="#n6" name="n6">6</a></span>echo &quot;file C&quot; &gt; src1/c.txt
+</pre></div>
+</div>
+</div>
+
+<h3 id="restic">Restic</h3>
+<p><a href="https://restic.readthedocs.io/en/stable/index.html">Restic Documentation — restic 0.18.1 documentation</a><br />Language: Go</p>
+
+<div class="language-sh highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"> <a href="#n1" name="n1">1</a></span>brew install restic
+<span class="line-numbers"> <a href="#n2" name="n2">2</a></span>
+<span class="line-numbers"> <a href="#n3" name="n3">3</a></span>export RESTIC_REPOSITORY=/backup-test #doesn't have to be the same dir
+<span class="line-numbers"> <a href="#n4" name="n4">4</a></span>export RESTIC_PASSWORD=testpassword
+<span class="line-numbers"> <a href="#n5" name="n5">5</a></span>
+<span class="line-numbers"> <a href="#n6" name="n6">6</a></span>restic init
+<span class="line-numbers"> <a href="#n7" name="n7">7</a></span>
+<span class="line-numbers"> <a href="#n8" name="n8">8</a></span>restic backup src1
+<span class="line-numbers"> <a href="#n9" name="n9">9</a></span>
+<span class="line-numbers"><strong><a href="#n10" name="n10">10</a></strong></span># only the changes will be backed up
+<span class="line-numbers"><a href="#n11" name="n11">11</a></span>rm src1/b.txt
+<span class="line-numbers"><a href="#n12" name="n12">12</a></span>echo &quot;file D&quot; &gt; src1/d.txt
+<span class="line-numbers"><a href="#n13" name="n13">13</a></span>
+<span class="line-numbers"><a href="#n14" name="n14">14</a></span>restic backup src1
+<span class="line-numbers"><a href="#n15" name="n15">15</a></span>
+<span class="line-numbers"><a href="#n16" name="n16">16</a></span>repository 3de9effd opened (version 2, compression level auto)
+<span class="line-numbers"><a href="#n17" name="n17">17</a></span>created new cache in /Users/boo/Library/Caches/restic
+<span class="line-numbers"><a href="#n18" name="n18">18</a></span>no parent snapshot found, will read all files
+<span class="line-numbers"><a href="#n19" name="n19">19</a></span>[0:00]          0 index files loaded
+<span class="line-numbers"><strong><a href="#n20" name="n20">20</a></strong></span>
+<span class="line-numbers"><a href="#n21" name="n21">21</a></span>Files:           3 new,     0 changed,     0 unmodified
+<span class="line-numbers"><a href="#n22" name="n22">22</a></span>Dirs:            1 new,     0 changed,     0 unmodified
+<span class="line-numbers"><a href="#n23" name="n23">23</a></span>Added to the repository: 1.805 KiB (1.113 KiB stored)
+<span class="line-numbers"><a href="#n24" name="n24">24</a></span>
+<span class="line-numbers"><a href="#n25" name="n25">25</a></span>processed 3 files, 21 B in 0:00
+<span class="line-numbers"><a href="#n26" name="n26">26</a></span>snapshot c6277153 saved
+<span class="line-numbers"><a href="#n27" name="n27">27</a></span>
+<span class="line-numbers"><a href="#n28" name="n28">28</a></span># copy the current backup to another dir and add a file to test deduping
+<span class="line-numbers"><a href="#n29" name="n29">29</a></span>cp -r src1 src2
+<span class="line-numbers"><strong><a href="#n30" name="n30">30</a></strong></span>echo &quot;file E&quot; &gt; src2/e.txt
+<span class="line-numbers"><a href="#n31" name="n31">31</a></span>
+<span class="line-numbers"><a href="#n32" name="n32">32</a></span>restic backup src2
+<span class="line-numbers"><a href="#n33" name="n33">33</a></span>
+<span class="line-numbers"><a href="#n34" name="n34">34</a></span>repository 3de9effd opened (version 2, compression level auto)
+<span class="line-numbers"><a href="#n35" name="n35">35</a></span>using parent snapshot c6277153
+<span class="line-numbers"><a href="#n36" name="n36">36</a></span>[0:00] 100.00%  1 / 1 index files loaded
+<span class="line-numbers"><a href="#n37" name="n37">37</a></span>
+<span class="line-numbers"><a href="#n38" name="n38">38</a></span>Files:           1 new,     0 changed,     2 unmodified
+<span class="line-numbers"><a href="#n39" name="n39">39</a></span>Dirs:            0 new,     1 changed,     0 unmodified
+<span class="line-numbers"><strong><a href="#n40" name="n40">40</a></strong></span>Added to the repository: 1.791 KiB (970 B stored)
+<span class="line-numbers"><a href="#n41" name="n41">41</a></span>
+<span class="line-numbers"><a href="#n42" name="n42">42</a></span>processed 3 files, 21 B in 0:00
+<span class="line-numbers"><a href="#n43" name="n43">43</a></span>snapshot 3d20c1b2 saved
+<span class="line-numbers"><a href="#n44" name="n44">44</a></span>
+<span class="line-numbers"><a href="#n45" name="n45">45</a></span># list snapshots
+<span class="line-numbers"><a href="#n46" name="n46">46</a></span>restic snapshots
+<span class="line-numbers"><a href="#n47" name="n47">47</a></span>
+<span class="line-numbers"><a href="#n48" name="n48">48</a></span>repository 3de9effd opened (version 2, compression level auto)
+<span class="line-numbers"><a href="#n49" name="n49">49</a></span>ID        Time                 Host                        Tags   Paths                                Size
+<span class="line-numbers"><strong><a href="#n50" name="n50">50</a></strong></span>---------------------------------------------------------------------------------------
+<span class="line-numbers"><a href="#n51" name="n51">51</a></span>c6277153  2026-01-30 16:53:12  Nickis-Laptop.local              /Users/boo/dev/backup-test/src1  21 B
+<span class="line-numbers"><a href="#n52" name="n52">52</a></span>3d20c1b2  2026-01-30 16:59:52  Nickis-Laptop.local              /Users/boo/dev/backup-test/src1  21 B
+<span class="line-numbers"><a href="#n53" name="n53">53</a></span>3a9d7c2d  2026-01-30 17:00:05  Nickis-Laptop.local              /Users/boo/dev/backup-test/src2  28 B
+<span class="line-numbers"><a href="#n54" name="n54">54</a></span>d55cba5e  2026-01-30 17:00:30  Nickis-Laptop.local              /Users/boo/dev/backup-test/src3  12 B
+<span class="line-numbers"><a href="#n55" name="n55">55</a></span>---------------------------------------------------------------------------------------
+<span class="line-numbers"><a href="#n56" name="n56">56</a></span>4 snapshots
+<span class="line-numbers"><a href="#n57" name="n57">57</a></span>
+<span class="line-numbers"><a href="#n58" name="n58">58</a></span># restore a snapshot
+<span class="line-numbers"><a href="#n59" name="n59">59</a></span>restic restore  --target /tmp/restore-work {snapshot ID}
+<span class="line-numbers"><strong><a href="#n60" name="n60">60</a></strong></span>
+<span class="line-numbers"><a href="#n61" name="n61">61</a></span>repository 3de9effd opened (version 2, compression level auto)
+<span class="line-numbers"><a href="#n62" name="n62">62</a></span>[0:00] 100.00%  4 / 4 index files loaded
+<span class="line-numbers"><a href="#n63" name="n63">63</a></span>restoring snapshot c6277153 of [/Users/boo/dev/backup-test/src1] at 2026-01-30 16:53:12.927071 +0100 CET by boo@Nickis-Laptop.local to /tmp/restore-work
+<span class="line-numbers"><a href="#n64" name="n64">64</a></span>Summary: Restored 4 files/dirs (21 B) in 0:00
+<span class="line-numbers"><a href="#n65" name="n65">65</a></span>
+<span class="line-numbers"><a href="#n66" name="n66">66</a></span>ls /tmp/restore-work
+<span class="line-numbers"><a href="#n67" name="n67">67</a></span>
+<span class="line-numbers"><a href="#n68" name="n68">68</a></span>rm -rf /tmp/restore-work
+</pre></div>
+</div>
+</div>
+
+<p>I like the restic commands the best of the three I've tried, mainly because I don't have to name the backup.</p>
+
+<h3 id="borghttpswwwborgbackuporg"><a href="https://www.borgbackup.org/">Borg</a></h3>
+<p>Language: Python</p>
+
+<p><code>borg</code> uses the term "archive" where <code>restic</code> uses "snapshot".</p>
+
+<div class="language-sh highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"> <a href="#n1" name="n1">1</a></span>export BORG_REPO=/Users/boo/dev/backup-test-2/repo #needs to be an empty dir
+<span class="line-numbers"> <a href="#n2" name="n2">2</a></span>export BORG_PASSPHRASE=testpassword
+<span class="line-numbers"> <a href="#n3" name="n3">3</a></span>
+<span class="line-numbers"> <a href="#n4" name="n4">4</a></span>borg init --encryption=repokey
+<span class="line-numbers"> <a href="#n5" name="n5">5</a></span>
+<span class="line-numbers"> <a href="#n6" name="n6">6</a></span>IMPORTANT: you will need both KEY AND PASSPHRASE to access this repo!
+<span class="line-numbers"> <a href="#n7" name="n7">7</a></span>
+<span class="line-numbers"> <a href="#n8" name="n8">8</a></span>Key storage location depends on the mode:
+<span class="line-numbers"> <a href="#n9" name="n9">9</a></span>- repokey modes: key is stored in the repository directory.
+<span class="line-numbers"><strong><a href="#n10" name="n10">10</a></strong></span>- keyfile modes: key is stored in the home directory of this user.
+<span class="line-numbers"><a href="#n11" name="n11">11</a></span>
+<span class="line-numbers"><a href="#n12" name="n12">12</a></span>For any mode, you should:
+<span class="line-numbers"><a href="#n13" name="n13">13</a></span>1. Export the borg key and store the result at a safe place:
+<span class="line-numbers"><a href="#n14" name="n14">14</a></span>borg key export           REPOSITORY encrypted-key-backup
+<span class="line-numbers"><a href="#n15" name="n15">15</a></span>borg key export --paper   REPOSITORY encrypted-key-backup.txt
+<span class="line-numbers"><a href="#n16" name="n16">16</a></span>borg key export --qr-html REPOSITORY encrypted-key-backup.html
+<span class="line-numbers"><a href="#n17" name="n17">17</a></span>2. Write down the borg key passphrase and store it at safe place.
+<span class="line-numbers"><a href="#n18" name="n18">18</a></span>
+<span class="line-numbers"><a href="#n19" name="n19">19</a></span>borg create $BORG_REPO::path/to/src1 src1
+<span class="line-numbers"><strong><a href="#n20" name="n20">20</a></strong></span>
+<span class="line-numbers"><a href="#n21" name="n21">21</a></span>borg list $BORG_REPO
+<span class="line-numbers"><a href="#n22" name="n22">22</a></span>src1     Sat, 2026-01-31 22:06:03 [e1bb98882f01e225e2a099aa83611fb91870ca5e5383d8391478c7b834e711ad]
+<span class="line-numbers"><a href="#n23" name="n23">23</a></span>
+<span class="line-numbers"><a href="#n24" name="n24">24</a></span>rm src1/c.txt
+<span class="line-numbers"><a href="#n25" name="n25">25</a></span>echo &quot;file D&quot; &gt; src1/d.txt
+<span class="line-numbers"><a href="#n26" name="n26">26</a></span>
+<span class="line-numbers"><a href="#n27" name="n27">27</a></span>borg create $BORG_REPO::src1-2 src1
+<span class="line-numbers"><a href="#n28" name="n28">28</a></span>borg create $BORG_REPO::src2 src2
+<span class="line-numbers"><a href="#n29" name="n29">29</a></span>
+<span class="line-numbers"><strong><a href="#n30" name="n30">30</a></strong></span>borg list $BORG_REPO
+<span class="line-numbers"><a href="#n31" name="n31">31</a></span>src1     Sat, 2026-01-31 22:06:03 [e1bb98882f01e225e2a099aa83611fb91870ca5e5383d8391478c7b834e711ad]
+<span class="line-numbers"><a href="#n32" name="n32">32</a></span>src1-2   Sat, 2026-01-31 22:10:25 [32b95f572f19ed6d103a184789c6aa060324789fa3b87570de66356dcb0ce0c1]
+<span class="line-numbers"><a href="#n33" name="n33">33</a></span>src2     Sat, 2026-01-31 22:12:42 [8a9fe564ab649e47736e1a01e81e116946bf74ca131e6e1b94b14b1ad2dea520]
+<span class="line-numbers"><a href="#n34" name="n34">34</a></span>
+<span class="line-numbers"><a href="#n35" name="n35">35</a></span>borg info
+<span class="line-numbers"><a href="#n36" name="n36">36</a></span>Repository ID: be5ca57233423b0ad2cc12b2a262b20790d1dde7b9a4f0c34a93740f234c39e7
+<span class="line-numbers"><a href="#n37" name="n37">37</a></span>Location: /Users/boo/dev/backup-test-2/repo
+<span class="line-numbers"><a href="#n38" name="n38">38</a></span>Encrypted: Yes (repokey)
+<span class="line-numbers"><a href="#n39" name="n39">39</a></span>Cache: /Users/boo/.cache/borg/be5ca57233423b0ad2cc12b2a262b20790d1dde7b9a4f0c34a93740f234c39e7
+<span class="line-numbers"><strong><a href="#n40" name="n40">40</a></strong></span>Security dir: /Users/boo/.config/borg/security/be5ca57233423b0ad2cc12b2a262b20790d1dde7b9a4f0c34a93740f234c39e7
+<span class="line-numbers"><a href="#n41" name="n41">41</a></span>------------------------------------------------------------------------------
+<span class="line-numbers"><a href="#n42" name="n42">42</a></span>                        Original size      Compressed size    Deduplicated size
+<span class="line-numbers"><a href="#n43" name="n43">43</a></span>All archives:                   42 B                300 B              2.87 kB
+<span class="line-numbers"><a href="#n44" name="n44">44</a></span>
+<span class="line-numbers"><a href="#n45" name="n45">45</a></span>                        Unique chunks         Total chunks
+<span class="line-numbers"><a href="#n46" name="n46">46</a></span>Chunk index:                      10                   12
+<span class="line-numbers"><a href="#n47" name="n47">47</a></span>
+<span class="line-numbers"><a href="#n48" name="n48">48</a></span>borg extract $BORG_REPO::src1-2
+</pre></div>
+</div>
+</div>
+
+<p>The requirement to manually name each snapshot/archive could be either a pro or a con. The naming scheme I've used in the example above is terrible. I'm not sure what I'd want to use other than a date, which is repeated in the list.</p>
+
+<p>As you can see from the init process, a key is created. You need both the key and the passphrase to access a <code>borg</code> repository.</p>
+
+<p>Interesting features to explore:</p>
+
+<ul>
+  <li>compacting</li>
+  <li>compression</li>
+</ul>
+
+<h3 id="kopiahttpskopiaio"><a href="https://kopia.io/">Kopia</a></h3>
+<p>Language: Go</p>
+
+<div class="language-sh highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"> <a href="#n1" name="n1">1</a></span>kopia repository create filesystem --path /Users/boo/dev/backup-test-3/repo
+<span class="line-numbers"> <a href="#n2" name="n2">2</a></span>Enter password to create new repository: testpassword
+<span class="line-numbers"> <a href="#n3" name="n3">3</a></span>Re-enter password for verification: testpassword
+<span class="line-numbers"> <a href="#n4" name="n4">4</a></span>Initializing repository with:
+<span class="line-numbers"> <a href="#n5" name="n5">5</a></span>block hash:          BLAKE2B-256-128
+<span class="line-numbers"> <a href="#n6" name="n6">6</a></span>encryption:          AES256-GCM-HMAC-SHA256
+<span class="line-numbers"> <a href="#n7" name="n7">7</a></span>key derivation:      scrypt-65536-8-1
+<span class="line-numbers"> <a href="#n8" name="n8">8</a></span>splitter:            DYNAMIC-4M-BUZHASH
+<span class="line-numbers"> <a href="#n9" name="n9">9</a></span>Connected to repository.
+<span class="line-numbers"><strong><a href="#n10" name="n10">10</a></strong></span>
+<span class="line-numbers"><a href="#n11" name="n11">11</a></span>NOTICE: Kopia will check for updates on GitHub every 7 days, starting 24 hours after first use.
+<span class="line-numbers"><a href="#n12" name="n12">12</a></span>To disable this behavior, set environment variable KOPIA_CHECK_FOR_UPDATES=false
+<span class="line-numbers"><a href="#n13" name="n13">13</a></span>Alternatively you can remove the file &quot;/Users/boo/Library/Application Support/kopia/repository.config.update-info.json&quot;.
+<span class="line-numbers"><a href="#n14" name="n14">14</a></span>
+<span class="line-numbers"><a href="#n15" name="n15">15</a></span>Retention:
+<span class="line-numbers"><a href="#n16" name="n16">16</a></span>Annual snapshots:                 3   (defined for this target)
+<span class="line-numbers"><a href="#n17" name="n17">17</a></span>Monthly snapshots:               24   (defined for this target)
+<span class="line-numbers"><a href="#n18" name="n18">18</a></span>Weekly snapshots:                 4   (defined for this target)
+<span class="line-numbers"><a href="#n19" name="n19">19</a></span>Daily snapshots:                  7   (defined for this target)
+<span class="line-numbers"><strong><a href="#n20" name="n20">20</a></strong></span>Hourly snapshots:                48   (defined for this target)
+<span class="line-numbers"><a href="#n21" name="n21">21</a></span>Latest snapshots:                10   (defined for this target)
+<span class="line-numbers"><a href="#n22" name="n22">22</a></span>Ignore identical snapshots:   false   (defined for this target)
+<span class="line-numbers"><a href="#n23" name="n23">23</a></span>Compression disabled.
+<span class="line-numbers"><a href="#n24" name="n24">24</a></span>
+<span class="line-numbers"><a href="#n25" name="n25">25</a></span>To find more information about default policy run 'kopia policy get'.
+<span class="line-numbers"><a href="#n26" name="n26">26</a></span>To change the policy use 'kopia policy set' command.
+<span class="line-numbers"><a href="#n27" name="n27">27</a></span>
+<span class="line-numbers"><a href="#n28" name="n28">28</a></span>NOTE: Kopia will perform quick maintenance of the repository automatically every 1h0m0s
+<span class="line-numbers"><a href="#n29" name="n29">29</a></span>and full maintenance every 24h0m0s when running as boo@nickis-Laptop.
+<span class="line-numbers"><strong><a href="#n30" name="n30">30</a></strong></span>
+<span class="line-numbers"><a href="#n31" name="n31">31</a></span>See https://kopia.io/docs/advanced/maintenance/ for more information.
+<span class="line-numbers"><a href="#n32" name="n32">32</a></span>
+<span class="line-numbers"><a href="#n33" name="n33">33</a></span>NOTE: To validate that your provider is compatible with Kopia, please run:
+<span class="line-numbers"><a href="#n34" name="n34">34</a></span>
+<span class="line-numbers"><a href="#n35" name="n35">35</a></span>$ kopia repository validate-provider
+<span class="line-numbers"><a href="#n36" name="n36">36</a></span>
+<span class="line-numbers"><a href="#n37" name="n37">37</a></span>kopia snapshot create /Users/boo/dev/backup-test-3/backup_dir
+<span class="line-numbers"><a href="#n38" name="n38">38</a></span>Snapshotting boo@nickis-Laptop:/Users/boo/dev/backup-test-3/backup_dir ...
+<span class="line-numbers"><a href="#n39" name="n39">39</a></span>* 0 hashing, 3 hashed (21 B), 0 cached (0 B), uploaded 211 B, estimating...
+<span class="line-numbers"><strong><a href="#n40" name="n40">40</a></strong></span>Created snapshot with root k8631e4a74fa1bfb7327d82b503a46a8b and ID 1f6bf45929328b1372b1d8b37237e294 in 0s
+<span class="line-numbers"><a href="#n41" name="n41">41</a></span>Running full maintenance...
+<span class="line-numbers"><a href="#n42" name="n42">42</a></span>GC found 0 unused contents (0 B)
+<span class="line-numbers"><a href="#n43" name="n43">43</a></span>GC found 0 unused contents that are too recent to delete (0 B)
+<span class="line-numbers"><a href="#n44" name="n44">44</a></span>GC found 7 in-use contents (1.1 KB)
+<span class="line-numbers"><a href="#n45" name="n45">45</a></span>GC found 2 in-use system-contents (1.2 KB)
+<span class="line-numbers"><a href="#n46" name="n46">46</a></span>GC undeleted 0 contents (0 B)
+<span class="line-numbers"><a href="#n47" name="n47">47</a></span>Compacting an eligible uncompacted epoch...
+<span class="line-numbers"><a href="#n48" name="n48">48</a></span>Advancing epoch markers...
+<span class="line-numbers"><a href="#n49" name="n49">49</a></span>Attempting to compact a range of epoch indexes ...
+<span class="line-numbers"><strong><a href="#n50" name="n50">50</a></strong></span>Cleaning up unneeded epoch markers...
+<span class="line-numbers"><a href="#n51" name="n51">51</a></span>Cleaning up old index blobs which have already been compacted...
+<span class="line-numbers"><a href="#n52" name="n52">52</a></span>Cleaned up 0 logs.
+<span class="line-numbers"><a href="#n53" name="n53">53</a></span>Finished full maintenance.
+<span class="line-numbers"><a href="#n54" name="n54">54</a></span>
+<span class="line-numbers"><a href="#n55" name="n55">55</a></span>kopia snapshot list /Users/boo/dev/backup-test-3/backup_dir
+<span class="line-numbers"><a href="#n56" name="n56">56</a></span>boo@nickis-Laptop:/Users/boo/dev/backup-test-3/backup_dir
+<span class="line-numbers"><a href="#n57" name="n57">57</a></span>2026-02-01 10:33:07 CET k8631e4a74fa1bfb7327d82b503a46a8b 21 B drwxr-xr-x files:3 dirs:4 (latest-1..2,hourly-1,daily-1,weekly-1,monthly-1,annual-1)
+<span class="line-numbers"><a href="#n58" name="n58">58</a></span>+ 1 identical snapshots until 2026-02-01 10:33:58 CET
+<span class="line-numbers"><a href="#n59" name="n59">59</a></span>
+<span class="line-numbers"><strong><a href="#n60" name="n60">60</a></strong></span>kopia ls -l k8631e4a74fa1bfb7327d82b503a46a8b
+<span class="line-numbers"><a href="#n61" name="n61">61</a></span>drwxr-xr-x           21 2026-01-31 22:14:47 CET k6647c300e69cecccd21f920519c29abb  src1/
+<span class="line-numbers"><a href="#n62" name="n62">62</a></span>drwxr-xr-x            0 2026-01-31 22:14:40 CET k1f7f41f99d34ce2bda1e9b82182cec5e  src2/
+<span class="line-numbers"><a href="#n63" name="n63">63</a></span>drwxr-xr-x            0 2026-01-31 22:14:40 CET kf1038421ff24d338a963ef2deef7bc44  src3/
+<span class="line-numbers"><a href="#n64" name="n64">64</a></span>
+<span class="line-numbers"><a href="#n65" name="n65">65</a></span>kopia show k6647c300e69cecccd21f920519c29abb
+<span class="line-numbers"><a href="#n66" name="n66">66</a></span>{&quot;stream&quot;:&quot;kopia:directory&quot;,&quot;entries&quot;:[{&quot;name&quot;:&quot;a.txt&quot;,&quot;type&quot;:&quot;f&quot;,&quot;mode&quot;:&quot;0644&quot;,&quot;size&quot;:7,&quot;mtime&quot;:&quot;2026-01-31T21:14:47.012334056Z&quot;,&quot;uid&quot;:501,&quot;gid&quot;:20,&quot;obj&quot;:&quot;694bbedb98415f944e757fb04da85a00&quot;},{&quot;name&quot;:&quot;b.txt&quot;,&quot;type&quot;:&quot;f&quot;,&quot;mode&quot;:&quot;0644&quot;,&quot;size&quot;:7,&quot;mtime&quot;:&quot;2026-01-31T21:14:47.012475682Z&quot;,&quot;uid&quot;:501,&quot;gid&quot;:20,&quot;obj&quot;:&quot;680c1e63c73751bf535d6f56c1904958&quot;},{&quot;name&quot;:&quot;c.txt&quot;,&quot;type&quot;:&quot;f&quot;,&quot;mode&quot;:&quot;0644&quot;,&quot;size&quot;:7,&quot;mtime&quot;:&quot;2026-01-31T21:14:47.012585432Z&quot;,&quot;uid&quot;:501,&quot;gid&quot;:20,&quot;obj&quot;:&quot;cf894e34efbbdea5902193cd762aa89f&quot;}],&quot;summary&quot;:{&quot;size&quot;:21,&quot;files&quot;:3,&quot;symlinks&quot;:0,&quot;dirs&quot;:1,&quot;maxTime&quot;:&quot;2026-01-31T21:14:47.012585432Z&quot;,&quot;numFailed&quot;:0}}
+</pre></div>
+</div>
+</div>
+
+<p>I'd recommend creating env variables for <code>kopia</code> because it requires the use of absolute paths.</p>
+
+<p>Interesting features to explore:</p>
+
+<ul>
+  <li>retention policies</li>
+  <li>automated backups</li>
+  <li>compression</li>
+  <li>ignore rules</li>
+  <li>GUI</li>
+</ul>
+
+<p>After just a quick glance, <code>kopia</code> is exciting because it appears to have some great features for more complex use cases. There appears to be multiple contributors and an active user community. I like, for example, that there is a discourse forum (but unfortunately also a Slack). Complexity, on the other hand, often means more interdependencies and therefore higher risks.</p>
+
+<h3 id="next-steps">Next Steps</h3>
+<p>I'm going to move forward with <code>borg</code> mainly because my partner also uses it (aka in-house help desk).</p>
+
+<ul>
+  <li>Set up two external hard drives with a full copy of Dropbox</li>
+  <li>Set up borg repos on the drives and my laptop</li>
+  <li>Create a script to run manually once a month</li>
+  <li>Test it out for a couple months, including my photo browsing &amp; metadata update workflow</li>
+</ul>
+
+<p>Note: Here's why syncing a backup repo isn't recommended: <a href="https://borgbackup.readthedocs.io/en/1.4-maint/faq.html#can-i-copy-or-synchronize-my-repo-to-another-location">Can I copy or synchronize my repo to another location?</a></p>
+</div></div></div><div class="footer"><div class="nav"><ul>
+  <li><a href="/index.html">Home</a></li>
+  <li><a href="/writing/index.html">Writings</a></li>
+</ul>
+</div><p>Email me at: <a href="mailto:nicki@boxingindustries.com">nicki@boxingindustries.com</a></p>
+</div></body></html><footer><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-90558965-3', 'auto');
+ga('send', 'pageview');</script></footer>
