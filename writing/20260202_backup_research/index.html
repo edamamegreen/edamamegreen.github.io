@@ -3,15 +3,40 @@
   <li><a href="/index.html">Home</a></li>
   <li><a href="/writing/index.html">Writings</a></li>
 </ul>
-</div><div class="content-background"><div class="content-layout"><div class="postIntro"><h1 id="cli-backup-tools-restic-borg-kopia">CLI Backup Tools: Restic, Borg, Kopia</h1>
-</div><div class="date"><p>February 2, 2026</p>
-</div><div class="postBody"><style>.postBody pre {  overflow-x: auto;  font-size: 0.7em;  line-height: 1.6;}/* Hide line numbers */.postBody pre .line-numbers,.postBody pre .line-number,.postBody pre .lineno,.postBody pre::before {  display: none !important;}.postBody pre code::before {  display: none !important;}.postBody pre code {  counter-reset: none !important;}.postBody pre code::before {  counter-increment: none !important;  content: none !important;}</style><p>Time for some early spring cleaning.</p>
+</div><div class="boatContainer"><svg class="boat" viewBox="0 0 153 111" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M25.5742187,39.9955765 C25.5742187,39.4457348 26.0216213,39 26.5663746,39 L59.9648437,39 L59.9648437,21.4707031 L79.2890625,21.4707031 L79.2890625,39 L85.0097781,39 C85.5566625,39 86,39.4401063 86,39.9955765 L86,65.6367188 L107.171875,65.6367188 L107.171875,91.9936743 C107.171875,92.5494527 106.718501,93 106.181664,93 L19.9902115,93 C19.4433328,93 19,92.547889 19,91.9936743 L19,66.6430444 C19,66.0872661 19.4518727,65.6367188 19.9984823,65.6367188 L24.5757364,65.6367188 C25.127183,65.6367188 25.5742187,65.1966125 25.5742187,64.6411423 L25.5742187,39.9955765 Z" id="Rectangle-2" fill="#D8D8D8"></path><path d="M-5.68434189e-14,74 C24.025113,75.6787696 24.6621094,77.4726562 59.0664062,82.5996094 C93.4707031,87.7265625 152,84.6210938 152,84.6210938 C152,84.6210938 152.232497,87.7884088 152,88.6318359 C151.767503,89.4752631 152,88.6318359 149.828125,92.5 C147.65625,96.3681641 143.806641,111 143.806641,111 L13.9726562,111 L2.1796875,84.6210938 L-5.68434189e-14,81.34375 L-5.68434189e-14,74 Z" id="Rectangle" fill="#4990E2"></path><circle fill="#A7A8AA" cx="43" cy="55" r="8"></circle><circle class="one" fill="#B2B2B2" cx="73" cy="10" r="6"></circle><circle class="two" fill="#B2B2B2" cx="73" cy="10" r="6"></circle></svg></div><div class="content-background"><div class="content-layout post"><div class="date"><p>February 2, 2026</p></div><div class="post-body"><h1 id="cli-backup-tools-restic-borg-kopia">CLI Backup Tools: Restic, Borg, Kopia</h1>
 
-<p>I've got a shoddy backup system in place that needs to be revamped. Dropbox (which can't be fully downloaded onto my laptop, its so large) and five external hard drives, each a snapshot of the Dropbox drive at a different point over the last 10 years and with some other random things thrown onto them.</p>
+<style>
+.content-layout.post pre {
+  overflow-x: auto;
+  font-size: 0.7em;
+  line-height: 1.6;
+}
+/* Hide line numbers */
+.content-layout.post pre .line-numbers,
+.content-layout.post pre .line-number,
+.content-layout.post pre .lineno,
+.content-layout.post pre::before {
+  display: none !important;
+}
+.content-layout.post pre code::before {
+  display: none !important;
+}
+.content-layout.post pre code {
+  counter-reset: none !important;
+}
+.content-layout.post pre code::before {
+  counter-increment: none !important;
+  content: none !important;
+}
+</style>
 
-<p>I used to have Backblaze but quit it years ago for some reason I don't remember.</p>
+<p>Time for some early spring cleaning.</p>
 
-<p>I'd like to follow the 3-2-1 Backup Rule:</p>
+<p>I’ve got a shoddy backup system in place that needs to be revamped. Dropbox (which can’t be fully downloaded onto my laptop, its so large) and five external hard drives, each a snapshot of the Dropbox drive at a different point over the last 10 years and with some other random things thrown onto them.</p>
+
+<p>I used to have Backblaze but quit it years ago for some reason I don’t remember.</p>
+
+<p>I’d like to follow the 3-2-1 Backup Rule:</p>
 
 <ul>
   <li>3 copies of my data</li>
@@ -19,15 +44,15 @@
   <li>1 copy off-site</li>
 </ul>
 
-<p>I actually have all this covered but not in a consistent fashion – none of the 3 copies are the same or all up-to-date. My off-site drive is in Seattle and hasn't been updated for at least 3 years.</p>
+<p>I actually have all this covered but not in a consistent fashion – none of the 3 copies are the same or all up-to-date. My off-site drive is in Seattle and hasn’t been updated for at least 3 years.</p>
 
-<p>If I could fit my Dropbox onto my laptop then I would maybe do the hacky things and periodically create a whole copy to two empty external hard drives, recycling the drives for each update. But I can't anymore.</p>
+<p>If I could fit my Dropbox onto my laptop then I would maybe do the hacky things and periodically create a whole copy to two empty external hard drives, recycling the drives for each update. But I can’t anymore.</p>
 
-<p>I want a tool that helps me make backups with deduplication, so I can add to an existing backup rather than make a whole new copy. I don't want to have to hop around between backups because my 2022 photos are in one backup and my 2023 photos are in another.</p>
+<p>I want a tool that helps me make backups with deduplication, so I can add to an existing backup rather than make a whole new copy. I don’t want to have to hop around between backups because my 2022 photos are in one backup and my 2023 photos are in another.</p>
 
 <h3 id="my-use-cases">My Use Cases</h3>
 
-<p>I'm not doing anything too fancy nor are the stakes super high.</p>
+<p>I’m not doing anything too fancy nor are the stakes super high.</p>
 
 <p>There are three things I want to be able to do easily:</p>
 
@@ -43,14 +68,14 @@
   </li>
 </ol>
 
-<p>I have Dropbox and iPhoto both backing up my recent photos from my phone. And any recent documents on my laptop that could be lost between monthly backups is probably in my email or another cloud service, nor is it super important if I didn't already put it in Dropbox, we're basically talking my Downloads folder and the random screenshots I like to take of good or bad UX on the web that I never actually look at again.</p>
+<p>I have Dropbox and iPhoto both backing up my recent photos from my phone. And any recent documents on my laptop that could be lost between monthly backups is probably in my email or another cloud service, nor is it super important if I didn’t already put it in Dropbox, we’re basically talking my Downloads folder and the random screenshots I like to take of good or bad UX on the web that I never actually look at again.</p>
 
 <h3 id="testing-backup-tools">Testing backup tools</h3>
-<p>I'm testing out three open source command line tools to see which one I like best.</p>
+<p>I’m testing out three open source command line tools to see which one I like best.</p>
 
-<p>I don't trust any company fully with my data and it sounds like the open source tools do a solid job, so why not go with free?</p>
+<p>I don’t trust any company fully with my data and it sounds like the open source tools do a solid job, so why not go with free?</p>
 
-<p>I had ChatGPT come up with a very basic testing script so I could get a feel for each tool. Basically, it's a directory with a couple files that I backup, make some changes, backup again, and restore from the original backup. Making some changes allows me to see how the tool handles deduping.</p>
+<p>I had ChatGPT come up with a very basic testing script so I could get a feel for each tool. Basically, it’s a directory with a couple files that I backup, make some changes, backup again, and restore from the original backup. Making some changes allows me to see how the tool handles deduping.</p>
 
 <div class="language-sh highlighter-coderay"><div class="CodeRay">
   <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>mkdir -p ~/backup-test/{src1,src2,src3}
@@ -139,12 +164,12 @@
 </div>
 </div>
 
-<p>I like the restic commands the best of the three I've tried, mainly because I don't have to name the backup.</p>
+<p>I like the restic commands the best of the three I’ve tried, mainly because I don’t have to name the backup.</p>
 
 <h3 id="borghttpswwwborgbackuporg"><a href="https://www.borgbackup.org/">Borg</a></h3>
 <p>Language: Python</p>
 
-<p><code>borg</code> uses the term "archive" where <code>restic</code> uses "snapshot".</p>
+<p><code>borg</code> uses the term “archive” where <code>restic</code> uses “snapshot”.</p>
 
 <div class="language-sh highlighter-coderay"><div class="CodeRay">
   <div class="code"><pre><span class="line-numbers"> <a href="#n1" name="n1">1</a></span>export BORG_REPO=/Users/boo/dev/backup-test-2/repo #needs to be an empty dir
@@ -199,7 +224,7 @@
 </div>
 </div>
 
-<p>The requirement to manually name each snapshot/archive could be either a pro or a con. The naming scheme I've used in the example above is terrible. I'm not sure what I'd want to use other than a date, which is repeated in the list.</p>
+<p>The requirement to manually name each snapshot/archive could be either a pro or a con. The naming scheme I’ve used in the example above is terrible. I’m not sure what I’d want to use other than a date, which is repeated in the list.</p>
 
 <p>As you can see from the init process, a key is created. You need both the key and the passphrase to access a <code>borg</code> repository.</p>
 
@@ -271,7 +296,7 @@
 <span class="line-numbers"><a href="#n55" name="n55">55</a></span>kopia snapshot list /Users/boo/dev/backup-test-3/backup_dir
 <span class="line-numbers"><a href="#n56" name="n56">56</a></span>boo@nickis-Laptop:/Users/boo/dev/backup-test-3/backup_dir
 <span class="line-numbers"><a href="#n57" name="n57">57</a></span>2026-02-01 10:33:07 CET k8631e4a74fa1bfb7327d82b503a46a8b 21 B drwxr-xr-x files:3 dirs:4 (latest-1..2,hourly-1,daily-1,weekly-1,monthly-1,annual-1)
-<span class="line-numbers"><a href="#n58" name="n58">58</a></span>+ 1 identical snapshots until 2026-02-01 10:33:58 CET
+<span class="line-numbers"><a href="#n58" name="n58">58</a></span>- 1 identical snapshots until 2026-02-01 10:33:58 CET
 <span class="line-numbers"><a href="#n59" name="n59">59</a></span>
 <span class="line-numbers"><strong><a href="#n60" name="n60">60</a></strong></span>kopia ls -l k8631e4a74fa1bfb7327d82b503a46a8b
 <span class="line-numbers"><a href="#n61" name="n61">61</a></span>drwxr-xr-x           21 2026-01-31 22:14:47 CET k6647c300e69cecccd21f920519c29abb  src1/
@@ -284,7 +309,7 @@
 </div>
 </div>
 
-<p>I'd recommend creating env variables for <code>kopia</code> because it requires the use of absolute paths.</p>
+<p>I’d recommend creating env variables for <code>kopia</code> because it requires the use of absolute paths.</p>
 
 <p>Interesting features to explore:</p>
 
@@ -299,7 +324,7 @@
 <p>After just a quick glance, <code>kopia</code> is exciting because it appears to have some great features for more complex use cases. There appears to be multiple contributors and an active user community. I like, for example, that there is a discourse forum (but unfortunately also a Slack). Complexity, on the other hand, often means more interdependencies and therefore higher risks.</p>
 
 <h3 id="next-steps">Next Steps</h3>
-<p>I'm going to move forward with <code>borg</code> mainly because my partner also uses it (aka in-house help desk).</p>
+<p>I’m going to move forward with <code>borg</code> mainly because my partner also uses it (aka in-house help desk).</p>
 
 <ul>
   <li>Set up two external hard drives with a full copy of Dropbox</li>
@@ -308,7 +333,7 @@
   <li>Test it out for a couple months, including my photo browsing &amp; metadata update workflow</li>
 </ul>
 
-<p>Note: Here's why syncing a backup repo isn't recommended: <a href="https://borgbackup.readthedocs.io/en/1.4-maint/faq.html#can-i-copy-or-synchronize-my-repo-to-another-location">Can I copy or synchronize my repo to another location?</a></p>
+<p>Note: Here’s why syncing a backup repo isn’t recommended: <a href="https://borgbackup.readthedocs.io/en/1.4-maint/faq.html#can-i-copy-or-synchronize-my-repo-to-another-location">Can I copy or synchronize my repo to another location?</a></p>
 </div></div></div><div class="footer"><div class="nav"><ul>
   <li><a href="/index.html">Home</a></li>
   <li><a href="/writing/index.html">Writings</a></li>

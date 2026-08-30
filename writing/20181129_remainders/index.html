@@ -3,11 +3,11 @@
   <li><a href="/index.html">Home</a></li>
   <li><a href="/writing/index.html">Writings</a></li>
 </ul>
-</div><div class="content-background"><div class="content-layout"><div class="postIntro"><h1 id="leftovers-whats-the-difference-between-clojures-remainder-and-modulus-functions">Leftovers: What's the difference between Clojure's rem(ainder) and mod(ulus) functions?</h1>
-</div><div class="date"><p>November 29, 2018</p>
-</div><div class="postBody"><p>Clojure has two functions for finding the remainder in integer division: <code>rem</code> and <code>mod</code>. Turns out, many other languages also have remainder and modulus functions.</p>
+</div><div class="boatContainer"><svg class="boat" viewBox="0 0 153 111" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M25.5742187,39.9955765 C25.5742187,39.4457348 26.0216213,39 26.5663746,39 L59.9648437,39 L59.9648437,21.4707031 L79.2890625,21.4707031 L79.2890625,39 L85.0097781,39 C85.5566625,39 86,39.4401063 86,39.9955765 L86,65.6367188 L107.171875,65.6367188 L107.171875,91.9936743 C107.171875,92.5494527 106.718501,93 106.181664,93 L19.9902115,93 C19.4433328,93 19,92.547889 19,91.9936743 L19,66.6430444 C19,66.0872661 19.4518727,65.6367188 19.9984823,65.6367188 L24.5757364,65.6367188 C25.127183,65.6367188 25.5742187,65.1966125 25.5742187,64.6411423 L25.5742187,39.9955765 Z" id="Rectangle-2" fill="#D8D8D8"></path><path d="M-5.68434189e-14,74 C24.025113,75.6787696 24.6621094,77.4726562 59.0664062,82.5996094 C93.4707031,87.7265625 152,84.6210938 152,84.6210938 C152,84.6210938 152.232497,87.7884088 152,88.6318359 C151.767503,89.4752631 152,88.6318359 149.828125,92.5 C147.65625,96.3681641 143.806641,111 143.806641,111 L13.9726562,111 L2.1796875,84.6210938 L-5.68434189e-14,81.34375 L-5.68434189e-14,74 Z" id="Rectangle" fill="#4990E2"></path><circle fill="#A7A8AA" cx="43" cy="55" r="8"></circle><circle class="one" fill="#B2B2B2" cx="73" cy="10" r="6"></circle><circle class="two" fill="#B2B2B2" cx="73" cy="10" r="6"></circle></svg></div><div class="content-background"><div class="content-layout post"><div class="date"><p>November 29, 2018</p></div><div class="post-body"><h1 id="leftovers-whats-the-difference-between-clojures-remainder-and-modulus-functions">Leftovers: What’s the difference between Clojure’s rem(ainder) and mod(ulus) functions?</h1>
 
-<p>Why? What the heck? What's the difference?</p>
+<p>Clojure has two functions for finding the remainder in integer division: <code>rem</code> and <code>mod</code>. Turns out, many other languages also have remainder and modulus functions.</p>
+
+<p>Why? What the heck? What’s the difference?</p>
 
 <p>At first blush, these functions seem the same:</p>
 
@@ -52,7 +52,7 @@
 <p>If one of the arguments is negative, we get different results from <code>rem</code> and <code>mod</code>.
 Not only that, we get different results <em>within</em> <code>rem</code> and <code>mod</code> depending on whether its the numerator or divisor that is negative.</p>
 
-<p><strong>Why are there two functions? Why isn't there just one way to calculate a remainder like I learned in school? When do you want to use one over the other?</strong></p>
+<p><strong>Why are there two functions? Why isn’t there just one way to calculate a remainder like I learned in school? When do you want to use one over the other?</strong></p>
 
 <p>I thought these questions would be easy to answer. There are certainly a lot of answers but not many were complete.</p>
 
@@ -69,23 +69,23 @@ Not only that, we get different results <em>within</em> <code>rem</code> and <co
   </li>
 </ol>
 
-<p>The first explanation is true and it answers my second question, "When do you want to use <code>rem</code> over <code>mod</code>?" by saying, "Use <code>mod</code> when you want the remainder to have the same sign as the divisor."</p>
+<p>The first explanation is true and it answers my second question, “When do you want to use <code>rem</code> over <code>mod</code>?” by saying, “Use <code>mod</code> when you want the remainder to have the same sign as the divisor.”</p>
 
 <p>This explanation implies that the reason there are two different functions is because you might want the results to be different in these certain cases.</p>
 
-<p>As far as explanations go, it falls flat. What's the motivation? Humans made this! What were they thinking? Is there a Hollywood heist movie behind this - computer programmer replaces <code>rem</code> with <code>mod</code> to siphon off remainders of the stock market?</p>
+<p>As far as explanations go, it falls flat. What’s the motivation? Humans made this! What were they thinking? Is there a Hollywood heist movie behind this - computer programmer replaces <code>rem</code> with <code>mod</code> to siphon off remainders of the stock market?</p>
 
-<p>I disqualify the first explanation because it doesn't satisfy my "why" questions.</p>
+<p>I disqualify the first explanation because it doesn’t satisfy my “why” questions.</p>
 
 <p>The second explanation provides a little more information about the decision (flooring vs truncating) that results in the first explanation.</p>
 
-<p>I'm still not satisfied with "why" we have two ways to calculate the remainder but first, I want to take a quick detour into integer division and the concepts of flooring and truncating.</p>
+<p>I’m still not satisfied with “why” we have two ways to calculate the remainder but first, I want to take a quick detour into integer division and the concepts of flooring and truncating.</p>
 
-<h2 id="integer-division-whats-happening-inside-rem-and-mod">Integer division: what's happening inside <code>rem</code> and <code>mod</code></h2>
+<h2 id="integer-division-whats-happening-inside-rem-and-mod">Integer division: what’s happening inside <code>rem</code> and <code>mod</code></h2>
 
 <p>When I first learned about <code>rem</code> and <code>mod</code>, I was surprised that there are multiple ways to calculate a remainder.</p>
 
-<p>I am much more surprised that I was surprised. I have a math degree, shouldn't I know this? I spent years in elementary school carrying out division and manipulating fractions - why didn't I notice then? Did I forget that I knew this once? I really don't know.</p>
+<p>I am much more surprised that I was surprised. I have a math degree, shouldn’t I know this? I spent years in elementary school carrying out division and manipulating fractions - why didn’t I notice then? Did I forget that I knew this once? I really don’t know.</p>
 
 <p>Are <code>rem</code> and <code>mod</code> based on the the division algorithms we learn in school? What did we learn in school?</p>
 
@@ -146,9 +146,9 @@ Not only that, we get different results <em>within</em> <code>rem</code> and <co
 </div>
 </div>
 
-<p>You can see a pattern emerge in the remainders. Because we're dividing by -3, our remainder can only ever be between 0 and -3. We can group {0, 3} together because they both have remainder 0 when divided by -3, same with {-1, 2}.</p>
+<p>You can see a pattern emerge in the remainders. Because we’re dividing by -3, our remainder can only ever be between 0 and -3. We can group {0, 3} together because they both have remainder 0 when divided by -3, same with {-1, 2}.</p>
 
-<p>Doesn't <code>rem</code> do the same thing?</p>
+<p>Doesn’t <code>rem</code> do the same thing?</p>
 
 <div class="language-clojure highlighter-coderay"><div class="CodeRay">
   <div class="code"><pre><span class="line-numbers"> <a href="#n1" name="n1">1</a></span>(<span style="color:#080;font-weight:bold">rem</span> <span style="color:#00D">3</span> <span style="color:#00D">-3</span>)
@@ -186,15 +186,15 @@ Not only that, we get different results <em>within</em> <code>rem</code> and <co
 
 <p>from: <a href="https://clojure.org/guides/learn/syntax">https://clojure.org/guides/learn/syntax</a></p>
 
-<p><code>rem</code> is "…the integer "left over" after dividing one integer by another to produce an integer quotient (integer division)."</p>
+<p><code>rem</code> is “…the integer “left over” after dividing one integer by another to produce an integer quotient (integer division).”</p>
 
-<p><code>mod</code> stands for modulus or modulo operation which is defined as "… the operation that produces such a remainder when given a dividend and divisor."</p>
+<p><code>mod</code> stands for modulus or modulo operation which is defined as “… the operation that produces such a remainder when given a dividend and divisor.”</p>
 
-<p>Sounds like <code>rem</code> and <code>mod</code> do the same thing, so what's the difference?</p>
+<p>Sounds like <code>rem</code> and <code>mod</code> do the same thing, so what’s the difference?</p>
 
 <p>Turns out this question is asked a lot in programming because functions for remainder and modulus vary between language. Language designers had to make a choice about how to implement these mathematical concepts.</p>
 
-<p>I don't remember learning multiple ways to calculate a remainder in school so I did some digging. The following is a summary of what I learned. I tried to keep it easy-to-understand and memorable so that I won't forget it a second time.</p>
+<p>I don’t remember learning multiple ways to calculate a remainder in school so I did some digging. The following is a summary of what I learned. I tried to keep it easy-to-understand and memorable so that I won’t forget it a second time.</p>
 
 <p>You can skip the refresher on integer division if you just want to know what the difference is between <code>rem</code> and <code>mod</code> in Clojure.</p>
 
@@ -202,9 +202,9 @@ Not only that, we get different results <em>within</em> <code>rem</code> and <co
 
 <h2 id="why-do-we-divide-things">Why do we divide things?</h2>
 
-<p>Division is dividing something up into equal parts. 10 pies divided amongst 4 people means each person can have 2.5 pies. That's great. We're all happy.</p>
+<p>Division is dividing something up into equal parts. 10 pies divided amongst 4 people means each person can have 2.5 pies. That’s great. We’re all happy.</p>
 
-<p>Sometimes the objects we're dividing aren't useful when we cut them into parts. Half a pie is still tasty but half an iPhone is not usable.</p>
+<p>Sometimes the objects we’re dividing aren’t useful when we cut them into parts. Half a pie is still tasty but half an iPhone is not usable.</p>
 
 <p>If we have 5 iPhones and 3 people, how many iPhones can each person have so that each person has the same number of iPhones?</p>
 
@@ -242,9 +242,9 @@ Not only that, we get different results <em>within</em> <code>rem</code> and <co
 
 <h2 id="negative-remainders">Negative remainders</h2>
 
-<p>When we're out in the world dividing up pies and iPhones, the leftover, or remainder, is always positive. We don't have negative pies or iPhones, or do we?</p>
+<p>When we’re out in the world dividing up pies and iPhones, the leftover, or remainder, is always positive. We don’t have negative pies or iPhones, or do we?</p>
 
-<p>Wouldn't it also be true to say, that each person could have 2 iPhones but one person would have to give up one of their two iPhones?</p>
+<p>Wouldn’t it also be true to say, that each person could have 2 iPhones but one person would have to give up one of their two iPhones?</p>
 
 <blockquote>
   <p>(2 iPhones per person * 3 people) + (-1 iPhone) = 5 iPhones.</p>
@@ -262,13 +262,13 @@ Not only that, we get different results <em>within</em> <code>rem</code> and <co
 
 <p>This is conceptually possible (being short an iPhone) and mathematically correct.</p>
 
-<p>I don't know about you, but I'd prefer to tell my friends they can each have one iPhone and hide the extras rather than tell them they are entitled to two as long as we agree that someone won't get their second.</p>
+<p>I don’t know about you, but I’d prefer to tell my friends they can each have one iPhone and hide the extras rather than tell them they are entitled to two as long as we agree that someone won’t get their second.</p>
 
-<p>There are endless other solutions that are less useful. For example, 5 / 3 = 20, remainder -55. I give each of you 20 iPhones but altogether you've got to give me 55 of them back? It works on paper but…</p>
+<p>There are endless other solutions that are less useful. For example, 5 / 3 = 20, remainder -55. I give each of you 20 iPhones but altogether you’ve got to give me 55 of them back? It works on paper but…</p>
 
 <h2 id="choosing-a-solution">Choosing a Solution</h2>
 
-<p>I've been talking about iPhones because I want to convince you that there are many possible solutions. We don't think about it much because we have a preference for certain solutions over others.</p>
+<p>I’ve been talking about iPhones because I want to convince you that there are many possible solutions. We don’t think about it much because we have a preference for certain solutions over others.</p>
 
 <p>How do you choose a solution?</p>
 
@@ -276,7 +276,7 @@ Not only that, we get different results <em>within</em> <code>rem</code> and <co
 
 <ul>
   <li>positive (To maintain peace and keep things simple.)</li>
-  <li>small (I can't afford 60 iPhones even if I'm going to return 55.)</li>
+  <li>small (I can’t afford 60 iPhones even if I’m going to return 55.)</li>
 </ul>
 
 <p>This matches what mathematicians use to define integer division.</p>
@@ -287,14 +287,14 @@ Not only that, we get different results <em>within</em> <code>rem</code> and <co
 
 <p>We can consider a negative iPhone is an iPhone owed, lent, or given away.</p>
 
-<p>Imagine we can construct a mega iPhone from 5 iPhones. I'll call it a MEGAPhone. I need convince my friends to lend me their iPhones so I can create a MEGAPhone.</p>
+<p>Imagine we can construct a mega iPhone from 5 iPhones. I’ll call it a MEGAPhone. I need convince my friends to lend me their iPhones so I can create a MEGAPhone.</p>
 
 <p>We could have:</p>
 
 <blockquote>
   <p>1) -5 / 3 = -1, remainder -2</p>
 
-  <p>3 people contribute 1 iPhone each and we're still 2 iPhones short for our MEGAPhone.</p>
+  <p>3 people contribute 1 iPhone each and we’re still 2 iPhones short for our MEGAPhone.</p>
 </blockquote>
 
 <p>Or maybe…</p>
@@ -315,13 +315,13 @@ Not only that, we get different results <em>within</em> <code>rem</code> and <co
   <p>4) 5 / -3 = -2, remainder -1</p>
 </blockquote>
 
-<p>Frankly, I don't know how to explain what the above equations mean in real-world terms. We'll come to a better example of a negative divisor in minute.</p>
+<p>Frankly, I don’t know how to explain what the above equations mean in real-world terms. We’ll come to a better example of a negative divisor in minute.</p>
 
 <h2 id="choosing-a-solution-again">Choosing a Solution Again</h2>
 
 <p>Which solution should I choose?</p>
 
-<p>In this example, I'd rather not be short an iPhone because the MEGAPhone isn't a MEGAPhone with just 4 loaned iPhones.</p>
+<p>In this example, I’d rather not be short an iPhone because the MEGAPhone isn’t a MEGAPhone with just 4 loaned iPhones.</p>
 
 <p>That means I use either</p>
 
@@ -335,25 +335,25 @@ Not only that, we get different results <em>within</em> <code>rem</code> and <co
   <p>4) 5 / -3 = -2, remainder -1</p>
 </blockquote>
 
-<p>But imagine I can only get 1 iPhone from each friend. Then I need to know, "How many iPhones do I need to provide personally?" In that case, I want to know that I am 2 iPhones short, remainder -2.</p>
+<p>But imagine I can only get 1 iPhone from each friend. Then I need to know, “How many iPhones do I need to provide personally?” In that case, I want to know that I am 2 iPhones short, remainder -2.</p>
 
 <p>If we go back to the mathematicians, they further define integer division as returning the least <strong>absolute</strong> remainder.</p>
 
 <p>The mathematicians prefer that I ask my friends for 2 iPhones each so that I have one extra.</p>
 
-<h2 id="why-doesnt-this-sound-like-what-i-was-taught-in-school">Why doesn't this sound like what I was taught in school?</h2>
+<h2 id="why-doesnt-this-sound-like-what-i-was-taught-in-school">Why doesn’t this sound like what I was taught in school?</h2>
 
 <p>To be honest, all I remember is carrying out long division on positive integers and having a remainder.</p>
 
-<p>I can't recall anything about finding the <strong>least absolute remainder.</strong></p>
+<p>I can’t recall anything about finding the <strong>least absolute remainder.</strong></p>
 
 <p>Do you remember learning that there are multiple ways to divide a number when you can play with the remainder? Or that you should take the absolute value of your remainder?</p>
 
-<p>Let me know, I'm curious what you remember from school.</p>
+<p>Let me know, I’m curious what you remember from school.</p>
 
 <h2 id="the-difference-between-rem-and-mod-in-clojure">The difference between <code>rem</code> and <code>mod</code> in Clojure</h2>
 
-<p>I'll run a couple experiments to show the difference before I talk about it.</p>
+<p>I’ll run a couple experiments to show the difference before I talk about it.</p>
 
 <div class="language-clojure highlighter-coderay"><div class="CodeRay">
   <div class="code"><pre><span class="line-numbers"> <a href="#n1" name="n1">1</a></span><span style="color:#777">;; positive numerator, positive divisor</span>
@@ -400,7 +400,7 @@ Not only that, we get different results <em>within</em> <code>rem</code> and <co
 
 <p>Why do they act differently when the numerator and divisor have opposing signs?</p>
 
-<p>Let's investigate the source code.</p>
+<p>Let’s investigate the source code.</p>
 
 <div class="language-clojure highlighter-coderay"><div class="CodeRay">
   <div class="code"><pre><span class="line-numbers"> <a href="#n1" name="n1">1</a></span>(source <span style="color:#080;font-weight:bold">rem</span>)
@@ -428,9 +428,9 @@ Not only that, we get different results <em>within</em> <code>rem</code> and <co
 </div>
 </div>
 
-<p>Discussing the source of <code>rem</code> is beyond the scope of this article. The implementation of <code>rem</code> was set first, and <code>mod</code> was created to offer a different choice in case the definition of <code>rem</code> doesn't suit your purposes.</p>
+<p>Discussing the source of <code>rem</code> is beyond the scope of this article. The implementation of <code>rem</code> was set first, and <code>mod</code> was created to offer a different choice in case the definition of <code>rem</code> doesn’t suit your purposes.</p>
 
-<p>Let's look at how <code>mod</code> utilizes <code>rem</code> and what creates the difference.</p>
+<p>Let’s look at how <code>mod</code> utilizes <code>rem</code> and what creates the difference.</p>
 
 <div class="language-clojure highlighter-coderay"><div class="CodeRay">
   <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>(<span style="color:#080;font-weight:bold">let</span> [m (<span style="color:#080;font-weight:bold">rem</span> <span style="color:#080;font-weight:bold">num</span> div)]
@@ -476,7 +476,7 @@ Not only that, we get different results <em>within</em> <code>rem</code> and <co
 
 <p>As a result, <code>mod</code> gives us a least absolute remainder.</p>
 
-<p>I actually don't have a nice way to wrap this up. From what I can tell, <code>mod</code> aligns with Wikipedia and Wolfram Alpha, which must be the indisputably true way.</p>
+<p>I actually don’t have a nice way to wrap this up. From what I can tell, <code>mod</code> aligns with Wikipedia and Wolfram Alpha, which must be the indisputably true way.</p>
 
 <p>So, how did <code>rem</code> originate? Why can <code>mod</code> rely on this simple bit of addition to create a least absolute remainder from <code>rem</code>?</p>
 
