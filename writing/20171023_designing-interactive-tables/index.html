@@ -2,8 +2,9 @@
 <ul>
   <li><a href="/index.html">Home</a></li>
   <li><a href="/writing/index.html">Writings</a></li>
+  <li><a href="/made/index.html">Things I've Made</a></li>
 </ul>
-</div><div class="boatContainer"><svg class="boat" viewBox="0 0 153 111" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M25.5742187,39.9955765 C25.5742187,39.4457348 26.0216213,39 26.5663746,39 L59.9648437,39 L59.9648437,21.4707031 L79.2890625,21.4707031 L79.2890625,39 L85.0097781,39 C85.5566625,39 86,39.4401063 86,39.9955765 L86,65.6367188 L107.171875,65.6367188 L107.171875,91.9936743 C107.171875,92.5494527 106.718501,93 106.181664,93 L19.9902115,93 C19.4433328,93 19,92.547889 19,91.9936743 L19,66.6430444 C19,66.0872661 19.4518727,65.6367188 19.9984823,65.6367188 L24.5757364,65.6367188 C25.127183,65.6367188 25.5742187,65.1966125 25.5742187,64.6411423 L25.5742187,39.9955765 Z" id="Rectangle-2" fill="#D8D8D8"></path><path d="M-5.68434189e-14,74 C24.025113,75.6787696 24.6621094,77.4726562 59.0664062,82.5996094 C93.4707031,87.7265625 152,84.6210938 152,84.6210938 C152,84.6210938 152.232497,87.7884088 152,88.6318359 C151.767503,89.4752631 152,88.6318359 149.828125,92.5 C147.65625,96.3681641 143.806641,111 143.806641,111 L13.9726562,111 L2.1796875,84.6210938 L-5.68434189e-14,81.34375 L-5.68434189e-14,74 Z" id="Rectangle" fill="#4990E2"></path><circle fill="#A7A8AA" cx="43" cy="55" r="8"></circle><circle class="one" fill="#B2B2B2" cx="73" cy="10" r="6"></circle><circle class="two" fill="#B2B2B2" cx="73" cy="10" r="6"></circle></svg></div><div class="content-background"><div class="content-layout post"><div class="date"><p>October 23, 2017</p></div><div class="post-body"><h1 id="designing-interactive-tables-br-keyboard-navigation-and-selection">Designing interactive tables: <br /> keyboard navigation and selection</h1>
+</div><div class="boatContainer"><svg class="boat" viewBox="0 0 153 111" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M25.5742187,39.9955765 C25.5742187,39.4457348 26.0216213,39 26.5663746,39 L59.9648437,39 L59.9648437,21.4707031 L79.2890625,21.4707031 L79.2890625,39 L85.0097781,39 C85.5566625,39 86,39.4401063 86,39.9955765 L86,65.6367188 L107.171875,65.6367188 L107.171875,91.9936743 C107.171875,92.5494527 106.718501,93 106.181664,93 L19.9902115,93 C19.4433328,93 19,92.547889 19,91.9936743 L19,66.6430444 C19,66.0872661 19.4518727,65.6367188 19.9984823,65.6367188 L24.5757364,65.6367188 C25.127183,65.6367188 25.5742187,65.1966125 25.5742187,64.6411423 L25.5742187,39.9955765 Z" id="Rectangle-2" fill="#D8D8D8"></path><path d="M-5.68434189e-14,74 C24.025113,75.6787696 24.6621094,77.4726562 59.0664062,82.5996094 C93.4707031,87.7265625 152,84.6210938 152,84.6210938 C152,84.6210938 152.232497,87.7884088 152,88.6318359 C151.767503,89.4752631 152,88.6318359 149.828125,92.5 C147.65625,96.3681641 143.806641,111 143.806641,111 L13.9726562,111 L2.1796875,84.6210938 L-5.68434189e-14,81.34375 L-5.68434189e-14,74 Z" id="Rectangle" fill="#4990E2"></path><circle fill="#A7A8AA" cx="43" cy="55" r="8"></circle><circle class="one" fill="#B2B2B2" cx="73" cy="10" r="6"></circle><circle class="two" fill="#B2B2B2" cx="73" cy="10" r="6"></circle></svg></div><div class="content-background"><div class="content-layout post"><div class="date"><p>October 23, 2017</p></div><div class="post-body"><h1 id="designing-interactive-tables-br-keyboard-navigation-and-selection">Designing interactive tables: <br> keyboard navigation and selection</h1>
 
 <p>Interactive tables are an extremely useful feature of many digital products. Think Excel or Google Spreadsheets, Gmail, Quicken, Jira, and many business tools. People use these programs at home and on the job to review and operate on large amounts of data.</p>
 
@@ -14,7 +15,7 @@
 <p>Excel is a classic example of an interactive table. It’s a tool for editing and organizing data. You can select data, copy it, apply functions, and so much more.</p>
 
 <figure style="max-width: 555px">
-  <img src="spreadsheet.png" alt="" />
+  <a class="lightbox-open" href="#lightbox-1"><img src="spreadsheet.png" alt=""></a><a class="lightbox" id="lightbox-1" href="#_" aria-label="Close"><img src="spreadsheet.png" alt=""></a>
   <figcaption>A screenshot of Google Spreadsheets because it's close enough for our purposes but I talk about Excel here because it's the original program I learned from.</figcaption>
 </figure>
 
@@ -85,7 +86,7 @@
 <p>Ok, that’s a good start. We can use arrows to move a cursor around our screen so we can point at stuff. But it can be really slow to move your cursor through thousands of characters to make edits. A table helps us create chunks of information that we can organize to be more easily navigated and discovered.</p>
 
 <figure style="max-width: 555px">
-  <img src="spreadsheet_chunks.png" alt="" />
+  <a class="lightbox-open" href="#lightbox-2"><img src="spreadsheet_chunks.png" alt=""></a><a class="lightbox" id="lightbox-2" href="#_" aria-label="Close"><img src="spreadsheet_chunks.png" alt=""></a>
   <figcaption>In a this table, our data is in chunks. Instead of navigating the 180 characters in this table, we can navigate the 60 cells.</figcaption>
 </figure>
 
@@ -178,7 +179,7 @@
 <p>I want to give a shout out to Gmail which served as an example for me in my design work. You may not know this, but you can navigate pretty quickly through <a href="https://support.google.com/mail/answer/6594?co=GENIE.Platform%3DDesktop&amp;hl=en">Gmail with keyboard commands</a>. The pointer in this system is a little blue bar on the left edge of the email bar.</p>
 
 <figure style="max-width: 287px">
-  <img src="gmail_pointer.png" alt="" />
+  <a class="lightbox-open" href="#lightbox-3"><img src="gmail_pointer.png" alt=""></a><a class="lightbox" id="lightbox-3" href="#_" aria-label="Close"><img src="gmail_pointer.png" alt=""></a>
   <figcaption>Admit it, you still email yourself sometimes.</figcaption>
 </figure>
 
@@ -194,6 +195,7 @@
 </div></div></div><div class="footer"><div class="nav"><ul>
   <li><a href="/index.html">Home</a></li>
   <li><a href="/writing/index.html">Writings</a></li>
+  <li><a href="/made/index.html">Things I've Made</a></li>
 </ul>
 </div><p>Email me at: <a href="mailto:nicki@boxingindustries.com">nicki@boxingindustries.com</a></p>
 </div></body></html><footer><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
