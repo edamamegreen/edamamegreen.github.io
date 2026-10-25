@@ -1,0 +1,146 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1" name="viewport"><title>plan-trip</title><style>:root { color-scheme: light; font-family: system-ui, -apple-system, sans-serif; line-height: 1.6; }body { max-width: 50rem; margin: 0 auto; padding: 2rem 1.25rem 4rem; color: #222; background: whitesmoke; }h1, h2, h3 { line-height: 1.2; margin-top: 2rem; }h1 { margin-top: 0; }code { background: #eee9df; padding: .1em .3em; border-radius: .2em; }li { margin: .35rem 0; }</style></head><body><main><h1 id="plan-trip">Plan Trip</h1>
+
+<h2 id="establish-the-working-plan">Establish the working plan</h2>
+
+<ul>
+  <li>Treat the HTML as a living itinerary and trip record. Build the actual file after researching; do not stop at a proposed structure.</li>
+  <li>Collect trip dates, arrival/departure details, considered destinations, confirmed accommodation, interests, and transportation constraints from the request and available context. Ask only for essential missing information. Never invent a destination or trip dates to avoid asking.</li>
+  <li>For updates, read the current HTML and any exported JSON before editing. Retrieve a referenced file through its owning file service. Preserve file identity when saving an update unless the user requests a separate copy.</li>
+  <li>Treat the latest user statements and provided actuals as authoritative. Incorporate exported edits before replanning; resolve genuine conflicts explicitly rather than silently replacing edits with old suggestions.</li>
+  <li>Keep stable trip, day, stop, and activity IDs. Keep one canonical structured plan embedded in the file; derive cards, map, lists, and exports from it.</li>
+  <li>Distinguish plan status (confirmed, suggested, optional, undecided) from completion (planned, completed, skipped). A past date alone does not prove an activity happened.</li>
+  <li>Adapt scope to the request: support a city/activity-list planner without requiring accommodation, intercity travel, or hiking details that do not apply. Preserve the full trip features when relevant.</li>
+</ul>
+
+<h2 id="research-before-scheduling">Research before scheduling</h2>
+
+<p>Use current web research where useful. Prefer official operators, venues, tourism bodies, weather services, road authorities, and transit providers. Capture source URLs and checked timestamps alongside relevant claims.</p>
+
+<p>Verify:</p>
+
+<ul>
+  <li>Opening days, hours, reservation requirements, last entry, seasonal closures, and holiday exceptions for the trip dates.</li>
+  <li>Adult admission fees with currency, dated/variable pricing, required supplements, and eligibility conditions for free or discounted hours. Distinguish genuinely free entry from pay-what-you-wish and reservation requirements.</li>
+  <li>Exhibitions actually running during the visit dates, exhibition opening/closing dates, tours, special events, and free-entry windows. Verify these date-sensitive claims from official sources before building; never assume an exhibition running at research time also runs during the trip.</li>
+  <li>Road/pass restrictions, transport timetables, operating dates, lifts, and shuttle arrangements.</li>
+  <li>Realistic driving or transit times, distances where available, transfers, parking and access time. Label estimates and separate nominal travel from buffers.</li>
+  <li>Current forecasts for the relevant destination and elevation, including useful hourly detail for weather-sensitive activities.</li>
+</ul>
+
+<p>Do not imply a live check was completed when a source was inaccessible. Mark missing or conflicting information as unknown and add a useful check/task. Do not manufacture precise times, route geometry, coordinates, bookings, addresses, or weather values. Beyond a source’s forecast horizon, show “forecast unavailable” and a recheck task; label any seasonal climate context separately from forecasts.</p>
+
+<h2 id="build-a-manageable-itinerary">Build a manageable itinerary</h2>
+
+<p>Organize each day into <strong>Morning</strong>, <strong>Afternoon</strong>, and <strong>Overnight</strong>. Keep visible text concise; place secondary detail in expandable sections.</p>
+
+<ul>
+  <li>Account for fatigue on travel days. Let a long journey occupy a whole morning or afternoon. Leave breathing room and omit optional activities when needed.</li>
+  <li>Show travel explicitly between destinations, including origin → destination, mode, nominal duration, distance where available, and number of transfers for transit. Avoid assuming a routed distance from straight-line coordinates.</li>
+  <li>Include local start/end times when known, accommodation departure time, required arrival time, access/check-in buffers, and time between scheduled activities. Flag overlaps or impossible gaps. If a time cannot be determined, label it unknown rather than displaying false precision.</li>
+  <li>Use local dates and destination time zones. Label time zones on cross-zone transport; compute elapsed travel consistently. Handle overnight journeys explicitly.</li>
+  <li>Include exact destination address or start/parking point, Google Maps link, and booking references only when supplied. Keep sensitive references in the private file; do not expose them to external URL query strings.</li>
+  <li>Show day title, date, notes, weather, activities, travel legs, and actual or proposed overnight location. Distinguish past/today/future using the day’s destination time zone; refresh this state when the page is reopened.</li>
+  <li>Maintain an unscheduled activity bank, a planning checklist, and a list of unknowns. Include opening windows, location, weather suitability, and estimated duration so the user can decide which day fits an idea. Offer straightforward scheduling/unscheduling controls.</li>
+  <li>Keep tasks actionable: book accommodation, buy tickets, check a pass, confirm parking, or refresh a forecast. Support task completion and editing.</li>
+  <li>Seed the planner with a recommended schedule that balances the user’s priority ranking, geography, opening hours, special events, visit duration, and travel buffers. Avoid overly packed days and briefly explain meaningful scheduling choices.</li>
+</ul>
+
+<h2 id="present-ranked-places-and-date-availability">Present ranked places and date availability</h2>
+
+<p>For trips with a venue/activity list, include these complementary views derived from the same data as the itinerary:</p>
+
+<ul>
+  <li>A compact day-by-day table showing each candidate place’s opening hours, closures, and adult entry fees across the trip dates. Include date-specific exceptions; distinguish closed, unknown, and open. Keep the table usable on phones through a contained horizontal scroll or equivalent stacked view.</li>
+  <li>A ranked list preserving the user’s priorities, with concise summaries of what is on during the trip, official site/source links, visit duration, location, and integrated date-sensitive notes for exhibitions, free hours, tours, and events. If no ranking was supplied, clearly label the initial ranking as recommended and allow changes.</li>
+  <li>A date selector that filters the ranked list to places verified open on that date without changing the user’s schedule or priority order. Offer an all-places view and an explicit way to inspect unknown availability. Never treat unknown as confirmed open or closed; show a useful empty state when nothing is verified open.</li>
+  <li>A day-assignment control for each priority place, including an Unscheduled option. Disable dates known to be closed with a visible reason. Check exhibition-specific date ranges and event times independently of general venue opening hours. Flag unverified dates, missing reservations, or visits that do not fit the available time window.</li>
+  <li>A separate parks/outdoor-options section rather than mixing those options into the ranked indoor venue list. Keep outdoor options schedulable; show access restrictions and weather suitability where relevant.</li>
+</ul>
+
+<p>Persist rankings, selected filter date, and day assignments in localStorage and include them in JSON export/import. Keep the ranked list, availability table, assignment controls, unscheduled bank, day cards, and map synchronized. If new research makes an existing future assignment invalid, show the conflict and a suggested alternative; do not silently erase it. Preserve completed actual visits even if current opening rules differ.</p>
+
+<h2 id="include-useful-hike-details">Include useful hike details</h2>
+
+<p>For every selected hike, show trail name, trailhead/parking, distance, estimated duration, elevation gain, difficulty, loop/point-to-point shape, known trail numbers/signage, seasonal restrictions, route notes, and an AllTrails or official route link.</p>
+
+<ul>
+  <li>Identify which exact route variant the figures describe and whether they include lift access, return transport, or approach walks.</li>
+  <li>If a required lift is closed or its operation unverified, flag the dependency. Do not reuse the published duration as if the lift were operating. Research an alternative or mark the route unresolved.</li>
+  <li>Distinguish valley forecasts from summit conditions; include wind, snow/ice, or exposure implications when supported by current information.</li>
+</ul>
+
+<h2 id="create-a-robust-self-contained-html-file">Create a robust self-contained HTML file</h2>
+
+<p>Use inline CSS, inline JavaScript, inline SVG, and system fonts. The core planner must work from <code>file://</code> without a network connection. Do not require CDNs, external scripts/fonts, map tiles, browser fetches, API keys, or a build step. External navigation links are welcome. Any optional live enhancement must retain a useful offline fallback.</p>
+
+<p>Use a calm, data-dense design: off-white/neutral background, readable typography, restrained accent colors, compact day cards, clear stop-type and status labels, responsive desktop/phone layouts, and a map near the itinerary. Avoid decorative travel-blog content. Use accessible labels, keyboard-operable controls, visible focus states, and touch-friendly buttons. Do not encode meaning through color alone.</p>
+
+<h3 id="browser-editing-and-persistence">Browser editing and persistence</h3>
+
+<p>Provide controls to:</p>
+
+<ul>
+  <li>Edit day titles and notes.</li>
+  <li>Add/remove/reorder stops and assign their day/block.</li>
+  <li>Edit names, addresses, coordinates, times, travel-time notes, and useful links.</li>
+  <li>Toggle route inclusion independently of stop type.</li>
+  <li>Change stop type among activity, overnight, and transport.</li>
+  <li>Edit plan/completion status, unscheduled ideas, tasks, and unknowns.</li>
+  <li>Export the <strong>complete current plan</strong> to JSON, import JSON, and reset to the suggested seed plan.</li>
+</ul>
+
+<p>Persist every meaningful edit in <code>localStorage</code>; rerender the map and dependent views after edits. Distinguish schema version from seed revision. Use a key scoped to trip ID, schema version, and seed revision so newly delivered seed data cannot be silently hidden by an old saved draft. Preserve older keys without silently loading them into a new revision. Explain briefly that JSON export is the reliable handoff between files, browsers, devices, and chat.</p>
+
+<ul>
+  <li>Wrap storage reads/writes in error handling: some browsers restrict storage for local files. Keep the planner usable in memory, show an honest persistence status, and keep export available.</li>
+  <li>Validate imports before replacing the active plan: supported schema version, trip identity or explicit switch, required field types, unique IDs, valid references, valid dates, finite coordinates with latitude/longitude bounds, and allowed enum values. Reject invalid imports with a clear error and leave the current plan intact. Confirm before discarding unsaved changes or resetting; offer export first.</li>
+  <li>Include trip ID, schema version, seed revision, export timestamp, and all editable data in exports, including completed actuals, sources, weather snapshots, tasks, and unscheduled items. Use stable date strings and preserve Unicode.</li>
+  <li>Treat imported/user content as data: render with textContent or safe DOM creation, allow only appropriate URL protocols (normally https/http), avoid eval, and escape embedded JSON so strings containing <code>&lt;/script&gt;</code> cannot break the document. Never execute imported markup.</li>
+</ul>
+
+<h3 id="inline-route-map">Inline route map</h3>
+
+<p>Generate an inline SVG geographic/schematic map from known coordinates:</p>
+
+<ul>
+  <li>Number route stops in actual itinerary order. Use distinct labeled marker shapes/styles for activities, overnight stops, and transport.</li>
+  <li>Connect only route-included stops. Preserve repeat visits and allow markers at the same location to remain discoverable; show unscheduled options separately if displayed.</li>
+  <li>Keep labels legible and provide keyboard/click-accessible stop details and individual Google Maps links.</li>
+  <li>Label connecting lines as schematic rather than navigable road geometry. Do not infer drive time or distance from the drawing.</li>
+  <li>Handle missing/invalid coordinates, zero/one mapped stop, identical coordinates, and widely separated destinations without a broken SVG. Show unmapped stops in a list and mark missing coordinates as unknown.</li>
+  <li>Provide “Open route in Google Maps.” Use valid external directions URLs and split long or mixed-mode routes into labeled legs when waypoint or mode limitations prevent a faithful full route. Do not silently omit stops or route flight/train legs as drives.</li>
+</ul>
+
+<h3 id="embedded-weather-and-live-checks">Embedded weather and live checks</h3>
+
+<p>Embed a dated researched snapshot directly in the plan, with location/elevation, forecast dates, checked timestamp/time zone, source links, high/low or useful hourly temperatures, precipitation probability, expected conditions, and wind where useful. Mark unavailable fields explicitly. Explain significant summit/valley differences where relevant.</p>
+
+<p>On updates, refresh forecasts for remaining days. Preserve past snapshots as historical forecast snapshots, not observed weather. Date the page’s overall revision separately from weather checks. Include compact official links at the bottom for road/pass conditions, venue/lift operation, transit/shuttles, tickets and payment methods, and weather rechecks. Avoid implying the embedded forecast refreshes itself.</p>
+
+<h2 id="revise-during-the-trip">Revise during the trip</h2>
+
+<ol>
+  <li>Load the existing canonical plan and apply the latest exported JSON/user updates.</li>
+  <li>Replace superseded proposals with supplied actual activities and actual overnight locations. Preserve completed days and their notes as history; leave unconfirmed past details marked as such.</li>
+  <li>Simplify/rearrange future days; remove obsolete alternatives from active cards. Keep still-useful ideas in the unscheduled bank without presenting conflicting plans.</li>
+  <li>Recheck changed travel legs, closures, opening windows, weather, and overnight locations. Update affected sources and timestamps.</li>
+  <li>Regenerate all views from the updated data, including map, timing gaps, tasks, and unknowns. Increment the seed revision and, only when structurally necessary, the schema version.</li>
+  <li>Save the revised HTML through the appropriate persistent file workflow and give a fresh download link to the updated file. Do not claim unsent browser edits were incorporated; request the export when needed.</li>
+</ol>
+
+<h2 id="verify-and-deliver">Verify and deliver</h2>
+
+<p>Before delivery, check representative behavior in a browser/test runtime where available:</p>
+
+<ul>
+  <li>Open offline/as a local file with no external dependencies; inspect desktop and phone widths for overflow and usable editing controls.</li>
+  <li>Edit a day/stop, toggle route membership, reorder/remove/add a stop, change its type and coordinates, and verify all views update.</li>
+  <li>Verify persistence after reload, storage-denied fallback, export/import round-trip, invalid-import rejection without data loss, and reset behavior.</li>
+  <li>Verify JSON retains actuals, tasks, weather, sources, unscheduled ideas, non-ASCII names, and literal HTML-like text.</li>
+  <li>Check map edge cases, route order, date/time-zone classification, travel buffers, and completed-day preservation after an update.</li>
+  <li>For activity planners, check date-filter results against the availability table, disabled closed dates, unknown availability, exhibition/event date boundaries, free-hour conditions, fees, priority-order persistence, unscheduling, and the separate outdoor section. Confirm filtering alone never mutates assignments.</li>
+  <li>Check that links are supported, researched claims have sources/check times, and unverified claims remain labeled.</li>
+</ul>
+
+<p>Report material validation limits honestly. Deliver the actual <code>.html</code> file with a download link and a short note about export/import for future updates. Save/update the file persistently when supported. Do not substitute a hosted website, outline, screenshot, or instructions for the downloadable self-contained planner unless requested.</p>
+</main></body></html>

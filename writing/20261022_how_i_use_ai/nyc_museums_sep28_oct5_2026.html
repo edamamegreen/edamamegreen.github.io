@@ -1,0 +1,2041 @@
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <title>NYC Museums &amp; Places — Sep 28–Oct 5, 2026</title>
+    <style>
+      :root {
+        --bg: #f6f4ef;
+        --paper: #fffdf9;
+        --ink: #1f2a2a;
+        --muted: #66706d;
+        --accent: #6e3f2d;
+        --link: #315f72;
+        --line: #ddd7cd;
+        --closed: #eeeae4;
+        --special: #eef4e8;
+        --note: #f3eadf;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font:
+          16px/1.5 system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
+      }
+      main {
+        max-width: 1180px;
+        margin: 0 auto;
+        padding: 40px 20px 72px;
+      }
+      header {
+        margin-bottom: 28px;
+      }
+      h1 {
+        font-size: clamp(2rem, 4vw, 3.6rem);
+        line-height: 1.05;
+        margin: 0 0 10px;
+        letter-spacing: -0.03em;
+      }
+      h2 {
+        font-size: 1.65rem;
+        margin: 44px 0 16px;
+      }
+      h3 {
+        margin: 0;
+        font-size: 1.07rem;
+      }
+      p {
+        margin: 0;
+      }
+      a {
+        color: var(--link);
+        text-decoration-thickness: 1px;
+        text-underline-offset: 2px;
+      }
+      a:hover {
+        text-decoration-thickness: 2px;
+      }
+      .museum-link {
+        color: var(--ink);
+        font-weight: 750;
+        text-decoration: none;
+      }
+      .museum-link:hover {
+        color: var(--link);
+        text-decoration: underline;
+      }
+      .sub {
+        color: var(--muted);
+        max-width: 820px;
+      }
+      .legend {
+        display: flex;
+        gap: 18px;
+        flex-wrap: wrap;
+        color: var(--muted);
+        font-size: 0.92rem;
+        margin: 16px 0;
+      }
+      .dot {
+        display: inline-block;
+        width: 11px;
+        height: 11px;
+        border-radius: 3px;
+        margin-right: 6px;
+        vertical-align: -1px;
+        border: 1px solid #d3cec5;
+      }
+      .dot.closed {
+        background: var(--closed);
+      }
+      .dot.special {
+        background: var(--special);
+      }
+      .table-wrap {
+        overflow: auto;
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.03);
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        min-width: 1050px;
+      }
+      th,
+      td {
+        padding: 11px 12px;
+        border-bottom: 1px solid var(--line);
+        border-right: 1px solid var(--line);
+        text-align: center;
+        white-space: nowrap;
+        font-size: 0.93rem;
+      }
+      thead th {
+        position: sticky;
+        top: 0;
+        background: #f0ece4;
+        z-index: 2;
+        font-weight: 700;
+      }
+      tbody th {
+        position: sticky;
+        left: 0;
+        background: var(--paper);
+        text-align: left;
+        z-index: 1;
+        min-width: 250px;
+      }
+      tr:last-child th,
+      tr:last-child td {
+        border-bottom: none;
+      }
+      th:last-child,
+      td:last-child {
+        border-right: none;
+      }
+      td.closed {
+        background: var(--closed);
+        color: #827c73;
+      }
+      td.special {
+        background: var(--special);
+        font-weight: 700;
+      }
+      .rank-toolbar {
+        display: flex;
+        align-items: end;
+        gap: 16px;
+        flex-wrap: wrap;
+        margin: 0 0 16px;
+      }
+      .rank-toolbar label {
+        display: grid;
+        gap: 6px;
+        font-weight: 650;
+      }
+      .rank-toolbar select {
+        font: inherit;
+        padding: 9px 36px 9px 11px;
+        border: 1px solid var(--line);
+        border-radius: 9px;
+        background: var(--paper);
+        color: var(--ink);
+      }
+      .filter-count {
+        color: var(--muted);
+        font-size: 0.93rem;
+        padding-bottom: 8px;
+      }
+      .rank-list {
+        display: grid;
+        gap: 12px;
+      }
+      .rank-card {
+        display: grid;
+        grid-template-columns: 46px 1fr;
+        gap: 14px;
+        align-items: start;
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        padding: 16px;
+      }
+      .rank-card[hidden] {
+        display: none;
+      }
+      .rank-num {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        background: var(--ink);
+        color: white;
+        font-weight: 700;
+      }
+      .rank-heading {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-bottom: 8px;
+      }
+      .date-note {
+        font-size: 0.86rem;
+        color: var(--accent);
+        background: var(--note);
+        border-radius: 8px;
+        padding: 7px 9px;
+        margin-bottom: 10px;
+        display: inline-block;
+      }
+      .date-note a {
+        font-weight: 650;
+      }
+      .rank-card p,
+      .outdoor-card p {
+        color: #4f5956;
+      }
+      .open-on {
+        font-size: 0.84rem;
+        color: var(--muted);
+        margin-top: 9px;
+      }
+      .outdoor-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 12px;
+      }
+      .outdoor-card {
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        padding: 16px;
+      }
+      .callout {
+        background: #efe6dc;
+        border-left: 4px solid var(--accent);
+        padding: 15px 17px;
+        border-radius: 8px;
+        margin-top: 20px;
+      }
+      small {
+        color: var(--muted);
+      }
+      @media (max-width: 640px) {
+        main {
+          padding: 24px 12px 48px;
+        }
+        .rank-card {
+          grid-template-columns: 36px 1fr;
+          padding: 13px;
+        }
+        .rank-num {
+          width: 32px;
+          height: 32px;
+        }
+      }
+      @media print {
+        body {
+          background: white;
+        }
+        main {
+          max-width: none;
+          padding: 0;
+        }
+        .table-wrap,
+        .rank-card,
+        .outdoor-card {
+          box-shadow: none;
+        }
+        .rank-toolbar {
+          display: none;
+        }
+        .rank-card[hidden] {
+          display: grid;
+        }
+      }
+
+      .fee {
+        font-weight: 500;
+        color: var(--muted);
+        font-size: 0.84rem;
+      }
+      .rank-fee {
+        font-size: 0.8rem;
+        color: var(--muted);
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 2px 8px;
+        background: #faf8f3;
+      }
+
+      #priorityPlanner {
+        scroll-margin-top: 20px;
+      }
+      .planner-intro {
+        color: var(--muted);
+        max-width: 850px;
+        margin-bottom: 14px;
+      }
+      .planner-actions {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        flex-wrap: wrap;
+        margin: 0 0 16px;
+      }
+      .planner-actions button {
+        font: inherit;
+        font-weight: 700;
+        border: 1px solid var(--ink);
+        background: var(--ink);
+        color: white;
+        border-radius: 9px;
+        padding: 9px 12px;
+        cursor: pointer;
+      }
+      .planner-actions button.secondary {
+        background: var(--paper);
+        color: var(--ink);
+        border-color: var(--line);
+      }
+      #plannerStatus {
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+      .planner-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 12px;
+      }
+      .day-plan {
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        min-width: 0;
+        overflow: hidden;
+      }
+      .day-plan.empty {
+        opacity: 0.68;
+      }
+      .day-head {
+        padding: 11px 13px;
+        background: #f0ece4;
+        border-bottom: 1px solid var(--line);
+        display: flex;
+        justify-content: space-between;
+        gap: 8px;
+        align-items: baseline;
+      }
+      .day-count {
+        font-size: 0.8rem;
+        color: var(--muted);
+      }
+      .day-items {
+        padding: 10px;
+        display: grid;
+        gap: 9px;
+      }
+      .plan-item {
+        border: 1px solid var(--line);
+        border-radius: 9px;
+        padding: 10px;
+        background: #fff;
+      }
+      .plan-item-title {
+        font-weight: 750;
+        margin-bottom: 4px;
+      }
+      .plan-hours {
+        font-size: 0.82rem;
+        color: var(--accent);
+        font-weight: 700;
+        margin-bottom: 5px;
+      }
+      .plan-reason {
+        font-size: 0.84rem;
+        color: var(--muted);
+        line-height: 1.35;
+      }
+      .empty-note {
+        padding: 14px;
+        color: var(--muted);
+        font-size: 0.88rem;
+      }
+      .planner-edit {
+        margin-top: 14px;
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        padding: 10px 12px;
+      }
+      .planner-edit summary {
+        cursor: pointer;
+        font-weight: 700;
+      }
+      .assignment-list {
+        display: grid;
+        gap: 8px;
+        margin-top: 12px;
+      }
+      .assignment-row {
+        display: grid;
+        grid-template-columns: minmax(160px, 1fr) minmax(150px, 220px);
+        gap: 12px;
+        align-items: center;
+      }
+      .assignment-row label {
+        font-weight: 650;
+      }
+      .assignment-row select {
+        font: inherit;
+        width: 100%;
+        padding: 8px 10px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: white;
+        color: var(--ink);
+      }
+      @media (max-width: 640px) {
+        .assignment-row {
+          grid-template-columns: 1fr;
+        }
+        .planner-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header>
+        <h1>NYC museums &amp; places</h1>
+        <p class="sub">
+          Opening hours, adult admission, and a ranked shortlist for Monday Sep.
+          28 through Monday Oct. 5, 2026. Museum names, exhibitions, special
+          hours, and tours link to source pages where available.
+        </p>
+      </header>
+      <section>
+        <h2>Opening hours</h2>
+        <div class="legend">
+          <span><span class="dot closed"></span>Closed / unavailable</span>
+          <span
+            ><span class="dot special"></span>Late hours, free admission, or
+            special opening</span
+          >
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Place <span class="fee">(adult admission)</span></th>
+                <th>Mon 9/28</th>
+                <th>Tue 9/29</th>
+                <th>Wed 9/30</th>
+                <th>Thu 10/1</th>
+                <th>Fri 10/2</th>
+                <th>Sat 10/3</th>
+                <th>Sun 10/4</th>
+                <th>Mon 10/5</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">
+                  Nicholas Roerich Museum <span class="fee">(Free)</span>
+                </th>
+                <td class="closed">Closed</td>
+                <td class="">12–4</td>
+                <td class="">12–4</td>
+                <td class="">12–4</td>
+                <td class="">12–4</td>
+                <td class="">12–5</td>
+                <td class="">12–5</td>
+                <td class="closed">Closed</td>
+              </tr>
+              <tr>
+                <th scope="row">
+                  The New York Historical <span class="fee">($24 adult)</span>
+                </th>
+                <td class="closed">Closed</td>
+                <td class="">11–5</td>
+                <td class="">11–5</td>
+                <td class="">11–5</td>
+                <td class="special">11–8</td>
+                <td class="">11–5</td>
+                <td class="">11–5</td>
+                <td class="closed">Closed</td>
+              </tr>
+              <tr>
+                <th scope="row">
+                  American Museum of Natural History
+                  <span class="fee">($37 adult; NY residents PWYW)</span>
+                </th>
+                <td class="">10–5:30</td>
+                <td class="">10–5:30</td>
+                <td class="">10–5:30</td>
+                <td class="">10–5:30</td>
+                <td class="">10–5:30</td>
+                <td class="">10–5:30</td>
+                <td class="">10–5:30</td>
+                <td class="">10–5:30</td>
+              </tr>
+              <tr>
+                <th scope="row">
+                  Brooklyn Museum
+                  <span class="fee">(Suggested $20; Iris van Herpen $30)</span>
+                </th>
+                <td class="closed">Closed</td>
+                <td class="closed">Closed</td>
+                <td class="">11–6</td>
+                <td class="">11–6</td>
+                <td class="special">11–8</td>
+                <td class="special">11–8</td>
+                <td class="">11–6</td>
+                <td class="closed">Closed</td>
+              </tr>
+              <tr>
+                <th scope="row">
+                  Museum at FIT <span class="fee">(Free)</span>
+                </th>
+                <td class="closed">Closed</td>
+                <td class="closed">Closed</td>
+                <td class="">12–8</td>
+                <td class="">12–8</td>
+                <td class="">12–8</td>
+                <td class="">10–5</td>
+                <td class="">10–5</td>
+                <td class="closed">Closed</td>
+              </tr>
+              <tr>
+                <th scope="row">
+                  Studio Museum in Harlem
+                  <span class="fee">(Suggested $16; Sun free)</span>
+                </th>
+                <td class="closed">Closed</td>
+                <td class="closed">Closed</td>
+                <td class="">11–6</td>
+                <td class="">11–6</td>
+                <td class="special">11–9</td>
+                <td class="">11–6</td>
+                <td class="">11–6</td>
+                <td class="closed">Closed</td>
+              </tr>
+              <tr>
+                <th scope="row">
+                  Guggenheim <span class="fee">($16 adult)</span>
+                </th>
+                <td class="">10:30–5:30</td>
+                <td class="">10:30–5:30</td>
+                <td class="">10:30–5:30</td>
+                <td class="">10:30–5:30</td>
+                <td class="">10:30–5:30</td>
+                <td class="">10:30–5:30</td>
+                <td class="">10:30–5:30</td>
+                <td class="">10:30–5:30</td>
+              </tr>
+              <tr>
+                <th scope="row">
+                  Morgan Library &amp; Museum
+                  <span class="fee">($25 adult; Fri 5–8 free)</span>
+                </th>
+                <td class="closed">Closed</td>
+                <td class="">10:30–5</td>
+                <td class="">10:30–5</td>
+                <td class="">10:30–5</td>
+                <td class="special">10:30–8</td>
+                <td class="">10:30–5</td>
+                <td class="">10:30–5</td>
+                <td class="closed">Closed</td>
+              </tr>
+              <tr>
+                <th scope="row">
+                  Noguchi Museum
+                  <span class="fee">($16 adult; Oct 2 free)</span>
+                </th>
+                <td class="closed">Closed</td>
+                <td class="closed">Closed</td>
+                <td class="">11–6</td>
+                <td class="">11–6</td>
+                <td class="special">11–6, free</td>
+                <td class="">11–6</td>
+                <td class="">11–6</td>
+                <td class="closed">Closed</td>
+              </tr>
+              <tr>
+                <th scope="row">
+                  Center for Architecture
+                  <span class="fee">(Free galleries)</span>
+                </th>
+                <td class="closed">Galleries closed / installation</td>
+                <td class="closed">Galleries closed / installation</td>
+                <td class="closed">Galleries closed / installation</td>
+                <td class="special">6–8 opening</td>
+                <td class="special">9–8</td>
+                <td class="">11–5</td>
+                <td class="closed">Closed</td>
+                <td class="special">9–8</td>
+              </tr>
+              <tr>
+                <th scope="row">
+                  Cooper Hewitt <span class="fee">($10 adult (reduced))</span>
+                </th>
+                <td class="">10–6</td>
+                <td class="">10–6</td>
+                <td class="">10–6</td>
+                <td class="">10–6</td>
+                <td class="">10–6</td>
+                <td class="">10–6</td>
+                <td class="">10–6</td>
+                <td class="">10–6</td>
+              </tr>
+              <tr>
+                <th scope="row">
+                  Grolier Club <span class="fee">(Free)</span>
+                </th>
+                <td class="">10–5</td>
+                <td class="">10–5</td>
+                <td class="">10–5</td>
+                <td class="">10–5</td>
+                <td class="">10–5</td>
+                <td class="">10–5</td>
+                <td class="closed">Closed</td>
+                <td class="">10–5</td>
+              </tr>
+              <tr>
+                <th scope="row">
+                  Mmuseumm <span class="fee">(No listed admission fee)</span>
+                </th>
+                <td class="closed">Closed</td>
+                <td class="closed">Closed</td>
+                <td class="closed">Closed</td>
+                <td class="closed">Closed</td>
+                <td class="closed">Closed</td>
+                <td class="">11–6</td>
+                <td class="">11–6</td>
+                <td class="closed">Closed</td>
+              </tr>
+              <tr>
+                <th scope="row">
+                  Whitney Museum of American Art
+                  <span class="fee">($30 adult; Fri 5–10 free)</span>
+                </th>
+                <td class="">10:30–6</td>
+                <td class="closed">Closed</td>
+                <td class="">10:30–6</td>
+                <td class="">10:30–6</td>
+                <td class="special">10:30–10</td>
+                <td class="">10:30–6</td>
+                <td class="">10:30–6</td>
+                <td class="">10:30–6</td>
+              </tr>
+              <tr>
+                <th scope="row">
+                  International Center of Photography (ICP)
+                  <span class="fee">($18 adult)</span>
+                </th>
+                <td class="">10:30–6:30</td>
+                <td class="">10:30–6:30</td>
+                <td class="">10:30–6:30</td>
+                <td class="">10:30–8</td>
+                <td class="">10:30–6:30</td>
+                <td class="">10:30–6:30</td>
+                <td class="">10:30–6:30</td>
+                <td class="">10:30–6:30</td>
+              </tr>
+              <tr>
+                <th scope="row">
+                  New York Transit Museum <span class="fee">($10 adult)</span>
+                </th>
+                <td class="closed">Closed</td>
+                <td class="closed">Closed</td>
+                <td class="">10–4</td>
+                <td class="">10–4</td>
+                <td class="">10–4</td>
+                <td class="">10–4</td>
+                <td class="">10–4</td>
+                <td class="closed">Closed</td>
+              </tr>
+              <tr>
+                <th scope="row">Central Park</th>
+                <td class="">6am–1am</td>
+                <td class="">6–1</td>
+                <td class="">6–1</td>
+                <td class="">6–1</td>
+                <td class="">6–1</td>
+                <td class="">6–1</td>
+                <td class="">6–1</td>
+                <td class="">6–1</td>
+              </tr>
+              <tr>
+                <th scope="row">Green-Wood Cemetery</th>
+                <td class="">7–7</td>
+                <td class="">7–7</td>
+                <td class="">7–7</td>
+                <td class="">8–5</td>
+                <td class="">8–5</td>
+                <td class="">8–5</td>
+                <td class="">8–5</td>
+                <td class="">8–5</td>
+              </tr>
+              <tr>
+                <th scope="row">Prospect Park</th>
+                <td class="">6am–1am</td>
+                <td class="">6–1</td>
+                <td class="">6–1</td>
+                <td class="">6–1</td>
+                <td class="">6–1</td>
+                <td class="">6–1</td>
+                <td class="">6–1</td>
+                <td class="">6–1</td>
+              </tr>
+              <tr>
+                <th scope="row">Brooklyn Bridge Park</th>
+                <td class="">6am–1am</td>
+                <td class="">6–1</td>
+                <td class="">6–1</td>
+                <td class="">6–1</td>
+                <td class="">6–1</td>
+                <td class="">6–1</td>
+                <td class="">6–1</td>
+                <td class="">6–1</td>
+              </tr>
+              <tr>
+                <th scope="row">High Line</th>
+                <td class="">7–10</td>
+                <td class="">7–10</td>
+                <td class="">7–10</td>
+                <td class="">7–10</td>
+                <td class="">7–10</td>
+                <td class="">7–10</td>
+                <td class="">7–10</td>
+                <td class="">7–10</td>
+              </tr>
+              <tr>
+                <th scope="row">Roosevelt Island / Four Freedoms Park</th>
+                <td class="">9–7</td>
+                <td class="closed">Closed</td>
+                <td class="">9–7</td>
+                <td class="">9–5</td>
+                <td class="">9–5</td>
+                <td class="">9–5</td>
+                <td class="">9–5</td>
+                <td class="">9–5</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout">
+          <strong>Useful timing:</strong> ICP’s two large summer exhibitions end
+          today, Sep. 28. Thursday Oct. 1 is the Center for Architecture
+          opening. Friday Oct. 2 has several strong free/late-hour options,
+          including Noguchi, the Morgan, and the Whitney. Saturday Oct. 3 is the
+          strongest Brooklyn Museum day and also has the Transit Museum’s
+          vintage-train ride to Green-Wood.
+        </div>
+      </section>
+
+      <section id="priorityPlanner">
+        <h2>Your priority itinerary</h2>
+        <p class="planner-intro">
+          A starting plan for the nine places you said matter most. Change any
+          museum’s day and the day-by-day plan reorganizes itself automatically.
+          Your choices are saved in this browser.
+        </p>
+        <div class="planner-actions">
+          <button id="resetPlan" type="button">Reset to suggestion</button>
+          <button class="secondary" id="clearPlan" type="button">
+            Clear plan
+          </button>
+          <span aria-live="polite" id="plannerStatus"></span>
+        </div>
+        <div class="planner-grid" id="plannerGrid"></div>
+        <details class="planner-edit">
+          <summary>Edit assignments directly</summary>
+          <div class="assignment-list" id="assignmentList"></div>
+        </details>
+      </section>
+      <section>
+        <h2>Ranked: what’s on</h2>
+        <div class="rank-toolbar">
+          <label for="dateFilter">
+            Show places open on
+            <select id="dateFilter">
+              <option value="all">All dates</option>
+              <option value="0">Mon 9/28</option>
+              <option value="1">Tue 9/29</option>
+              <option value="2">Wed 9/30</option>
+              <option value="3">Thu 10/1</option>
+              <option value="4">Fri 10/2</option>
+              <option value="5">Sat 10/3</option>
+              <option value="6">Sun 10/4</option>
+              <option value="7">Mon 10/5</option>
+            </select>
+          </label>
+          <div class="filter-count" id="filterCount">16 places shown</div>
+        </div>
+        <div class="rank-list" id="rankList">
+          <article class="rank-card" data-open-days="2,3,4,5,6">
+            <div class="rank-num">1</div>
+            <div>
+              <div class="rank-heading">
+                <h3>
+                  <a
+                    class="museum-link"
+                    href="https://www.brooklynmuseum.org/"
+                    rel="noopener"
+                    target="_blank"
+                    >Brooklyn Museum <span aria-hidden="true">↗</span></a
+                  >
+                </h3>
+                <span class="rank-fee">Suggested $20; Iris van Herpen $30</span>
+              </div>
+              <div class="date-note">
+                Best on <strong>Sat Oct. 3</strong>.
+                <a
+                  href="https://cms-files.brooklynmuseum.org/a2f049bac7f241fe39fd3b83d557a1d9872d895d.pdf"
+                  rel="noopener"
+                  target="_blank"
+                  >Manga source ↗</a
+                >
+              </div>
+              <p>
+                <a
+                  href="https://opencollection.brooklynmuseum.org/exhibitions/3450"
+                  rel="noopener"
+                  target="_blank"
+                  ><em>Iris van Herpen: Sculpting the Senses</em></a
+                >
+                pairs 140+ couture works with art, science, natural-history
+                objects, technology, biology, and movement.
+                <a
+                  href="https://cms-files.brooklynmuseum.org/98eca00ada04ccfb9b3453b297ad98d8e3841cc4.pdf"
+                  rel="noopener"
+                  target="_blank"
+                  ><em>Cézanne to Modigliani</em></a
+                >
+                and
+                <a
+                  href="https://cms-files.brooklynmuseum.org/00ed37a29ed397c189ca352df638c6ffee2f9e01.pdf"
+                  rel="noopener"
+                  target="_blank"
+                  >the Hopi kachina show</a
+                >
+                open Oct. 2;
+                <a
+                  href="https://cms-files.brooklynmuseum.org/a2f049bac7f241fe39fd3b83d557a1d9872d895d.pdf"
+                  rel="noopener"
+                  target="_blank"
+                  ><em>Art of Manga</em></a
+                >
+                opens Oct. 3.
+                <a
+                  href="https://cms-files.brooklynmuseum.org/cb34976d1f9d4926418abcc19d04b74a3df79ebd.pdf"
+                  rel="noopener"
+                  target="_blank"
+                  >Keisha Scarville’s plaza installation</a
+                >
+                is also on view in this period. That makes Oct. 3–4 the
+                strongest window.
+              </p>
+              <div class="open-on">
+                Open this week: Wed 9/30, Thu 10/1, Fri 10/2, Sat 10/3, Sun 10/4
+              </div>
+            </div>
+          </article>
+          <article class="rank-card" data-open-days="2,3,4,5,6">
+            <div class="rank-num">2</div>
+            <div>
+              <div class="rank-heading">
+                <h3>
+                  <a
+                    class="museum-link"
+                    href="https://www.noguchi.org/museum/"
+                    rel="noopener"
+                    target="_blank"
+                    >Noguchi Museum <span aria-hidden="true">↗</span></a
+                  >
+                </h3>
+                <span class="rank-fee">$16 adult; Oct 2 free</span>
+              </div>
+              <div class="date-note">
+                Fri Oct. 2 is <strong>Free First Friday</strong>.
+                <a
+                  href="https://www.noguchi.org/museum/visit/"
+                  rel="noopener"
+                  target="_blank"
+                  >Source ↗</a
+                >
+              </div>
+              <p>
+                A quiet art/design/fabrication wildcard: Noguchi’s stone, metal,
+                wood, furniture, lighting, models, and sculpture are integrated
+                with the industrial building and garden. The attraction this
+                week is primarily the permanent collection and setting rather
+                than a major temporary exhibition.
+              </p>
+              <div class="open-on">
+                Open this week: Wed 9/30, Thu 10/1, Fri 10/2, Sat 10/3, Sun 10/4
+              </div>
+            </div>
+          </article>
+          <article class="rank-card" data-open-days="3,4,5,7">
+            <div class="rank-num">3</div>
+            <div>
+              <div class="rank-heading">
+                <h3>
+                  <a
+                    class="museum-link"
+                    href="https://www.centerforarchitecture.org/"
+                    rel="noopener"
+                    target="_blank"
+                    >Center for Architecture
+                    <span aria-hidden="true">↗</span></a
+                  >
+                </h3>
+                <span class="rank-fee">Free galleries</span>
+              </div>
+              <div class="date-note">
+                Target <strong>Thu Oct. 1, 6–8pm</strong>: free fall exhibitions
+                opening night and unofficial Archtober kickoff.
+                <a
+                  href="https://calendar.aiany.org/2026/10/01/fall-exhibitions-opening-night-2/"
+                  rel="noopener"
+                  target="_blank"
+                  >Event source ↗</a
+                >
+              </div>
+              <p>
+                Three shows open together:
+                <a
+                  href="https://www.centerforarchitecture.org/exhibitions/humanist-modernity/"
+                  rel="noopener"
+                  target="_blank"
+                  ><em>Humanist modernity</em></a
+                >,
+                <a
+                  href="https://www.centerforarchitecture.org/exhibitions/"
+                  rel="noopener"
+                  target="_blank"
+                  ><em>Dark Matter U: Justice, Pedagogy, Design</em></a
+                >, and
+                <a
+                  href="https://www.centerforarchitecture.org/exhibitions/"
+                  rel="noopener"
+                  target="_blank"
+                  ><em>Why Design?</em></a
+                >. The galleries are under installation before Oct. 1. The same
+                day also has a
+                <a
+                  href="https://calendar.aiany.org/day/2026-10-01/"
+                  rel="noopener"
+                  target="_blank"
+                  >2–4pm architecture tour of the expanded New Museum</a
+                >.
+              </p>
+              <div class="open-on">
+                Open this week: Thu 10/1, Fri 10/2, Sat 10/3, Mon 10/5
+              </div>
+            </div>
+          </article>
+          <article class="rank-card" data-open-days="0,1,2,3,4,5,7">
+            <div class="rank-num">4</div>
+            <div>
+              <div class="rank-heading">
+                <h3>
+                  <a
+                    class="museum-link"
+                    href="https://www.grolierclub.org/"
+                    rel="noopener"
+                    target="_blank"
+                    >Grolier Club <span aria-hidden="true">↗</span></a
+                  >
+                </h3>
+                <span class="rank-fee">Free</span>
+              </div>
+              <div class="date-note">
+                Tue Sep. 29 has a <strong>11am–noon docent hour</strong> in both
+                exhibitions.
+                <a
+                  href="https://www.grolierclub.org/default.aspx?chgs=&amp;mtab=true&amp;noReset=yes&amp;p=.NET_Calendar&amp;qfilter=RSC15361&amp;showfilter=&amp;ssid=322423&amp;startdate=&amp;subtitle=&amp;title=&amp;view=l5"
+                  rel="noopener"
+                  target="_blank"
+                  >Calendar source ↗</a
+                >
+              </div>
+              <p>
+                <a
+                  href="https://www.grolierclub.org/default.aspx?p=.NETEventView&amp;ID=3883203&amp;qfilter=RSC15361&amp;title=&amp;type=0&amp;ssid=322423&amp;chgs="
+                  rel="noopener"
+                  target="_blank"
+                  ><em
+                    >Pioneers in Hand Papermaking: 50 Years of Innovation at
+                    Dieu Donné</em
+                  ></a
+                >
+                shows pulp painting, watermarking, stenciling, casting,
+                sculptural paper, tools, and process.
+                <a
+                  href="https://www.grolierclub.org/default.aspx?mtab=true&amp;noReset=yes&amp;p=.NET_Calendar&amp;ssid=322423&amp;view=l5"
+                  rel="noopener"
+                  target="_blank"
+                  ><em>Henry Wessel: Photographs and Books</em></a
+                >
+                examines sequencing photographs specifically for books and
+                portfolios.
+              </p>
+              <div class="open-on">
+                Open this week: Mon 9/28, Tue 9/29, Wed 9/30, Thu 10/1, Fri
+                10/2, Sat 10/3, Mon 10/5
+              </div>
+            </div>
+          </article>
+          <article class="rank-card" data-open-days="0,1,2,3,4,5,6,7">
+            <div class="rank-num">5</div>
+            <div>
+              <div class="rank-heading">
+                <h3>
+                  <a
+                    class="museum-link"
+                    href="https://www.icp.org/"
+                    rel="noopener"
+                    target="_blank"
+                    >International Center of Photography (ICP)
+                    <span aria-hidden="true">↗</span></a
+                  >
+                </h3>
+                <span class="rank-fee">$18 adult</span>
+              </div>
+              <div class="date-note">
+                <strong>Go today, Mon Sep. 28, if interested:</strong> both
+                <em>Yves Saint Laurent and Photography</em> and
+                <em>Photobooks USA 2000–25</em> close tonight.
+                <a
+                  href="https://www.icp.org/exhibitions"
+                  rel="noopener"
+                  target="_blank"
+                  >Exhibition source ↗</a
+                >
+              </div>
+              <p>
+                <a
+                  href="https://www.icp.org/exhibitions"
+                  rel="noopener"
+                  target="_blank"
+                  ><em>Yves Saint Laurent and Photography</em></a
+                >
+                looks at photography as part of the designer’s creative life and
+                public image, while <em>Photobooks USA 2000–25</em> surveys
+                twenty-five years of American photographic publishing. After
+                Sep. 28 the lineup becomes much thinner until the next major
+                shows open Oct. 15;
+                <em>Andrea Hernández Briceño: Fire Becomes Spirit</em> remains
+                through Oct. 11.
+              </p>
+              <div class="open-on">
+                Open this week: Mon 9/28, Tue 9/29, Wed 9/30, Thu 10/1, Fri
+                10/2, Sat 10/3, Sun 10/4, Mon 10/5
+              </div>
+            </div>
+          </article>
+          <article class="rank-card" data-open-days="2,3,4,5,6">
+            <div class="rank-num">6</div>
+            <div>
+              <div class="rank-heading">
+                <h3>
+                  <a
+                    class="museum-link"
+                    href="https://www.fitnyc.edu/museum/"
+                    rel="noopener"
+                    target="_blank"
+                    >Museum at FIT <span aria-hidden="true">↗</span></a
+                  >
+                </h3>
+                <span class="rank-fee">Free</span>
+              </div>
+              <div class="date-note">
+                <strong><em>Figured Cloth</em> opens Thu Oct. 1.</strong>
+                <a
+                  href="https://www.fitnyc.edu/museum/"
+                  rel="noopener"
+                  target="_blank"
+                  >Source ↗</a
+                >
+              </div>
+              <p>
+                <a
+                  href="https://www.fitnyc.edu/museum/exhibitions/doll-dressing/index.php"
+                  rel="noopener"
+                  target="_blank"
+                  ><em>Doll Dressing</em></a
+                >
+                explores the two-way relationship between dolls and fashion,
+                from dolls spreading new styles to modern baby-doll and
+                paper-doll aesthetics. From Oct. 1,
+                <a
+                  href="https://www.fitnyc.edu/museum/"
+                  rel="noopener"
+                  target="_blank"
+                  ><em>Figured Cloth: From Sketch to Jacquard</em></a
+                >
+                adds student-designed jacquard textiles moving from hand-drawn
+                motifs through weaving software into finished fabric.
+              </p>
+              <div class="open-on">
+                Open this week: Wed 9/30, Thu 10/1, Fri 10/2, Sat 10/3, Sun 10/4
+              </div>
+            </div>
+          </article>
+          <article class="rank-card" data-open-days="2,3,4,5,6">
+            <div class="rank-num">7</div>
+            <div>
+              <div class="rank-heading">
+                <h3>
+                  <a
+                    class="museum-link"
+                    href="https://www.nytransitmuseum.org/"
+                    rel="noopener"
+                    target="_blank"
+                    >New York Transit Museum
+                    <span aria-hidden="true">↗</span></a
+                  >
+                </h3>
+                <span class="rank-fee">$10 adult</span>
+              </div>
+              <div class="date-note">
+                Open Wed–Sun 10–4. On <strong>Sat Oct. 3, 2–7pm</strong> there
+                is a separate-ticket
+                <strong>vintage train ride to Green-Wood Cemetery</strong> ($60
+                adult).
+                <a
+                  href="https://www.nytransitmuseum.org/programs/"
+                  rel="noopener"
+                  target="_blank"
+                  >Program source ↗</a
+                >
+              </div>
+              <p>
+                <a
+                  href="https://www.nytransitmuseum.org/exhibits/"
+                  rel="noopener"
+                  target="_blank"
+                  ><em>50 Years of Stories</em></a
+                >
+                mines the archive for unusual experiments, proposals, and
+                personalities from NYC transit history;
+                <em>FAREwell, MetroCard</em> covers the card’s technology,
+                rollout, graphic identity, and cultural life;
+                <em>Ticket to Ride</em> traces fare collection; and the platform
+                level contains twenty vintage subway and elevated cars dating
+                back to 1907. The museum currently notes an A/C outage in the
+                back mezzanine galleries and Education Center.
+              </p>
+              <div class="open-on">
+                Open this week: Wed 9/30, Thu 10/1, Fri 10/2, Sat 10/3, Sun 10/4
+              </div>
+            </div>
+          </article>
+          <article class="rank-card" data-open-days="0,1,2,3,4,5,6,7">
+            <div class="rank-num">8</div>
+            <div>
+              <div class="rank-heading">
+                <h3>
+                  <a
+                    class="museum-link"
+                    href="https://www.cooperhewitt.org/"
+                    rel="noopener"
+                    target="_blank"
+                    >Cooper Hewitt <span aria-hidden="true">↗</span></a
+                  >
+                </h3>
+                <span class="rank-fee">$10 adult (reduced)</span>
+              </div>
+              <div class="date-note">
+                The <strong>third floor is temporarily closed</strong> and the
+                <strong>garden is closed Sep. 28–Oct. 5</strong>; admission is
+                reduced.
+                <a
+                  href="https://www.cooperhewitt.org/visit/plan-your-visit/"
+                  rel="noopener"
+                  target="_blank"
+                  >Visit source ↗</a
+                >
+              </div>
+              <p>
+                <a
+                  href="https://www.cooperhewitt.org/exhibition/design-across-time/"
+                  rel="noopener"
+                  target="_blank"
+                  ><em>Design Across Time</em></a
+                >
+                spans product, graphic, digital, textile, fashion, furniture,
+                wallcoverings, and architecture, organized around things
+                designers do—play, tweak, repeat, transform, show off, and
+                simplify.
+                <a
+                  href="https://www.cooperhewitt.org/visit/plan-your-visit/"
+                  rel="noopener"
+                  target="_blank"
+                  >Pay-what-you-wish is 5–6pm daily.</a
+                >
+              </p>
+              <div class="open-on">
+                Open this week: Mon 9/28, Tue 9/29, Wed 9/30, Thu 10/1, Fri
+                10/2, Sat 10/3, Sun 10/4, Mon 10/5
+              </div>
+            </div>
+          </article>
+          <article class="rank-card" data-open-days="1,2,3,4,5,6">
+            <div class="rank-num">9</div>
+            <div>
+              <div class="rank-heading">
+                <h3>
+                  <a
+                    class="museum-link"
+                    href="https://www.themorgan.org/"
+                    rel="noopener"
+                    target="_blank"
+                    >Morgan Library &amp; Museum
+                    <span aria-hidden="true">↗</span></a
+                  >
+                </h3>
+                <span class="rank-fee">$25 adult; Fri 5–8 free</span>
+              </div>
+              <div class="date-note">
+                Go by <strong>Sun Oct. 4</strong> if you want <em>Tarot!</em>;
+                that is its final day.
+                <a
+                  href="https://www.themorgan.org/exhibitions/tarot"
+                  rel="noopener"
+                  target="_blank"
+                  >Tarot source ↗</a
+                >
+              </div>
+              <p>
+                <a
+                  href="https://www.themorgan.org/exhibitions/tarot"
+                  rel="noopener"
+                  target="_blank"
+                  ><em>Tarot! Renaissance Symbols, Modern Visions</em></a
+                >
+                traces tarot from a fifteenth-century Italian courtly card game
+                into occult imagery and modern artistic vocabulary.
+                <a
+                  href="https://www.themorgan.org/exhibitions/hujar-contact"
+                  rel="noopener"
+                  target="_blank"
+                  ><em>Hujar: Contact</em></a
+                >
+                uses 110+ contact sheets to reveal Peter Hujar’s shooting and
+                editing process, while
+                <a
+                  href="https://www.themorgan.org/exhibitions/current"
+                  rel="noopener"
+                  target="_blank"
+                  ><em>Friends Who Came to See Me</em></a
+                >
+                focuses on drawings from John Ashbery’s collection. There is
+                also a
+                <a
+                  href="https://www.themorgan.org/programs/morgan-after-hours-divine-splendor"
+                  rel="noopener"
+                  target="_blank"
+                  >ticketed Morgan After Hours on Thu Oct. 1, 6–9pm</a
+                >. The medieval blockbook exhibition
+                <em>Graphic Devotions</em> does not open until November.
+              </p>
+              <div class="open-on">
+                Open this week: Tue 9/29, Wed 9/30, Thu 10/1, Fri 10/2, Sat
+                10/3, Sun 10/4
+              </div>
+            </div>
+          </article>
+          <article class="rank-card" data-open-days="0,2,3,4,5,6,7">
+            <div class="rank-num">10</div>
+            <div>
+              <div class="rank-heading">
+                <h3>
+                  <a
+                    class="museum-link"
+                    href="https://whitney.org/"
+                    rel="noopener"
+                    target="_blank"
+                    >Whitney Museum of American Art
+                    <span aria-hidden="true">↗</span></a
+                  >
+                </h3>
+                <span class="rank-fee">$30 adult; Fri 5–10 free</span>
+              </div>
+              <div class="date-note">
+                <strong>Fri Oct. 2, 5–10pm is free</strong> (advance ticket
+                recommended). The Biennial is in its final partial-view weeks.
+                <a
+                  href="https://whitney.org/visit/free-admission"
+                  rel="noopener"
+                  target="_blank"
+                  >Free Friday source ↗</a
+                >
+                ·
+                <a
+                  href="https://whitney.org/events"
+                  rel="noopener"
+                  target="_blank"
+                  >Tour calendar ↗</a
+                >
+              </div>
+              <p>
+                <a
+                  href="https://whitney.org/exhibitions/2026-Biennial"
+                  rel="noopener"
+                  target="_blank"
+                  ><em>Whitney Biennial 2026</em></a
+                >
+                is now only on Floor 6 and runs there through Oct. 12, with work
+                by 56 artists, duos, and collectives responding to contemporary
+                American life and its global entanglements.
+                <a
+                  href="https://whitney.org/exhibitions/andy-warhol-family-album"
+                  rel="noopener"
+                  target="_blank"
+                  ><em>Andy Warhol Family Album</em></a
+                >
+                presents hundreds of Polaroids from Warhol’s personal archive.
+                Also on view are
+                <em>The Lost World: The Art of Minnie Evans</em>,
+                <em>“Untitled” (America)</em>, and newer collection
+                presentations. Free docent tours run most days.
+              </p>
+              <div class="open-on">
+                Open this week: Mon 9/28, Wed 9/30, Thu 10/1, Fri 10/2, Sat
+                10/3, Sun 10/4, Mon 10/5
+              </div>
+            </div>
+          </article>
+          <article class="rank-card" data-open-days="2,3,4,5,6">
+            <div class="rank-num">11</div>
+            <div>
+              <div class="rank-heading">
+                <h3>
+                  <a
+                    class="museum-link"
+                    href="https://www.studiomuseum.org/"
+                    rel="noopener"
+                    target="_blank"
+                    >Studio Museum in Harlem
+                    <span aria-hidden="true">↗</span></a
+                  >
+                </h3>
+                <span class="rank-fee">Suggested $16; Sun free</span>
+              </div>
+              <div class="date-note">
+                Best <strong>Oct. 1 or later</strong>: <em>Tone</em> and
+                <em>A sustained becoming</em> open that day.
+                <a
+                  href="https://www.studiomuseum.org/exhibitions"
+                  rel="noopener"
+                  target="_blank"
+                  >Exhibition source ↗</a
+                >
+              </div>
+              <p>
+                <a
+                  href="https://www.studiomuseum.org/exhibitions"
+                  rel="noopener"
+                  target="_blank"
+                  ><em>Dreams of This Future</em></a
+                >
+                draws from Peggy Cooper Cafritz’s holdings of Black art;
+                <a
+                  href="https://www.studiomuseum.org/exhibitions"
+                  rel="noopener"
+                  target="_blank"
+                  ><em>Geometries</em></a
+                >
+                explores geometry as an organizational and visual language. On
+                Oct. 1,
+                <a
+                  href="https://www.studiomuseum.org/exhibitions"
+                  rel="noopener"
+                  target="_blank"
+                  ><em
+                    >A sustained becoming: Studio Museum Artists in Residence
+                    2026</em
+                  ></a
+                >
+                and <em>Tone</em> join the lineup.
+              </p>
+              <div class="open-on">
+                Open this week: Wed 9/30, Thu 10/1, Fri 10/2, Sat 10/3, Sun 10/4
+              </div>
+            </div>
+          </article>
+          <article class="rank-card" data-open-days="0,1,2,3,4,5,6,7">
+            <div class="rank-num">12</div>
+            <div>
+              <div class="rank-heading">
+                <h3>
+                  <a
+                    class="museum-link"
+                    href="https://www.guggenheim.org/"
+                    rel="noopener"
+                    target="_blank"
+                    >Guggenheim <span aria-hidden="true">↗</span></a
+                  >
+                </h3>
+                <span class="rank-fee">$16 adult</span>
+              </div>
+              <div class="date-note">
+                Open every day in this window. A
+                <strong>daily 2pm, 30-minute architecture talk</strong> is
+                included with admission.
+                <a
+                  href="https://www.guggenheim.org/event/curious-about-the-building"
+                  rel="noopener"
+                  target="_blank"
+                  >Tour source ↗</a
+                >
+              </div>
+              <p>
+                <a
+                  href="https://www.guggenheim.org/"
+                  rel="noopener"
+                  target="_blank"
+                  ><em>Taryn Simon: Father Country I Do Love You</em></a
+                >
+                fills the rotunda with photography, text, video, and sculpture
+                about hidden systems, state power, memory, and personal history.
+                <a
+                  href="https://www.guggenheim.org/wp-content/uploads/2025/10/press-release-srgm-2026-schedule-of-exhibitions-10092025.pdf"
+                  rel="noopener"
+                  target="_blank"
+                  >The Guggenheim describes it as a singular interactive
+                  installation filling the entire Rotunda.</a
+                >
+              </p>
+              <div class="open-on">
+                Open this week: Mon 9/28, Tue 9/29, Wed 9/30, Thu 10/1, Fri
+                10/2, Sat 10/3, Sun 10/4, Mon 10/5
+              </div>
+            </div>
+          </article>
+          <article class="rank-card" data-open-days="1,2,3,4,5,6">
+            <div class="rank-num">13</div>
+            <div>
+              <div class="rank-heading">
+                <h3>
+                  <a
+                    class="museum-link"
+                    href="https://www.nyhistory.org/"
+                    rel="noopener"
+                    target="_blank"
+                    >The New York Historical
+                    <span aria-hidden="true">↗</span></a
+                  >
+                </h3>
+                <span class="rank-fee">$24 adult</span>
+              </div>
+              <div class="date-note">
+                <strong>Oct. 2–4 is the best overlap.</strong>
+                <em>You Should Be Dancing</em> opens Oct. 2;
+                <em>Betye Saar’s Black Dolls</em> ends Oct. 4.
+                <a
+                  href="https://www.nyhistory.org/exhibitions/upcoming"
+                  rel="noopener"
+                  target="_blank"
+                  >Opening source ↗</a
+                >
+                ·
+                <a
+                  href="https://www.nyhistory.org/exhibitions/betye-saars-black-dolls"
+                  rel="noopener"
+                  target="_blank"
+                  >Closing source ↗</a
+                >
+              </div>
+              <p>
+                <a
+                  href="https://www.nyhistory.org/exhibitions/betye-saars-black-dolls"
+                  rel="noopener"
+                  target="_blank"
+                  ><em>Betye Saar’s Black Dolls</em></a
+                >
+                examines Black representation, childhood, racist imagery,
+                collecting, and Saar’s transformation of historical objects.
+                From Oct. 2,
+                <a
+                  href="https://www.nyhistory.org/exhibitions/you-should-be-dancing-new-york-1976-and-beyond"
+                  rel="noopener"
+                  target="_blank"
+                  ><em>You Should Be Dancing: New York, 1976 and Beyond</em></a
+                >
+                revisits the city through punk, disco, hip-hop, fashion,
+                instruments, photographs, and ephemera.
+              </p>
+              <div class="open-on">
+                Open this week: Tue 9/29, Wed 9/30, Thu 10/1, Fri 10/2, Sat
+                10/3, Sun 10/4
+              </div>
+            </div>
+          </article>
+          <article class="rank-card" data-open-days="0,1,2,3,4,5,6,7">
+            <div class="rank-num">14</div>
+            <div>
+              <div class="rank-heading">
+                <h3>
+                  <a
+                    class="museum-link"
+                    href="https://www.amnh.org/"
+                    rel="noopener"
+                    target="_blank"
+                    >American Museum of Natural History
+                    <span aria-hidden="true">↗</span></a
+                  >
+                </h3>
+                <span class="rank-fee">$37 adult; NY residents PWYW</span>
+              </div>
+              <div class="date-note">
+                Open <strong>daily 10am–5:30pm</strong>; less date-sensitive
+                than most of the list.
+                <a
+                  href="https://www.amnh.org/plan-your-visit"
+                  rel="noopener"
+                  target="_blank"
+                  >Hours source ↗</a
+                >
+              </div>
+              <p>
+                <a
+                  href="https://www.amnh.org/exhibitions"
+                  rel="noopener"
+                  target="_blank"
+                  ><em>For the Win: Objects of Sports Excellence</em></a
+                >
+                features 70 objects from more than 15 sports.
+                <a
+                  href="https://www.amnh.org/exhibitions"
+                  rel="noopener"
+                  target="_blank"
+                  ><em>Impact: The End of the Age of Dinosaurs</em></a
+                >
+                presents a before-and-after look at the asteroid impact that
+                transformed life on Earth; it requires an additional ticket.
+              </p>
+              <div class="open-on">
+                Open this week: Mon 9/28, Tue 9/29, Wed 9/30, Thu 10/1, Fri
+                10/2, Sat 10/3, Sun 10/4, Mon 10/5
+              </div>
+            </div>
+          </article>
+          <article class="rank-card" data-open-days="1,2,3,4,5,6">
+            <div class="rank-num">15</div>
+            <div>
+              <div class="rank-heading">
+                <h3>
+                  <a
+                    class="museum-link"
+                    href="https://www.roerich.org/"
+                    rel="noopener"
+                    target="_blank"
+                    >Nicholas Roerich Museum
+                    <span aria-hidden="true">↗</span></a
+                  >
+                </h3>
+                <span class="rank-fee">Free</span>
+              </div>
+              <div class="date-note">
+                Open Tue–Fri noon–4 and Sat–Sun noon–5; admission is free. The
+                <strong>Fri Oct. 2, 6pm flute concert is sold out</strong>.
+                <a
+                  href="https://www.roerich.org/museum-events.php"
+                  rel="noopener"
+                  target="_blank"
+                  >Hours &amp; event source ↗</a
+                >
+              </div>
+              <p>
+                A small townhouse museum with more than 150 works by Roerich.
+                <a
+                  href="https://www.roerich.org/"
+                  rel="noopener"
+                  target="_blank"
+                  ><em>Himālaya — Abode of Snows</em></a
+                >
+                combines Himalayan paintings with music and a subtle aromatic
+                blend composed partly from Himalayan cedar, pine, and juniper.
+              </p>
+              <div class="open-on">
+                Open this week: Tue 9/29, Wed 9/30, Thu 10/1, Fri 10/2, Sat
+                10/3, Sun 10/4
+              </div>
+            </div>
+          </article>
+          <article class="rank-card" data-open-days="5,6">
+            <div class="rank-num">16</div>
+            <div>
+              <div class="rank-heading">
+                <h3>
+                  <a
+                    class="museum-link"
+                    href="https://www.mmuseumm.com/"
+                    rel="noopener"
+                    target="_blank"
+                    >Mmuseumm <span aria-hidden="true">↗</span></a
+                  >
+                </h3>
+                <span class="rank-fee">No listed admission fee</span>
+              </div>
+              <div class="date-note">
+                Only open <strong>Sat–Sun, 11am–6pm</strong> in this window.
+                <a
+                  href="https://www.mmuseumm.com/"
+                  rel="noopener"
+                  target="_blank"
+                  >Hours source ↗</a
+                >
+              </div>
+              <p>
+                <a
+                  href="https://www.mmuseumm.com/"
+                  rel="noopener"
+                  target="_blank"
+                  ><em>Modern Rubble Around the World</em></a
+                >
+                treats fragments of rubble as vernacular objects carrying traces
+                of war, construction, destruction, and ordinary human decisions.
+                Best as a short Lower Manhattan add-on rather than a main
+                destination.
+              </p>
+              <div class="open-on">Open this week: Sat 10/3, Sun 10/4</div>
+            </div>
+          </article>
+        </div>
+      </section>
+      <section>
+        <h2>Outdoor / non-museum options</h2>
+        <div class="outdoor-grid">
+          <article class="outdoor-card">
+            <h3>Green-Wood Cemetery</h3>
+            <p>
+              A strong non-museum choice: 19th-century landscape design,
+              architecture, monuments, and New York history. The main gate
+              changes from 7–7 to 8–5 on Oct. 1.
+            </p>
+          </article>
+          <article class="outdoor-card">
+            <h3>High Line</h3>
+            <p>
+              Current art includes Derek Fordjour’s painted-bronze figures on
+              race, labor, and spectacle, Patricia Ayres’s bandaged
+              anthropomorphic sculptures, and Alison Nguyen’s film work.
+            </p>
+          </article>
+          <article class="outdoor-card">
+            <h3>Roosevelt Island / Four Freedoms Park</h3>
+            <p>
+              Louis Kahn’s austere granite memorial uses the island’s southern
+              tip and Manhattan skyline as part of the architecture.
+            </p>
+          </article>
+          <article class="outdoor-card">
+            <h3>Central Park</h3>
+            <p>
+              The landscape design itself is the attraction: Bethesda Terrace,
+              the Ramble, Reservoir, North Woods, bridges, and architecture.
+            </p>
+          </article>
+          <article class="outdoor-card">
+            <h3>Brooklyn Bridge Park</h3>
+            <p>
+              Waterfront landscape, reused industrial piers, and
+              Manhattan/bridge views.
+            </p>
+          </article>
+          <article class="outdoor-card">
+            <h3>Prospect Park</h3>
+            <p>
+              Olmsted/Vaux landscape and an easy pairing with the Brooklyn
+              Museum.
+            </p>
+          </article>
+        </div>
+      </section>
+      <footer style="margin-top: 42px">
+        <small
+          >Admission annotations use current published prices.
+          Suggested-admission and pay-what-you-wish policies are marked where
+          applicable; ticketed exhibitions can cost extra. Same-day rechecking
+          is worthwhile for events and tours.</small
+        >
+      </footer>
+    </main>
+    <script>
+      (() => {
+        const select = document.getElementById("dateFilter");
+        const cards = [...document.querySelectorAll(".rank-card")];
+        const count = document.getElementById("filterCount");
+
+        function applyFilter() {
+          const value = select.value;
+          let shown = 0;
+          cards.forEach((card) => {
+            const openDays = card.dataset.openDays.split(",");
+            const visible = value === "all" || openDays.includes(value);
+            card.hidden = !visible;
+            if (visible) shown++;
+          });
+          count.textContent = `${shown} place${shown === 1 ? "" : "s"} shown`;
+        }
+
+        select.addEventListener("change", applyFilter);
+        applyFilter();
+      })();
+    </script>
+    <script>
+      (() => {
+        const root = document.getElementById("priorityPlanner");
+        if (!root) return;
+        const museums = [
+          {
+            name: "Whitney Museum of American Art",
+            short: "Whitney",
+            suggested: "0",
+            reason:
+              "Good use of today; the Biennial is in its final partial-view weeks.",
+            hours: [
+              "10:30–6",
+              "Closed",
+              "10:30–6",
+              "10:30–6",
+              "10:30–10",
+              "10:30–6",
+              "10:30–6",
+              "10:30–6",
+            ],
+          },
+          {
+            name: "Nicholas Roerich Museum",
+            short: "Roerich",
+            suggested: "1",
+            reason:
+              "Pairs naturally with NY Historical for an Upper West Side day.",
+            hours: [
+              "Closed",
+              "12–4",
+              "12–4",
+              "12–4",
+              "12–4",
+              "12–5",
+              "12–5",
+              "Closed",
+            ],
+          },
+          {
+            name: "The New York Historical",
+            short: "NY Historical",
+            suggested: "1",
+            reason:
+              "Easy pairing with Roerich; move to Fri–Sun if the Oct. 2 opening matters more.",
+            hours: [
+              "Closed",
+              "11–5",
+              "11–5",
+              "11–5",
+              "11–8",
+              "11–5",
+              "11–5",
+              "Closed",
+            ],
+          },
+          {
+            name: "Museum at FIT",
+            short: "FIT",
+            suggested: "2",
+            reason:
+              "A compact midweek visit; move to Thu or later if you want Figured Cloth too.",
+            hours: [
+              "Closed",
+              "Closed",
+              "12–8",
+              "12–8",
+              "12–8",
+              "10–5",
+              "10–5",
+              "Closed",
+            ],
+          },
+          {
+            name: "Noguchi Museum",
+            short: "Noguchi",
+            suggested: "4",
+            reason:
+              "Friday is Free First Friday and leaves time for an evening Morgan visit.",
+            hours: [
+              "Closed",
+              "Closed",
+              "11–6",
+              "11–6",
+              "11–6, free",
+              "11–6",
+              "11–6",
+              "Closed",
+            ],
+          },
+          {
+            name: "Morgan Library & Museum",
+            short: "Morgan",
+            suggested: "4",
+            reason: "Friday 5–8pm is free, and Tarot! ends Sunday Oct. 4.",
+            hours: [
+              "Closed",
+              "10:30–5",
+              "10:30–5",
+              "10:30–5",
+              "10:30–8",
+              "10:30–5",
+              "10:30–5",
+              "Closed",
+            ],
+          },
+          {
+            name: "New York Transit Museum",
+            short: "Transit Museum",
+            suggested: "5",
+            reason:
+              "Pairs geographically with Brooklyn Museum; Oct. 3 also has the vintage-train program.",
+            hours: [
+              "Closed",
+              "Closed",
+              "10–4",
+              "10–4",
+              "10–4",
+              "10–4",
+              "10–4",
+              "Closed",
+            ],
+          },
+          {
+            name: "Brooklyn Museum",
+            short: "Brooklyn Museum",
+            suggested: "5",
+            reason:
+              "Oct. 3 is the strongest day: Manga is open alongside the new Pearlman and Hopi shows.",
+            hours: [
+              "Closed",
+              "Closed",
+              "11–6",
+              "11–6",
+              "11–8",
+              "11–8",
+              "11–6",
+              "Closed",
+            ],
+          },
+          {
+            name: "Mmuseumm",
+            short: "Mmuseumm",
+            suggested: "6",
+            reason:
+              "Only open weekends; keep it as a short Lower Manhattan outing on Sunday.",
+            hours: [
+              "Closed",
+              "Closed",
+              "Closed",
+              "Closed",
+              "Closed",
+              "11–6",
+              "11–6",
+              "Closed",
+            ],
+          },
+        ];
+        const dates = [
+          "Mon 9/28",
+          "Tue 9/29",
+          "Wed 9/30",
+          "Thu 10/1",
+          "Fri 10/2",
+          "Sat 10/3",
+          "Sun 10/4",
+          "Mon 10/5",
+        ];
+        const key = "nycMuseumPriorityPlan_v1";
+        const defaults = Object.fromEntries(
+          museums.map((m) => [m.name, m.suggested]),
+        );
+        let assignments = { ...defaults };
+        try {
+          const saved = JSON.parse(localStorage.getItem(key) || "null");
+          if (saved)
+            museums.forEach((m) => {
+              const v = String(saved[m.name] ?? defaults[m.name]);
+              if ([...dates.map((_, i) => String(i)), "skip"].includes(v))
+                assignments[m.name] = v;
+            });
+        } catch (e) {}
+
+        const grid = document.getElementById("plannerGrid");
+        const list = document.getElementById("assignmentList");
+        const status = document.getElementById("plannerStatus");
+        const isOpen = (m, i) => !m.hours[i].toLowerCase().includes("closed");
+
+        function save() {
+          try {
+            localStorage.setItem(key, JSON.stringify(assignments));
+            status.textContent = "Saved";
+            setTimeout(() => {
+              if (status.textContent === "Saved") status.textContent = "";
+            }, 1000);
+          } catch (e) {
+            status.textContent = "Changes kept for this page only";
+          }
+        }
+
+        function renderEditor() {
+          list.innerHTML = "";
+          museums.forEach((m) => {
+            const row = document.createElement("div");
+            row.className = "assignment-row";
+            const label = document.createElement("label");
+            const id =
+              "assign-" + m.name.replace(/[^a-z0-9]+/gi, "-").toLowerCase();
+            label.htmlFor = id;
+            label.textContent = m.short;
+            const sel = document.createElement("select");
+            sel.id = id;
+            sel.dataset.museum = m.name;
+            const skip = document.createElement("option");
+            skip.value = "skip";
+            skip.textContent = "Skip / unscheduled";
+            sel.appendChild(skip);
+            dates.forEach((d, i) => {
+              const o = document.createElement("option");
+              o.value = String(i);
+              o.textContent = d + " — " + m.hours[i];
+              o.disabled = !isOpen(m, i);
+              sel.appendChild(o);
+            });
+            sel.value = assignments[m.name];
+            sel.addEventListener("change", () => {
+              assignments[m.name] = sel.value;
+              save();
+              renderGrid();
+            });
+            row.append(label, sel);
+            list.appendChild(row);
+          });
+        }
+
+        function renderGrid() {
+          grid.innerHTML = "";
+          dates.forEach((date, i) => {
+            const assigned = museums.filter(
+              (m) => assignments[m.name] === String(i),
+            );
+            const day = document.createElement("section");
+            day.className = "day-plan" + (assigned.length ? "" : " empty");
+            const head = document.createElement("div");
+            head.className = "day-head";
+            const fixedCount = i === 3 ? 1 : 0;
+            const totalCount = assigned.length + fixedCount;
+            head.innerHTML = `<h3>${date}</h3><span class="day-count">${totalCount ? totalCount + (totalCount === 1 ? " stop" : " stops") : "open"}</span>`;
+            day.appendChild(head);
+            const fixedThursday = i === 3;
+            if (!assigned.length && !fixedThursday) {
+              const e = document.createElement("div");
+              e.className = "empty-note";
+              e.textContent = "Nothing scheduled.";
+              day.appendChild(e);
+            } else {
+              const items = document.createElement("div");
+              items.className = "day-items";
+              if (fixedThursday) {
+                const ferry = document.createElement("div");
+                ferry.className = "plan-item";
+                ferry.innerHTML = `<div class="plan-item-title">Ferry to FabScrap</div><div class="plan-hours">Thursday plan</div><div class="plan-reason">Take the ferry to FabScrap.</div>`;
+                items.appendChild(ferry);
+              }
+              assigned.forEach((m) => {
+                const item = document.createElement("div");
+                item.className = "plan-item";
+                item.innerHTML = `<div class="plan-item-title">${m.short}</div><div class="plan-hours">${m.hours[i]}</div><div class="plan-reason">${m.reason}</div>`;
+                items.appendChild(item);
+              });
+              day.appendChild(items);
+            }
+            grid.appendChild(day);
+          });
+          const skipped = museums.filter((m) => assignments[m.name] === "skip");
+          if (skipped.length) {
+            const day = document.createElement("section");
+            day.className = "day-plan";
+            day.innerHTML = `<div class="day-head"><h3>Unscheduled</h3><span class="day-count">${skipped.length}</span></div>`;
+            const items = document.createElement("div");
+            items.className = "day-items";
+            skipped.forEach((m) => {
+              const item = document.createElement("div");
+              item.className = "plan-item";
+              item.innerHTML = `<div class="plan-item-title">${m.short}</div><div class="plan-reason">${m.reason}</div>`;
+              items.appendChild(item);
+            });
+            day.appendChild(items);
+            grid.appendChild(day);
+          }
+          list
+            .querySelectorAll("select")
+            .forEach((sel) => (sel.value = assignments[sel.dataset.museum]));
+        }
+
+        document.getElementById("resetPlan").addEventListener("click", () => {
+          assignments = { ...defaults };
+          save();
+          renderEditor();
+          renderGrid();
+        });
+        document.getElementById("clearPlan").addEventListener("click", () => {
+          assignments = Object.fromEntries(
+            museums.map((m) => [m.name, "skip"]),
+          );
+          save();
+          renderEditor();
+          renderGrid();
+        });
+        renderEditor();
+        renderGrid();
+      })();
+    </script>
+  </body>
+</html>

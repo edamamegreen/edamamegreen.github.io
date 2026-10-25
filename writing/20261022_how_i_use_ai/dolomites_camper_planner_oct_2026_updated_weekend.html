@@ -1,0 +1,1226 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Dolomites Campervan Planner · Oct 7–14, 2026</title>
+    <style>
+      :root {
+        --bg: #f4f1eb;
+        --card: #fffdf8;
+        --ink: #20231f;
+        --muted: #6a6e66;
+        --line: #d9d5cb;
+        --green: #2f5d4d;
+        --orange: #b65f37;
+        --blue: #526b91;
+        --today: #eef5ef;
+        --past: #efede7;
+        --weather: #f2f6f1;
+        --shadow: 0 10px 30px rgba(35, 38, 32, 0.08);
+        --r: 18px;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font:
+          15px/1.45 ui-sans-serif,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
+      }
+      button,
+      input,
+      textarea,
+      select {
+        font: inherit;
+      }
+      button {
+        cursor: pointer;
+      }
+      a {
+        color: var(--green);
+      }
+      header {
+        max-width: 1500px;
+        margin: auto;
+        padding: 26px 28px 18px;
+      }
+      .eyebrow {
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: var(--green);
+        font-weight: 800;
+      }
+      h1 {
+        margin: 4px 0 7px;
+        font-size: clamp(30px, 4vw, 48px);
+        line-height: 1.02;
+        letter-spacing: -0.035em;
+      }
+      .subtitle {
+        color: var(--muted);
+        max-width: 900px;
+      }
+      .toolbar {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 16px;
+      }
+      .btn {
+        border: 1px solid var(--line);
+        background: var(--card);
+        padding: 9px 12px;
+        border-radius: 999px;
+        color: var(--ink);
+      }
+      .btn.primary {
+        background: var(--green);
+        border-color: var(--green);
+        color: white;
+      }
+      .btn.danger {
+        color: #8f3826;
+      }
+      main {
+        max-width: 1500px;
+        margin: auto;
+        padding: 0 28px 48px;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(390px, 0.95fr);
+        gap: 22px;
+        align-items: start;
+      }
+      .panel {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: var(--r);
+        box-shadow: var(--shadow);
+      }
+      #mapPanel {
+        position: sticky;
+        top: 12px;
+        overflow: hidden;
+      }
+      .map-wrap {
+        padding: 14px;
+      }
+      .map-title {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        align-items: baseline;
+        margin: 0 2px 8px;
+      }
+      .map-title strong {
+        font-size: 17px;
+      }
+      .map-title span {
+        font-size: 12px;
+        color: var(--muted);
+      }
+      #routeMap {
+        width: 100%;
+        height: auto;
+        display: block;
+        border-radius: 14px;
+        background: #edf0ea;
+        border: 1px solid #dce2d9;
+      }
+      .map-meta {
+        padding: 12px 16px 15px;
+        border-top: 1px solid var(--line);
+        font-size: 12px;
+        color: var(--muted);
+      }
+      .legend {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-top: 8px;
+      }
+      .dot {
+        display: inline-block;
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        margin-right: 5px;
+      }
+      .activity {
+        background: var(--green);
+      }
+      .sleep {
+        background: var(--orange);
+      }
+      .transport {
+        background: var(--blue);
+      }
+      #days {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .day {
+        padding: 18px;
+      }
+      .day.today {
+        background: var(--today);
+        border-color: #b8cdbc;
+      }
+      .day.past {
+        background: var(--past);
+      }
+      .day-head {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        align-items: flex-start;
+      }
+      .day-date {
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--green);
+        font-weight: 800;
+      }
+      .day-title {
+        font-size: 22px;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+      }
+      .badge {
+        background: var(--green);
+        color: #fff;
+        border-radius: 999px;
+        padding: 4px 8px;
+        font-size: 11px;
+        font-weight: 800;
+      }
+      .day.past .badge {
+        background: #77776f;
+      }
+      .notes {
+        white-space: pre-wrap;
+        color: #41453f;
+        margin: 9px 0 12px;
+      }
+      .stops {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .stop {
+        border: 1px solid var(--line);
+        border-radius: 13px;
+        background: rgba(255, 255, 255, 0.72);
+        padding: 10px 11px;
+        display: grid;
+        grid-template-columns: 26px minmax(0, 1fr) auto;
+        gap: 9px;
+        align-items: start;
+      }
+      .stop-num {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        color: #fff;
+        background: var(--green);
+        font-weight: 800;
+        font-size: 12px;
+      }
+      .stop[data-kind="sleep"] .stop-num {
+        background: var(--orange);
+      }
+      .stop[data-kind="transport"] .stop-num {
+        background: var(--blue);
+      }
+      .stop-name {
+        font-weight: 800;
+      }
+      .stop-detail {
+        color: var(--muted);
+        font-size: 12px;
+        margin-top: 2px;
+      }
+      .drive-leg {
+        margin: 7px 0 7px 35px;
+        padding: 7px 10px;
+        border-left: 3px solid #8da99d;
+        background: #f1f5f1;
+        border-radius: 0 9px 9px 0;
+        color: #405047;
+        font-size: 12px;
+        font-weight: 700;
+      }
+      .stop-actions a {
+        text-decoration: none;
+        font-size: 16px;
+        color: var(--muted);
+      }
+      .weather {
+        grid-column: 2/-1;
+        margin-top: 2px;
+        padding: 9px 10px;
+        background: var(--weather);
+        border: 1px solid #dce6dc;
+        border-radius: 10px;
+        font-size: 12px;
+      }
+      .weather strong {
+        display: block;
+        margin-bottom: 2px;
+      }
+      .weather-line {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px 12px;
+      }
+      .weather-note {
+        margin-top: 4px;
+        color: #555e56;
+      }
+      .weather-source {
+        margin-top: 5px;
+        color: var(--muted);
+        font-size: 10px;
+      }
+      .weather.warning {
+        background: #fbf3ef;
+        border-color: #ecd8ce;
+      }
+      .edit-area {
+        display: none;
+        margin-top: 14px;
+        padding-top: 14px;
+        border-top: 1px dashed var(--line);
+      }
+      .day.editing .edit-area {
+        display: block;
+      }
+      .field {
+        margin-bottom: 10px;
+      }
+      .label,
+      .small-label {
+        display: block;
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.07em;
+        color: var(--muted);
+        font-weight: 800;
+        margin-bottom: 3px;
+      }
+      input,
+      textarea,
+      select {
+        width: 100%;
+        border: 1px solid var(--line);
+        border-radius: 9px;
+        background: #fff;
+        color: var(--ink);
+        padding: 8px;
+      }
+      textarea {
+        min-height: 90px;
+        resize: vertical;
+      }
+      .edit-stop {
+        display: grid;
+        grid-template-columns: 1.5fr 0.8fr 0.8fr 0.7fr auto;
+        gap: 7px;
+        margin: 8px 0;
+        align-items: end;
+      }
+      .wide {
+        grid-column: auto;
+      }
+      .resources {
+        padding: 18px;
+        margin-top: 12px;
+      }
+      .resources h3 {
+        margin: 0 0 8px;
+      }
+      .resources ul {
+        margin: 8px 0 0;
+        padding-left: 18px;
+      }
+      .resources li {
+        margin: 5px 0;
+      }
+      .fine {
+        font-size: 11px;
+        color: var(--muted);
+        margin-top: 12px;
+      }
+      @media (max-width: 940px) {
+        main {
+          grid-template-columns: 1fr;
+          padding: 0 14px 42px;
+        }
+        header {
+          padding: 22px 16px 14px;
+        }
+        #mapPanel {
+          position: relative;
+          top: auto;
+          order: -1;
+        }
+      }
+      @media (max-width: 650px) {
+        .day {
+          padding: 14px;
+        }
+        .stop {
+          grid-template-columns: 26px minmax(0, 1fr);
+        }
+        .stop-actions {
+          grid-column: 2;
+        }
+        .edit-stop {
+          grid-template-columns: 1fr 1fr;
+        }
+        .edit-stop .wide {
+          grid-column: 1/-1;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="eyebrow">Offline-friendly trip planner · Italy 2026</div>
+      <h1>Dolomites campervan route</h1>
+      <div class="subtitle">
+        Updated Friday, Oct 9 after completing Via Artis. The route map and
+        forecast below are embedded in this file and do not depend on external
+        map or weather APIs.
+      </div>
+      <div class="toolbar">
+        <button class="btn primary" id="googleRouteBtn">
+          Open route in Google Maps
+        </button>
+        <button class="btn" id="exportBtn">Export plan</button>
+        <button class="btn" id="importBtn">Import plan</button>
+        <button class="btn danger" id="resetBtn">Reset suggested plan</button>
+        <input type="file" id="importFile" accept="application/json" hidden />
+      </div>
+    </header>
+    <main>
+      <section>
+        <div id="days"></div>
+        <div class="panel resources">
+          <h3>Forecast snapshot</h3>
+          <p style="margin: 0">
+            Forecasts were checked <strong>Oct 9, 2026</strong>. They are
+            intentionally hard-coded so they remain visible when this file is
+            opened locally. Mountain temperatures at Cinque Torri and Tre Cime
+            can be substantially colder than the nearby valley forecast.
+          </p>
+          <ul>
+            <li>
+              <a
+                href="https://www.3bmeteo.com/meteo/dobbiaco"
+                target="_blank"
+                rel="noopener"
+                >3B Meteo · Dobbiaco</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://www.3bmeteo.com/meteo/cortina%2Bd%27ampezzo"
+                target="_blank"
+                rel="noopener"
+                >3B Meteo · Cortina d'Ampezzo</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://weather.com/weather/weekend/l/Cortina%2Bd%27Ampezzo%2BBelluno%2BItaly"
+                target="_blank"
+                rel="noopener"
+                >Weather.com · Cortina weekend</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://www.3bmeteo.com/meteo/trento"
+                target="_blank"
+                rel="noopener"
+                >3B Meteo · Trento</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://www.3bmeteo.com/meteo/milano"
+                target="_blank"
+                rel="noopener"
+                >3B Meteo · Milan</a
+              >
+            </li>
+          </ul>
+          <h3 style="margin-top: 18px">Useful trip links</h3>
+          <ul>
+            <li>
+              <a
+                href="https://www.alltrails.com/explore/trail/italy/south-tyrol/giro-monte-rota"
+                target="_blank"
+                rel="noopener"
+                >Your AllTrails route · Giro Monte Rota</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://www.dreizinnen.com/en/activity/summer-hiking-tour-toblach-dobbiaco-ratsberg-monte-rota_50109"
+                target="_blank"
+                rel="noopener"
+                >Official Dobbiaco → Monte Rota route</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://www.alltrails.com/explore/trail/italy/south-tyrol/falzes-lago-di-issengo"
+                target="_blank"
+                rel="noopener"
+                >Your AllTrails route · Falzes → Lago di Issengo</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://verkehr.provinz.bz.it/en"
+                target="_blank"
+                rel="noopener"
+                >South Tyrol live traffic / pass conditions</a
+              >
+            </li>
+
+            <li>
+              <a
+                href="https://lagazuoi.it/EN/Information-Prices-and-useful-information-page20-Lagazuoi-cable-car-Winter-20232024"
+                target="_blank"
+                rel="noopener"
+                >Lagazuoi cable car</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://roadsurfer.com/rv-rental/italy/milan/"
+                target="_blank"
+                rel="noopener"
+                >Roadsurfer Castellanza</a
+              >
+            </li>
+          </ul>
+          <div class="fine">
+            The embedded map is geographic but schematic: points are plotted
+            from latitude/longitude and connected in route order. Use “Open
+            route in Google Maps” for turn-by-turn road navigation.
+          </div>
+          <div class="fine" style="margin-top: 7px">
+            Driving times are planning estimates checked Oct 9. Nominal times
+            are normal-car route estimates; camper allowances add margin for
+            mountain roads, traffic, fuel and stops.
+          </div>
+        </div>
+      </section>
+      <aside class="panel" id="mapPanel">
+        <div class="map-wrap">
+          <div class="map-title">
+            <strong>Whole trip route</strong><span>works offline</span>
+          </div>
+          <svg
+            id="routeMap"
+            viewBox="0 0 760 650"
+            role="img"
+            aria-label="Schematic route map of the campervan trip"
+          ></svg>
+        </div>
+        <div class="map-meta">
+          <span id="routeSummary"></span>
+          <div class="legend">
+            <span><i class="dot activity"></i>activity</span
+            ><span><i class="dot sleep"></i>overnight</span
+            ><span><i class="dot transport"></i>transport</span>
+          </div>
+        </div>
+      </aside>
+    </main>
+    <script>
+      const STORAGE_KEY = "dolomites_camper_plan_oct2026_v7_weekend_trimmed";
+      const seedPlan = {
+        days: [
+          {
+            date: "2026-10-07",
+            label: "Wed Oct 7",
+            title: "Arrival in the mountains",
+            status: "past",
+            notes:
+              "You spent the night here. This marker comes from the Google Maps link you sent.",
+            stops: [
+              {
+                name: "Parkplatz Camping · S. Valentino in Campo / Karneid",
+                kind: "sleep",
+                lat: 46.4548394,
+                lon: 11.4611953,
+                detail: "Actual overnight",
+                route: true,
+              },
+            ],
+          },
+          {
+            date: "2026-10-08",
+            label: "Thu Oct 8",
+            title: "Western Dolomites",
+            status: "past",
+            notes:
+              "Past day. Add what you actually did here if you want to keep a complete trip log.",
+            stops: [],
+          },
+          {
+            date: "2026-10-09",
+            label: "Fri Oct 9",
+            title: "Kronplatz · Via Artis ✓",
+            status: "past",
+            notes:
+              "Completed: Kronplatz 2000 from Riscone/Reischach and the Via Artis loop. Overnight in Brunico.",
+            stops: [
+              {
+                name: "Kronplatz · Via Artis",
+                kind: "activity",
+                lat: 46.738,
+                lon: 11.961,
+                detail: "Completed · Via Artis loop",
+                route: true,
+              },
+              {
+                name: "Brunico / Bruneck",
+                kind: "sleep",
+                lat: 46.7963,
+                lon: 11.9353,
+                detail: "Actual overnight",
+                route: true,
+                weather: {
+                  summary: "Tonight: mostly cloudy",
+                  temp: "~10–12°C late evening",
+                  precip: "Little/no rain expected",
+                  wind: "Light wind",
+                  note: "Valley forecast; completed-day context.",
+                  source: "iLMeteo / 3B Meteo · checked Oct 9",
+                },
+              },
+            ],
+          },
+          {
+            date: "2026-10-10",
+            label: "Sat Oct 10",
+            title: "Dobbiaco day trip · Monte Rota + coffee · back to Brunico",
+            status: "",
+            notes:
+              "MORNING BLOCK\n08:30-ish — Leave Brunico.\nDrive Brunico → Dobbiaco: ~26–28 min / ~28 km nominal; budget ~35 min in the camper.\n\n09:05-ish — Park in/near central Dobbiaco and get coffee before or after the hike. Three Peaks Coffee (Kirchplatz 1) is open Sat 07:00–18:00; Cafè Macchiato (Viale S. Giovanni 18a) is open Sat 07:00–12:00.\n\n09:30–11:30/12:00 — Monte Rota / Ratsberg hike. Official route: 4.5 km, ~2 hr, +393 m, intermediate. Start in central Dobbiaco; follow trail 11 toward Santa Maria/Aufkirchen, then before the church take trail 7B uphill toward Monte Rota. This official route is point-to-point/uphill, so if your AllTrails Giro Monte Rota loop differs, follow the downloaded AllTrails map for the return leg. The official route is currently listed open.\n\nAFTERNOON BLOCK\nLunch / second coffee in Dobbiaco. Don't add another major hike. Aim to leave before late-afternoon showers become more likely.\nDrive Dobbiaco → Brunico: ~27–28 min / ~27 km nominal; budget ~35 min.\nReturn to the same Brunico overnight base.",
+            stops: [
+              {
+                name: "Dobbiaco / Toblach · town centre",
+                kind: "activity",
+                lat: 46.735163,
+                lon: 12.224676,
+                detail: "Coffee + start of Monte Rota hike",
+                driveFromPrev:
+                  "Brunico → Dobbiaco · ~26–28 min (28 km) · budget ~35 min in camper",
+                route: true,
+                weather: {
+                  summary:
+                    "Dry morning; cloudier later, possible late-afternoon showers",
+                  temp: "~6°C at 08:00 · ~11°C at 11:00 · ~14°C mid-afternoon",
+                  precip:
+                    "0–20% through most of hike window; ~50% around 16:00–18:00 in latest iLMeteo run",
+                  wind: "Light to modest NW/W wind",
+                  note: "Good fit for a morning hike. Monte Rota tops out around 1,626 m, so bring a layer even if Dobbiaco warms up.",
+                  source: "iLMeteo Dobbiaco · checked Oct 9",
+                },
+              },
+              {
+                name: "Monte Rota / Ratsberg",
+                kind: "activity",
+                lat: 46.7506,
+                lon: 12.2135,
+                detail:
+                  "4.5 km · ~2 hr · +393 m · intermediate · official trail 11 → 7B",
+                driveFromPrev:
+                  "Hike from Dobbiaco centre — no van move required",
+                route: false,
+                weather: {
+                  summary: "Same Dobbiaco forecast; dry morning window",
+                  temp: "Cooler than town at 1,626 m",
+                  precip: "Best before mid/late afternoon",
+                  wind: "Potentially breezier on exposed viewpoints",
+                  note: "Official tourism route is linear/uphill; use your saved AllTrails Giro Monte Rota track if you want its loop return.",
+                  source:
+                    "Drei Zinnen official route + iLMeteo · checked Oct 9",
+                },
+              },
+              {
+                name: "Brunico / Bruneck",
+                kind: "sleep",
+                lat: 46.7963,
+                lon: 11.9353,
+                detail: "Return to same overnight base",
+                driveFromPrev:
+                  "Dobbiaco → Brunico · ~27–28 min (27 km) · budget ~35 min",
+                route: true,
+                weather: {
+                  summary: "Mostly cloudy / dry evening",
+                  temp: "~15°C late afternoon, ~11°C around 20:00",
+                  precip: "No significant rain in Brunico forecast",
+                  wind: "Light",
+                  note: "Easy recovery evening after the day trip.",
+                  source: "iLMeteo Brunico · checked Oct 9",
+                },
+              },
+            ],
+          },
+          {
+            date: "2026-10-11",
+            label: "Sun Oct 11",
+            title:
+              "Short Brunico hike · scenic Val Badia / Passo Gardena drive · Trento",
+            status: "",
+            notes:
+              "MORNING BLOCK\nKeep this deliberately short because the afternoon is a driving block.\n\nPreferred hike: Falzes → Lago di Issengo loop.\n• Drive Brunico → Falzes sports zone: ~7 min / ~7 km.\n• Hike: 6.0 km loop, ~1 hr 45 min, +198 m, moderate/easy in practice.\n• Start/park at the sports zone in Falzes. Follow the route through woods/meadows toward Lago di Issengo; return through forest along Rio di Falzes/Pfalznerbach.\n• Note: the lake itself is a managed/private bathing area; outside summer you may not be able to freely walk the shoreline. The walk is still worthwhile as a countryside/forest loop.\n• Aim to finish by ~11:00–11:30, return to Brunico, eat/pack, and leave around noon.\n\nAFTERNOON BLOCK — SCENIC DRIVE TO TRENTO\nRoute: Brunico → Longega → La Villa → Corvara → Passo Gardena → Selva di Val Gardena → Ponte Gardena/Chiusa → A22 → Trento.\n\nNominal road time is roughly 2 hr 10–20 min before stops. In the camper, budget ~2 hr 45 min–3 hr including the mountain road, one scenic stop, and current roadworks.\n• Brunico → Corvara: ~37 min / 37 km nominal.\n• Corvara → Passo Gardena: ~10–20 min; the pass section to Selva is about 12 km and ~20–25 min without stops.\n• Passo Gardena → Trento: ~1 hr 27 min nominal once you continue down Val Gardena and onto the A22.\n\nCurrent road note: SS244 at Longega has alternating one-way traffic and temporary closures of up to ~10 minutes for rockfall-mitigation works. Check the South Tyrol traffic report before leaving; if you feel tired or conditions on Passo Gardena are poor, skip the scenic route and take the direct Brunico → Bressanone → A22 route (~1 hr 40 min nominal).",
+            stops: [
+              {
+                name: "Falzes sports zone · Lago di Issengo loop",
+                kind: "activity",
+                lat: 46.813,
+                lon: 11.883,
+                detail: "6.0 km · ~1h45 · +198 m · morning hike",
+                driveFromPrev: "Brunico → Falzes · ~7 min (7 km)",
+                route: true,
+                weather: {
+                  summary: "Early outlook: mostly clear / partly cloudy, dry",
+                  temp: "Cool morning; valley around 7–10°C early",
+                  precip: "No strong morning rain signal",
+                  wind: "Light",
+                  note: "Forecast confidence is still moderate. This low-elevation route is a good Sunday choice before driving.",
+                  source: "iLMeteo Brunico · checked Oct 9",
+                },
+              },
+              {
+                name: "Brunico / Bruneck · pack + lunch",
+                kind: "transport",
+                lat: 46.7963,
+                lon: 11.9353,
+                detail: "Return from Falzes, eat, pack, depart around noon",
+                driveFromPrev: "Falzes → Brunico · ~7 min",
+                route: true,
+                weather: {
+                  summary: "Generally fair / dry early Sunday",
+                  temp: "Mild by midday",
+                  precip: "Low morning signal",
+                  wind: "Light",
+                  note: "Use this as the decision point: scenic Val Badia route if you feel good; direct A22 if tired.",
+                  source: "iLMeteo Brunico · checked Oct 9",
+                },
+              },
+              {
+                name: "Corvara in Badia",
+                kind: "transport",
+                lat: 46.5504,
+                lon: 11.8734,
+                detail: "Val Badia scenic stop / coffee if desired",
+                driveFromPrev:
+                  "Brunico → Corvara · ~37 min (37 km) nominal · allow extra for SS244 works at Longega",
+                route: true,
+              },
+              {
+                name: "Passo Gardena / Grödner Joch",
+                kind: "transport",
+                lat: 46.5494,
+                lon: 11.8083,
+                detail: "Main scenic payoff · short photo/view stop",
+                driveFromPrev:
+                  "Corvara → Passo Gardena · ~10–20 min; mountain road, go slowly",
+                route: true,
+              },
+              {
+                name: "Trento · overnight",
+                kind: "sleep",
+                lat: 46.0748,
+                lon: 11.1217,
+                detail: "Sunday night staging for Monday camper return",
+                driveFromPrev:
+                  "Passo Gardena → Trento · ~1 hr 27 min nominal · overall Brunico→Val Badia→Passo Gardena→Trento budget ~2h45–3h in camper",
+                route: true,
+                weather: {
+                  summary: "Mild; variable cloud",
+                  temp: "~20–22°C / ~10°C",
+                  precip: "Generally stable; recheck Sunday",
+                  wind: "Light",
+                  note: "Arrive with the major driving done before Monday’s return.",
+                  source: "Hard-coded forecast snapshot checked Oct 9",
+                },
+              },
+            ],
+          },
+          {
+            date: "2026-10-12",
+            label: "Mon Oct 12",
+            title: "Return camper + Milan",
+            status: "",
+            notes:
+              "Drive to the Roadsufrer depot, refuel/clean as required, return the van, then continue into Milan for the first of two hotel nights. Trento → Castellanza is ~2 hr 20 min nominal; budget ~2 hr 45 min–3 hr in the camper to cover fuel, tolls/traffic, and return-day slack.",
+            stops: [
+              {
+                name: "Roadsurfer · Castellanza",
+                kind: "transport",
+                lat: 45.638,
+                lon: 8.9221,
+                detail: "Via Salvo D’Acquisto 28 · camper return",
+                driveFromPrev:
+                  "Trento → Castellanza · ~2 hr 20 min nominal (243 km) · budget ~2 hr 45 min–3 hr with fuel/traffic",
+                route: true,
+                weather: {
+                  summary: "Dry with sun and clouds",
+                  temp: "Milan area ~21–22° / 15–17°C",
+                  precip: "No meaningful rain expected",
+                  wind: "Light",
+                  note: "Comfortable return-day weather.",
+                  source: "3B Meteo Milan · checked Oct 9",
+                },
+              },
+              {
+                name: "Milan",
+                kind: "sleep",
+                lat: 45.4642,
+                lon: 9.19,
+                detail: "Hotel night 1 of 2",
+                driveFromPrev:
+                  "After van return: Castellanza → Milano Porta Garibaldi ~31 min by train (no more camper driving)",
+                route: false,
+                weather: {
+                  summary: "Partly cloudy / bright spells",
+                  temp: "~21–22° / 15–17°C",
+                  precip: "Dry",
+                  wind: "Light",
+                  note: "Good walking weather.",
+                  source: "3B Meteo Milan · checked Oct 9",
+                },
+              },
+            ],
+          },
+          {
+            date: "2026-10-13",
+            label: "Tue Oct 13",
+            title: "Milan · design, technology & architecture",
+            status: "",
+            notes:
+              "Possible focus: Achille Castiglioni Foundation + ADI Design Museum, or substitute the Science & Technology Museum if engineering wins. Porta Nuova / Bosco Verticale works well as an outdoor architecture walk.",
+            stops: [
+              {
+                name: "ADI Design Museum",
+                kind: "activity",
+                lat: 45.486,
+                lon: 9.177,
+                detail: "Industrial / product design",
+                route: false,
+                weather: {
+                  summary: "Mostly dry; some cloud",
+                  temp: "~20–21° / 16°C",
+                  precip: "No significant rain expected",
+                  wind: "Light easterly",
+                  note: "Comfortable city day.",
+                  source: "3B Meteo Milan · checked Oct 9",
+                },
+              },
+            ],
+          },
+          {
+            date: "2026-10-14",
+            label: "Wed Oct 14",
+            title: "Milan / departure",
+            status: "",
+            notes:
+              "Leave this open for the flight schedule and anything you missed in Milan.",
+            stops: [
+              {
+                name: "Milan",
+                kind: "transport",
+                lat: 45.4642,
+                lon: 9.19,
+                detail: "Departure day",
+                route: false,
+                weather: {
+                  summary: "Mild; forecast still lower-confidence",
+                  temp: "~20° / 12°C",
+                  precip: "No strong rain signal",
+                  wind: "Light",
+                  note: "Recheck closer to departure if timing matters.",
+                  source: "3B Meteo Milan · checked Oct 9",
+                },
+              },
+            ],
+          },
+        ],
+      };
+      let plan = load();
+      function clone(v) {
+        return JSON.parse(JSON.stringify(v));
+      }
+      function load() {
+        try {
+          return (
+            JSON.parse(localStorage.getItem(STORAGE_KEY)) || clone(seedPlan)
+          );
+        } catch (e) {
+          return clone(seedPlan);
+        }
+      }
+      function save() {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(plan));
+      }
+      function esc(s) {
+        return String(s ?? "").replace(
+          /[&<>"']/g,
+          (c) =>
+            ({
+              "&": "&amp;",
+              "<": "&lt;",
+              ">": "&gt;",
+              '"': "&quot;",
+              "'": "&#39;",
+            })[c],
+        );
+      }
+      function mapsURL(s) {
+        return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(s.lat + "," + s.lon)}`;
+      }
+      function routeStops() {
+        const a = [];
+        plan.days.forEach((d, di) =>
+          d.stops.forEach((s, si) => {
+            if (s.route && Number.isFinite(+s.lat) && Number.isFinite(+s.lon))
+              a.push({ ...s, di, si, day: d.label });
+          }),
+        );
+        return a;
+      }
+      function weatherHTML(w) {
+        if (!w) return "";
+        return `<div class="weather ${/shower|rain|drizzle/i.test((w.summary || "") + " " + (w.precip || "")) ? "warning" : ""}"><strong>Forecast snapshot: ${esc(w.summary)}</strong><div class="weather-line"><span>🌡️ ${esc(w.temp)}</span><span>💧 ${esc(w.precip)}</span><span>💨 ${esc(w.wind)}</span></div><div class="weather-note">${esc(w.note || "")}</div><div class="weather-source">${esc(w.source || "")}</div></div>`;
+      }
+      function render() {
+        const root = document.getElementById("days");
+        root.innerHTML = "";
+        let n = 0;
+        plan.days.forEach((d, di) => {
+          const el = document.createElement("article");
+          el.className = `panel day ${d.status || ""}`;
+          el.dataset.di = di;
+          const badge =
+            d.status === "today"
+              ? '<span class="badge">TODAY</span>'
+              : d.status === "past"
+                ? '<span class="badge">PAST</span>'
+                : "";
+          const stops = d.stops
+            .map((s, si) => {
+              n++;
+              const drive = s.driveFromPrev
+                ? `<div class="drive-leg">🚐 ${esc(s.driveFromPrev)}</div>`
+                : "";
+              return `${drive}<div class="stop" data-kind="${esc(s.kind)}"><div class="stop-num">${n}</div><div><div class="stop-name">${esc(s.name)}</div><div class="stop-detail">${esc(s.detail || "")}${s.route ? " · on route" : " · map only"}</div></div><div class="stop-actions"><a href="${mapsURL(s)}" target="_blank" rel="noopener" title="Open in Google Maps">↗</a></div>${weatherHTML(s.weather)}</div>`;
+            })
+            .join("");
+          const edits = d.stops
+            .map(
+              (s, si) =>
+                `<div class="edit-stop" data-si="${si}"><div class="wide"><span class="small-label">Stop</span><input class="name" value="${esc(s.name)}"></div><div><span class="small-label">Lat</span><input class="lat" type="number" step="0.000001" value="${s.lat}"></div><div><span class="small-label">Lon</span><input class="lon" type="number" step="0.000001" value="${s.lon}"></div><div><span class="small-label">Type</span><select class="kind"><option value="activity" ${s.kind === "activity" ? "selected" : ""}>activity</option><option value="sleep" ${s.kind === "sleep" ? "selected" : ""}>overnight</option><option value="transport" ${s.kind === "transport" ? "selected" : ""}>transport</option></select></div><div><span class="small-label">Route</span><label><input class="route" type="checkbox" ${s.route ? "checked" : ""} style="width:auto"> yes</label></div><div class="wide"><span class="small-label">Note</span><input class="detail" value="${esc(s.detail || "")}"></div><div class="wide"><span class="small-label">Travel from previous stop</span><input class="drive" value="${esc(s.driveFromPrev || "")}"></div><button class="btn danger remove" data-di="${di}" data-si="${si}">Remove</button></div>`,
+            )
+            .join("");
+          el.innerHTML = `<div class="day-head"><div><div class="day-date">${esc(d.label)}</div><div class="day-title">${esc(d.title)}</div></div>${badge}</div><div class="notes">${esc(d.notes)}</div><div class="stops">${stops || '<div class="stop-detail">No stops yet.</div>'}</div><div style="margin-top:12px"><button class="btn toggle">Edit day</button></div><div class="edit-area"><div class="field"><span class="label">Day title</span><input class="daytitle" value="${esc(d.title)}"></div><div class="field"><span class="label">Notes</span><textarea class="daynotes">${esc(d.notes)}</textarea></div>${edits}<button class="btn add" data-di="${di}">+ Add stop</button></div>`;
+          root.appendChild(el);
+        });
+        bind();
+        renderMap();
+      }
+      function bind() {
+        document.querySelectorAll(".day").forEach((el) => {
+          const di = +el.dataset.di;
+          el.querySelector(".toggle").onclick = () => {
+            el.classList.toggle("editing");
+            el.querySelector(".toggle").textContent = el.classList.contains(
+              "editing",
+            )
+              ? "Done editing"
+              : "Edit day";
+          };
+          el.querySelector(".daytitle").oninput = (e) => {
+            plan.days[di].title = e.target.value;
+            el.querySelector(".day-title").textContent = e.target.value;
+            save();
+          };
+          el.querySelector(".daynotes").oninput = (e) => {
+            plan.days[di].notes = e.target.value;
+            el.querySelector(".notes").textContent = e.target.value;
+            save();
+          };
+          el.querySelectorAll(".edit-stop").forEach((row) => {
+            const si = +row.dataset.si;
+            row.querySelectorAll("input,select").forEach(
+              (inp) =>
+                (inp.onchange = () => {
+                  const s = plan.days[di].stops[si];
+                  s.name = row.querySelector(".name").value;
+                  s.lat = +row.querySelector(".lat").value;
+                  s.lon = +row.querySelector(".lon").value;
+                  s.kind = row.querySelector(".kind").value;
+                  s.route = row.querySelector(".route").checked;
+                  s.detail = row.querySelector(".detail").value;
+                  s.driveFromPrev = row.querySelector(".drive").value;
+                  save();
+                  renderMap();
+                }),
+            );
+          });
+        });
+        document.querySelectorAll(".remove").forEach(
+          (b) =>
+            (b.onclick = () => {
+              plan.days[+b.dataset.di].stops.splice(+b.dataset.si, 1);
+              save();
+              render();
+            }),
+        );
+        document.querySelectorAll(".add").forEach(
+          (b) =>
+            (b.onclick = () => {
+              plan.days[+b.dataset.di].stops.push({
+                name: "New stop",
+                kind: "activity",
+                lat: 46.5,
+                lon: 11.5,
+                detail: "",
+                route: false,
+              });
+              save();
+              render();
+            }),
+        );
+      }
+      function svgEl(name, attrs = {}, text = "") {
+        const e = document.createElementNS("http://www.w3.org/2000/svg", name);
+        Object.entries(attrs).forEach(([k, v]) => e.setAttribute(k, v));
+        if (text) e.textContent = text;
+        return e;
+      }
+      function renderMap() {
+        const svg = document.getElementById("routeMap");
+        svg.innerHTML = "";
+        const all = [];
+        plan.days.forEach((d, di) =>
+          d.stops.forEach((s, si) => {
+            if (Number.isFinite(+s.lat) && Number.isFinite(+s.lon))
+              all.push({ ...s, day: d.label, di, si });
+          }),
+        );
+        if (!all.length) return;
+        const pad = { l: 56, r: 30, t: 36, b: 40 },
+          W = 760,
+          H = 650;
+        let minLat = Math.min(...all.map((s) => +s.lat)),
+          maxLat = Math.max(...all.map((s) => +s.lat)),
+          minLon = Math.min(...all.map((s) => +s.lon)),
+          maxLon = Math.max(...all.map((s) => +s.lon));
+        const dLat = Math.max(0.25, maxLat - minLat),
+          dLon = Math.max(0.35, maxLon - minLon);
+        minLat -= dLat * 0.12;
+        maxLat += dLat * 0.12;
+        minLon -= dLon * 0.08;
+        maxLon += dLon * 0.08;
+        const X = (lon) =>
+          pad.l + ((+lon - minLon) / (maxLon - minLon)) * (W - pad.l - pad.r);
+        const Y = (lat) =>
+          pad.t + ((maxLat - +lat) / (maxLat - minLat)) * (H - pad.t - pad.b);
+        // background bands / labels
+        svg.append(
+          svgEl("rect", { x: 0, y: 0, width: W, height: H, fill: "#edf0ea" }),
+        );
+        for (let i = 0; i < 5; i++) {
+          const y = pad.t + (i * (H - pad.t - pad.b)) / 4;
+          svg.append(
+            svgEl("line", {
+              x1: pad.l,
+              y1: y,
+              x2: W - pad.r,
+              y2: y,
+              stroke: "#dce2da",
+              "stroke-width": 1,
+            }),
+          );
+          const lat = (maxLat - (i * (maxLat - minLat)) / 4).toFixed(2);
+          svg.append(
+            svgEl(
+              "text",
+              { x: 7, y: y + 4, fill: "#8a9089", "font-size": 10 },
+              lat + "°N",
+            ),
+          );
+        }
+        for (let i = 0; i < 5; i++) {
+          const x = pad.l + (i * (W - pad.l - pad.r)) / 4;
+          svg.append(
+            svgEl("line", {
+              x1: x,
+              y1: pad.t,
+              x2: x,
+              y2: H - pad.b,
+              stroke: "#dce2da",
+              "stroke-width": 1,
+            }),
+          );
+          const lon = (minLon + (i * (maxLon - minLon)) / 4).toFixed(2);
+          svg.append(
+            svgEl(
+              "text",
+              { x: x - 14, y: H - 14, fill: "#8a9089", "font-size": 10 },
+              lon + "°E",
+            ),
+          );
+        }
+        const route = routeStops();
+        if (route.length > 1) {
+          svg.append(
+            svgEl("polyline", {
+              points: route.map((s) => `${X(s.lon)},${Y(s.lat)}`).join(" "),
+              fill: "none",
+              stroke: "#315e4f",
+              "stroke-width": 5,
+              "stroke-linecap": "round",
+              "stroke-linejoin": "round",
+              opacity: 0.72,
+            }),
+          );
+        }
+        const colors = {
+          activity: "#2f5d4d",
+          sleep: "#b65f37",
+          transport: "#526b91",
+        };
+        let n = 0;
+        all.forEach((s) => {
+          n++;
+          const x = X(s.lon),
+            y = Y(s.lat),
+            g = svgEl("g");
+          const c = svgEl("circle", {
+            cx: x,
+            cy: y,
+            r: 11,
+            fill: colors[s.kind] || colors.activity,
+            stroke: "#fff",
+            "stroke-width": 2,
+          });
+          const num = svgEl(
+            "text",
+            {
+              x: x,
+              y: y + 4,
+              "text-anchor": "middle",
+              fill: "#fff",
+              "font-size": 10,
+              "font-weight": 800,
+            },
+            String(n),
+          );
+          g.append(c, num);
+          const anchor = x > W * 0.69 ? "end" : "start",
+            tx = x + (anchor === "start" ? 15 : -15);
+          const label = svgEl(
+            "text",
+            {
+              x: tx,
+              y: y - 2,
+              "text-anchor": anchor,
+              fill: "#20231f",
+              "font-size": 11,
+              "font-weight": 700,
+            },
+            s.name.length > 34 ? s.name.slice(0, 31) + "…" : s.name,
+          );
+          const day = svgEl(
+            "text",
+            {
+              x: tx,
+              y: y + 11,
+              "text-anchor": anchor,
+              fill: "#6a6e66",
+              "font-size": 9,
+            },
+            s.day,
+          );
+          g.append(label, day);
+          svg.append(g);
+        });
+        document.getElementById("routeSummary").textContent =
+          `${route.length} route stops · ${all.length} total mapped stops · schematic geographic overview`;
+      }
+      function openGoogleRoute() {
+        const s = routeStops();
+        if (s.length < 2) return;
+        let u = `https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(s[0].lat + "," + s[0].lon)}&destination=${encodeURIComponent(s.at(-1).lat + "," + s.at(-1).lon)}&travelmode=driving`;
+        const w = s
+          .slice(1, -1)
+          .map((x) => x.lat + "," + x.lon)
+          .join("|");
+        if (w) u += `&waypoints=${encodeURIComponent(w)}`;
+        window.open(u, "_blank", "noopener");
+      }
+      function exportPlan() {
+        const blob = new Blob([JSON.stringify(plan, null, 2)], {
+            type: "application/json",
+          }),
+          a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = "dolomites-camper-plan.json";
+        a.click();
+        setTimeout(() => URL.revokeObjectURL(a.href), 500);
+      }
+      function importPlan(file) {
+        const r = new FileReader();
+        r.onload = () => {
+          try {
+            const p = JSON.parse(r.result);
+            if (!p.days) throw Error();
+            plan = p;
+            save();
+            render();
+          } catch (e) {
+            alert("Could not import that plan file.");
+          }
+        };
+        r.readAsText(file);
+      }
+      document.getElementById("googleRouteBtn").onclick = openGoogleRoute;
+      document.getElementById("exportBtn").onclick = exportPlan;
+      document.getElementById("importBtn").onclick = () =>
+        document.getElementById("importFile").click();
+      document.getElementById("importFile").onchange = (e) =>
+        e.target.files[0] && importPlan(e.target.files[0]);
+      document.getElementById("resetBtn").onclick = () => {
+        if (confirm("Reset all edits?")) {
+          plan = clone(seedPlan);
+          save();
+          render();
+        }
+      };
+      render();
+    </script>
+  </body>
+</html>
