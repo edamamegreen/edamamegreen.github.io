@@ -127,6 +127,16 @@
 </content>
   </entry>
   <entry>
+    <id>https://nickivance.com/made/#20260921_ceramic_shark</id>
+    <title>Ceramic shark</title>
+    <published>2026-09-21T00:00:00Z</published>
+    <updated>2026-09-21T00:00:00Z</updated>
+    <link rel="alternate" href="https://nickivance.com/made/#20260921_ceramic_shark" type="text/html"/>
+    <content type="html">&lt;p&gt;&lt;img src="https://nickivance.com/made/assets/20260921_ceramic_shark.jpeg" alt="Ceramic shark"&gt;&lt;/p&gt;
+&lt;p&gt;I made this cute lil’ guy on request for a friend. I’m so happy with how it turned out that I’ve started a second one.&lt;/p&gt;
+</content>
+  </entry>
+  <entry>
     <id>https://nickivance.com/made/#20260921_ceramic_miniatures</id>
     <title>Ceramic miniatures</title>
     <published>2026-09-21T00:00:00Z</published>
@@ -137,13 +147,13 @@
 </content>
   </entry>
   <entry>
-    <id>https://nickivance.com/made/#20260921_ceramic_shark</id>
-    <title>Ceramic shark</title>
-    <published>2026-09-21T00:00:00Z</published>
-    <updated>2026-09-21T00:00:00Z</updated>
-    <link rel="alternate" href="https://nickivance.com/made/#20260921_ceramic_shark" type="text/html"/>
-    <content type="html">&lt;p&gt;&lt;img src="https://nickivance.com/made/assets/20260921_ceramic_shark.jpeg" alt="Ceramic shark"&gt;&lt;/p&gt;
-&lt;p&gt;I made this cute lil’ guy on request for a friend. I’m so happy with how it turned out that I’ve started a second one.&lt;/p&gt;
+    <id>https://nickivance.com/made/#20260916_reversible_vest</id>
+    <title>Reversible Vest</title>
+    <published>2026-09-16T00:00:00Z</published>
+    <updated>2026-09-16T00:00:00Z</updated>
+    <link rel="alternate" href="https://nickivance.com/writing/20260916_sewing_vest/index.html" type="text/html"/>
+    <content type="html">&lt;p&gt;&lt;img src="https://nickivance.com/writing/20260916_sewing_vest/IMG_6057.jpg" alt="Reversible Vest"&gt;&lt;/p&gt;
+&lt;p&gt;A quilted grey knit on one side, black denim on the other, finished with mint green bias binding.&lt;/p&gt;
 </content>
   </entry>
   <entry>
@@ -257,16 +267,6 @@
 
 &lt;p&gt;“vest” means a coat with arms in Dutch. In UK English, a “vest” is a formal button vest to wear with suits whereas a vest like this is called a “gilet” (zhee-lee), borrowed from French.&lt;/p&gt;
 
-</content>
-  </entry>
-  <entry>
-    <id>https://nickivance.com/made/#20260916_reversible_vest</id>
-    <title>Reversible Vest</title>
-    <published>2026-09-16T00:00:00Z</published>
-    <updated>2026-09-16T00:00:00Z</updated>
-    <link rel="alternate" href="https://nickivance.com/writing/20260916_sewing_vest/index.html" type="text/html"/>
-    <content type="html">&lt;p&gt;&lt;img src="https://nickivance.com/writing/20260916_sewing_vest/IMG_6057.jpg" alt="Reversible Vest"&gt;&lt;/p&gt;
-&lt;p&gt;A quilted grey knit on one side, black denim on the other, finished with mint green bias binding.&lt;/p&gt;
 </content>
   </entry>
   <entry>
@@ -2938,6 +2938,33 @@ I don’t think this prototype gives me a definitive “yes” but it doesn’t 
 </content>
   </entry>
   <entry>
+    <id>https://nickivance.com/writing/20170721_boat-animation/</id>
+    <title>Animating with Quicktime and nudging objects</title>
+    <published>2017-10-23T00:00:00Z</published>
+    <updated>2017-10-23T00:00:00Z</updated>
+    <link rel="alternate" href="https://nickivance.com/writing/20170721_boat-animation/" type="text/html"/>
+    <content type="html">&lt;h1 id="animating-with-quicktime-and-nudging-objects"&gt;Animating with Quicktime and nudging objects&lt;/h1&gt;
+
+&lt;figure style="max-width: 555px"&gt;
+  &lt;img src="https://nickivance.com/writing/20170721_boat-animation/boat_wake.gif" alt=""&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;I wanted to make this animation based on a handkerchief I saw in a shop window.&lt;/p&gt;
+
+&lt;figure style="max-width: 555px"&gt;
+  &lt;img src="https://nickivance.com/writing/20170721_boat-animation/boat-inspiration.jpg" alt=""&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;I recreated the basic shapes in Sketch, a vector drawing tool. At first, I thought I’d do this in the stop-animation style: draw each frame and join the frame pngs into a gif.&lt;/p&gt;
+
+&lt;p&gt;You know what’s easier? Build one image and film yourself nudging it across the screen.&lt;/p&gt;
+
+&lt;p&gt;There are a lot of tools that take a video file and output a gif. From what I’ve read and proved with my own experiments, gifs are actually larger than video files. A gif is an image file format. But a lot of websites where you might want to post your animation don’t support video upload, only image upload. I’ve heard this is because there are security concerns but I haven’t investigated.&lt;/p&gt;
+
+&lt;p&gt;This only took me 2 hours, start to finish. I’d like to try it again in the future. It would be nice if the boat could go at an angle to the water lines. And to create the little wave that boats push out in front of them. Or to generate this all programmatically. Next time! :)&lt;/p&gt;
+</content>
+  </entry>
+  <entry>
     <id>https://nickivance.com/writing/20171023_designing-interactive-tables/</id>
     <title>Designing interactive tables: keyboard navigation and selection</title>
     <published>2017-10-23T00:00:00Z</published>
@@ -3131,33 +3158,6 @@ I don’t think this prototype gives me a definitive “yes” but it doesn’t 
 &lt;p&gt;Hopefully, you’ve found some useful tidbits in here for the next time you work on a keyboard interface or an interactive table.&lt;/p&gt;
 
 &lt;p&gt;Thanks for reading. If you think this is worth sharing, I’d be grateful if you would. Cheers!&lt;/p&gt;
-</content>
-  </entry>
-  <entry>
-    <id>https://nickivance.com/writing/20170721_boat-animation/</id>
-    <title>Animating with Quicktime and nudging objects</title>
-    <published>2017-10-23T00:00:00Z</published>
-    <updated>2017-10-23T00:00:00Z</updated>
-    <link rel="alternate" href="https://nickivance.com/writing/20170721_boat-animation/" type="text/html"/>
-    <content type="html">&lt;h1 id="animating-with-quicktime-and-nudging-objects"&gt;Animating with Quicktime and nudging objects&lt;/h1&gt;
-
-&lt;figure style="max-width: 555px"&gt;
-  &lt;img src="https://nickivance.com/writing/20170721_boat-animation/boat_wake.gif" alt=""&gt;
-&lt;/figure&gt;
-
-&lt;p&gt;I wanted to make this animation based on a handkerchief I saw in a shop window.&lt;/p&gt;
-
-&lt;figure style="max-width: 555px"&gt;
-  &lt;img src="https://nickivance.com/writing/20170721_boat-animation/boat-inspiration.jpg" alt=""&gt;
-&lt;/figure&gt;
-
-&lt;p&gt;I recreated the basic shapes in Sketch, a vector drawing tool. At first, I thought I’d do this in the stop-animation style: draw each frame and join the frame pngs into a gif.&lt;/p&gt;
-
-&lt;p&gt;You know what’s easier? Build one image and film yourself nudging it across the screen.&lt;/p&gt;
-
-&lt;p&gt;There are a lot of tools that take a video file and output a gif. From what I’ve read and proved with my own experiments, gifs are actually larger than video files. A gif is an image file format. But a lot of websites where you might want to post your animation don’t support video upload, only image upload. I’ve heard this is because there are security concerns but I haven’t investigated.&lt;/p&gt;
-
-&lt;p&gt;This only took me 2 hours, start to finish. I’d like to try it again in the future. It would be nice if the boat could go at an angle to the water lines. And to create the little wave that boats push out in front of them. Or to generate this all programmatically. Next time! :)&lt;/p&gt;
 </content>
   </entry>
   <entry>
@@ -3355,7 +3355,7 @@ For example, I want people to be able to change the payee on a dozen bank transa
   </entry>
   <entry>
     <id>https://nickivance.com/writing/20170717_stools-part-one/</id>
-    <title>Sitting Stools - Part One</title>
+    <title>Sitting Stools - Part 1</title>
     <published>2017-07-17T00:00:00Z</published>
     <updated>2017-07-17T00:00:00Z</updated>
     <link rel="alternate" href="https://nickivance.com/writing/20170717_stools-part-one/" type="text/html"/>
