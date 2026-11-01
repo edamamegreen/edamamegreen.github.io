@@ -2,13 +2,130 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <id>https://nickivance.com/feed.xml</id>
   <title>Nicki Vance: Writings and Things I've Made</title>
-  <updated>2026-09-21T00:00:00Z</updated>
+  <updated>2026-10-22T00:00:00Z</updated>
   <link rel="self" href="https://nickivance.com/feed.xml" type="application/atom+xml"/>
   <link rel="alternate" href="https://nickivance.com/" type="text/html"/>
   <author>
     <name>Nicki Vance</name>
     <uri>https://nickivance.com/</uri>
   </author>
+  <entry>
+    <id>https://nickivance.com/writing/20261022_how_i_use_ai/</id>
+    <title>How I use AI</title>
+    <published>2026-10-22T00:00:00Z</published>
+    <updated>2026-10-22T00:00:00Z</updated>
+    <link rel="alternate" href="https://nickivance.com/writing/20261022_how_i_use_ai/" type="text/html"/>
+    <content type="html">&lt;h1 id="how-i-use-ai"&gt;How I use AI&lt;/h1&gt;
+
+&lt;p&gt;People have a lot of different, big feelings about AI.&lt;/p&gt;
+
+&lt;p&gt;For my part, I’m really excited because I can use it to make more things. For example, I can build personal software projects for my own use in the space of a few weeks. In the past, it would’ve taken me months and that cost would’ve been too high for a lot of ideas, sometimes leaving me paralyzed to decide what was actually worth all that time.&lt;/p&gt;
+
+&lt;p&gt;I’m writing this for friends who might be curious why I like AI or folks who already use it and are looking for ideas on how to use AI differently or better. This also serves as a bit of a record for myself to look back on how things are changing because it interests me as a UX professional how workflows, UI, and tooling changes what we choose and are able to do.&lt;/p&gt;
+
+&lt;p&gt;I pay for a chatGPT subscription and a Cursor subscription, about $20 each per month. I haven’t been hitting limits and I find it very worthwhile. I use chatGPT on the web and on my phone. I’ve dabbled a bit with Claude on the web and phone but it’s been a while. I use my openAI API endpoints for chatGPT and other models in a couple apps I’ve developed - so far my usage of these API has been so low as to be basically free. I also use a few CLIs - codex, cursor, pi agent, and claude. More about that and sandboxing below.&lt;/p&gt;
+
+&lt;p&gt;I’m going to just use the term “AI” as a catch-all for LLMs, image models, text-to-speech models, and all the complex systems that are integrating these models.&lt;/p&gt;
+
+&lt;h2 id="search"&gt;Search&lt;/h2&gt;
+
+&lt;p&gt;AI (LLMs, chatGPT, Claude, Perplexity) is great for searching the internet for things that don’t search well in Google. This is either things that require a whole sentence to describe (“that video from when I was a kid where they flew around with a lion”) or topics full of crappy blog posts with optimized SEO to capturing ad revenue.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Medical info&lt;/strong&gt; - this doesn’t replace a GP but it gives a better overview and answers more complex questions (such as alternative possibilities) than the SEO-optimized medical information websites. I like that I can ask it to dive into details like the biology or physical mechanisms behind a symptom. Once it offered me “would you like to know why snot is green sometimes?” Yes! I do!&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Travel recommendations&lt;/strong&gt; - the search results are full of surface level overview blog posts from travel influencers and I’d prefer the Lonely Planet style overview of the basics and then tailored descriptions of “here’s an odd thing” or “how this compares to a place you’re familiar with”.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;How it works, How its made&lt;/strong&gt; - general questions about how or why something is the way it is.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Project Research&lt;/strong&gt; - For example, I wanted to know more about immigration statistics in the Netherlands so I asked what data sources are available and what they contain.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;News summaries&lt;/strong&gt; - I avoid reading all news other than the Amsterdam city weekly newsletter (which is about what the city is doing, not the news in the city). Once in a while, someone will mention something I feel like I need to get a sense of so I ask Perplexity “what’s been happening with X in the last month or two” to get a summary. I only want the high level, not the day-by-day handwringing. This protects me from the news cycle and I can actively decide whether I need to know more or not.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id="art"&gt;Art&lt;/h2&gt;
+&lt;p&gt;I want to create objects to fill my life with things I want to see. I don’t consider myself an artist, as an identity, so I’m not creating things to represent myself to the world. I’m not creating to sell things.&lt;/p&gt;
+
+&lt;p&gt;Dabbled briefly with Midjourney but I’m not very interested in creating detailed, complex artwork.&lt;/p&gt;
+
+&lt;p&gt;I’ve been happy using chatGPT to generate icons for my projects and also designs that I want to use for t-shirts and stickers of birds being silly. I gave it a reference style image and it has done a good job following that style.&lt;/p&gt;
+
+&lt;figure style="max-width: 555px"&gt;
+
+  &lt;img src="https://nickivance.com/writing/20261022_how_i_use_ai/birbbox.png" alt=""&gt;
+
+&lt;/figure&gt;
+
+&lt;p&gt;Honestly, I wouldn’t have sat down to draw these things. Instead of another project disappearing down the list of things I want to do, I’ve got a prototype, something to motivate me to explore further.&lt;/p&gt;
+
+&lt;h2 id="travel"&gt;Travel&lt;/h2&gt;
+&lt;p&gt;I ask ChatGPT to look for upcoming events in an area I will be visiting, places that might be of interest specifically to me (off-the-beaten path museums, street art, places that sell locally designed stickers or zines, factory tours), comparisons of flights vs trains, alternative flight routes, local events like conferences that might affect flight and hotel prices, etc.&lt;/p&gt;
+
+&lt;p&gt;On a recent trip (October 2026), I was using chatGPT to plan the museums I wanted to visit for a week in NYC and the itinerary for a campervan trip in the Dolomites. The threads get really long and information that I want to hang on to gets spread out through the thread – a place I liked earlier in the convo, opening hours later – mixed in with information that I want to discard. I found it useful to ask for the information to be put into an html file (a markdown file is nice too). The chatGPT web interface can open the html file next to the thread so I don’t have to mess with downloading it and opening it in my browser. This way, I could ask for tables of information (e.g. opening hours for each museum over the days I’m in town) and even interactive day planners to place the activities I’m considering. They could improve a lot but they’re promising enough that I had chatGPT create prompts for creating them (heavily edited by myself) to create a skill for &lt;code&gt;trip-planning&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;You can browse the artifacts:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href="https://nickivance.com/writing/20261022_how_i_use_ai/SKILL.html"&gt;Trip planning skill&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="https://nickivance.com/writing/20261022_how_i_use_ai/nyc_museums_sep28_oct5_2026.html"&gt;NYC museums&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="https://nickivance.com/writing/20261022_how_i_use_ai/dolomites_camper_planner_oct_2026_updated_weekend.html"&gt;Dolomites trip&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;In the future, I’m interested to see if AI will get better access to flight data so it can give me better information for choosing flight routes and dates than the simple date pickers the aggregators have now. For example, one time Kevin and I were headed from Seattle to the UK and were flexible on where we could go. He found a $300 one way flight to Manchester, half the price of the others, because it was a special flight to deliver a plane to an airline (passengers were a bonus). I want AI to be able to find those things for me.&lt;/p&gt;
+
+&lt;h2 id="language-learning"&gt;Language Learning&lt;/h2&gt;
+
+&lt;p&gt;I use chatGPT for help learning Dutch in a couple ways. Most of the time, I’m relying on Google Translate or other online dictionaries. When I’m curious to see a set of examples about how a phrase might be used, chatGPT is pretty good at that. I’ve also had chatGPT create a couple practice tests for me while I’m in class based on slides from class and a previous test that I scanned in.&lt;/p&gt;
+
+&lt;p&gt;I’ve also tried making my own iOS app to improve on the realtime chat experience of chatGPT. You can read about that in &lt;a href="https://nickivance.com/writing/20260826_dutch_buddy/index.html"&gt;my post about Dutch Buddy&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id="data-collection"&gt;Data Collection&lt;/h2&gt;
+&lt;p&gt;I’ve been using Grokbot a little bit, mainly to test it out the workflow of persistent background tasks.&lt;/p&gt;
+
+&lt;p&gt;I have it running two tasks:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;job search&lt;/li&gt;
+  &lt;li&gt;weather&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;I keep daily notes so I like having Grokbot looking up the weather at the end of the day so I have the local high and low.&lt;/p&gt;
+
+&lt;p&gt;The job search task is to gather job listings that fit a couple different sets of criteria so that I can review them and mark which ones I’m interested in. This will also give me a dataset of salaries and an idea of how the market might be changing over time for the specific roles I’m interested in.&lt;/p&gt;
+
+&lt;p&gt;I barely spend time with either of these. So far they do their thing but I haven’t found a use case of high value for myself.&lt;/p&gt;
+
+&lt;h2 id="code"&gt;Code&lt;/h2&gt;
+&lt;p&gt;In early 2024, I began trying out Copilot for autocomplete in IntellijIDEA but half the time it wasn’t good as the Intellisense that it was replacing.&lt;/p&gt;
+
+&lt;p&gt;At the time, I dreamed that I’d be able to upload images of sketches of UI and AI could code them. It’s come true!&lt;/p&gt;
+
+&lt;p&gt;In early 2025, I loved Cursor for giving me a good diff view of its changes, similar to a diffing tool. For the first time, it was easy and reliable to ask an LLM to edit code in a repository using the repository (selectively, at first) for context. This enabled me to throw together full interactive prototypes of new products within a couple days, including mocked data.&lt;/p&gt;
+
+&lt;p&gt;For context, I have been funemployed this year so the following is a description of how I use AI to code on my own projects. I’m not using the institutional tools that spin up agents in the cloud like my friends are at work.&lt;/p&gt;
+
+&lt;p&gt;2026 has been an exciting year for playing with Codex, Claude, Cursor, and Pi Agent. I like being able to let an agent loose on my codebases but I find the sandboxing of Cursor and other tools lacking and I don’t have much confidence in them. I’m not worried about a malicious AI agent stealing my data but I am aware of the mistakes software teams make and it’s easy to imagine that the AI can read all my local files which means they are sent and stored on a company’s servers where they can accidentally be kept or not properly anonymized, or sold for ad profiles.&lt;/p&gt;
+
+&lt;p&gt;After some fits and starts, I now use &lt;a href="https://github.com/lynaghk/vibe"&gt;Kevin’s vibe sandboxing tool&lt;/a&gt; to contain coding agents and allow them access to my selected code repositories. Within this sandbox, I have tried out Claude (but stopped because I don’t want to pay for it), Codex, Cursor, and Pi Agent CLIs. I’ve more fully switched to using CLI to chat with agents about code projects.&lt;/p&gt;
+
+&lt;p&gt;When I work with an agent on a code project, I start by asking it to make a plan and putting that in a markdown file in a &lt;code&gt;/docs&lt;/code&gt; folder of my repository. The readme provides an outline of the work and links to these plan files. I review the plan, which includes a list of tasks divided into “git commit sized chunks”, each numbered. Then I can start a new session to clear the context and ask the agent to implement the next chunk on the list, marking it done in the file so the current status is known. I still like to skim over the changes (using Cursor, so the VS code git diffing tool) and make the commit myself. I’ve also tried out a workflow of giving the agent access to the &lt;code&gt;github-cli&lt;/code&gt; tool so it can create PRs in a github repo that I can then review and merge. I find the github PR process easier to review in the web interface than &lt;code&gt;git log&lt;/code&gt; but I haven’t revisited that process because I don’t feel I need that level of reviewable history.&lt;/p&gt;
+
+&lt;p&gt;I’ve played around a little bit with agentView and it’s an excellent tool for reviewing agent sessions but I haven’t been inclined to review the tool usage, token usage, and context size of my sessions. I think it would be a really useful tool, in addition to asking an agent to review and summarize sessions, to learn how to make use of agents more efficiently.&lt;/p&gt;
+
+&lt;p&gt;I like Pi Agent a lot because its customizable with plugins, self-documented, and model-independent. I’ve played around with customizing it to limit its tool usage and attaching it to a local model so that I would feel comfortable using it to analyze my bank records. That project is paused but promising because I’d like to do something similar for health records and my personal Obsidian vault. That is all data that I definitely do not want being sent to a company as part of the context for an AI chat thread, regardless of their stated policies for privacy and training.&lt;/p&gt;
+
+&lt;h2 id="things-i-hope-to-improve"&gt;Things I hope to improve&lt;/h2&gt;
+
+&lt;p&gt;I’d like a better tool for reviewing diffs - I care a lot about being able to see and understand the changes an agent is making. This is one reason I like working in text files, not just chat threads. The thread is ephemeral and messy, the text file is the saved record which should be versioned. I want to be able to edit the diffs - this is the downside of a lot of git diffing tools. By far, the IntellijIDEA plugin for git has been my favorite interface for reviewing and editing diffs because it’s easy to merge conflicts, stage single lines, and review a single file’s history.&lt;/p&gt;
+
+&lt;p&gt;I’d like to be able to review diffs of markdown files in their preview mode.&lt;/p&gt;
+
+&lt;p&gt;I’d like to be able to work with an agent on a formatted document. I’d like to be able to put it in suggestion mode so it could only suggest changes so that I could be certain what was changed and I could approve/deny/edit those changes. I’d like to be able to highlight and comment on the text to ask clarifying questions or instruct larger changes. I like the Google Docs interface for all this but I want the underlying file format to be markdown and something I can work on locally with my agent. My use case for this is developing research documents. For example, when I want to learn about a topic like AFib, I want to start with a summary from the agent, ask more questions, remove the bits I don’t care about, and then I will have a file I can save in my Obsidian vault that I can use as reference or edit in the future.&lt;/p&gt;
+
+&lt;h2 id="open-questions"&gt;Open Questions&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Will IntellijIDEA come up with a better integration of AI into my favorite IDE? I want to check out their Air plugin.&lt;/li&gt;
+  &lt;li&gt;Would it benefit me to work with cloud agents?&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+  </entry>
   <entry>
     <id>https://nickivance.com/made/#20260921_ceramic_miniatures</id>
     <title>Ceramic miniatures</title>
@@ -2183,7 +2300,7 @@ When I input the successful email, I get an object identifier back.&lt;/p&gt;
 
 &lt;p&gt;Stop Slacking sends you an email when you are mentioned or direct messaged on Slack (the important stuff) and then posts your reply to Slack.&lt;/p&gt;
 
-&lt;p&gt;Try it out at &lt;a href="https://www.stopslacking.com/"&gt;stopslacking.com.&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Try it out at &lt;a href="https://stopslacking.com/"&gt;stopslacking.com.&lt;/a&gt;&lt;/p&gt;
 
 &lt;h2 id="the-setting-or-how-to-work-in-a-campervan"&gt;The Setting (or How to Work in a Campervan)&lt;/h2&gt;
 
@@ -2244,8 +2361,6 @@ When I input the successful email, I get an object identifier back.&lt;/p&gt;
 &lt;p&gt;I’ve enjoyed working on a text-only interface. And the landing page was fun to build - especially those high-quality “screenshots”.&lt;/p&gt;
 
 &lt;p&gt;My task now is to test our design decisions against the real-life needs of other people. How do other people want to use Stop Slacking? What do they need to improve their workflow?&lt;/p&gt;
-
-&lt;p&gt;I’d love to hear your comments and questions. Feel free to email me at &lt;a href="mailto:nicki@stopslacking.com"&gt;nicki@stopslacking.com&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;Update July 2, 2018: Kevin has posted &lt;a href="https://kevinlynagh.com/stop-slacking/"&gt;a stellar article&lt;/a&gt; that covers another side to the product design and discusses what’s under the hood – the development considerations unique to email, Slack, and low bandwidth.&lt;/p&gt;
 
@@ -2328,7 +2443,7 @@ When I input the successful email, I get an object identifier back.&lt;/p&gt;
 
 &lt;p&gt;I ended up adding the rocking motion to the same animation that moves the boat side-to-side. I would like a way to combine multiple animations but I couldn’t because both animations used the same property, &lt;code&gt;transform&lt;/code&gt;.&lt;/p&gt;
 
-&lt;p&gt;In the side-to-side animation, I have &lt;code&gt;transform: rotateY()&lt;/code&gt; and in the rocking, I have &lt;code&gt;transform: rotate()&lt;/code&gt;. Even though &lt;code&gt;rotate&lt;/code&gt; and &lt;code&gt;rotateY&lt;/code&gt; are different, they still define the transform. If I created two separate animations and applied them to the same element, the CSS would use the transform instructions from the latter animation. The highest rule of CSS: there can be only one [of each property declaration]!&lt;/p&gt;
+&lt;p&gt;In the side-to-side animation, I have &lt;code&gt;transform: rotateY()&lt;/code&gt; and in the rocking, I have &lt;code&gt;transform: rotate()&lt;/code&gt;. Even though &lt;code&gt;rotate&lt;/code&gt; and &lt;code&gt;rotateY&lt;/code&gt; are different, they still define the transform. If I created two separate animations and applied them to the same element, the CSS would use the transform instructions from the latter animation. The highest rule of CSS: there can be only one (of each property declaration)!&lt;/p&gt;
 
 &lt;h2 id="engine-smoke"&gt;Engine smoke&lt;/h2&gt;
 
@@ -2484,123 +2599,6 @@ Talk: &lt;a href="https://www.youtube.com/watch?v=LDny7VGLzTE"&gt;SATURN 2016 Ke
 </content>
   </entry>
   <entry>
-    <id>https://nickivance.com/writing/20171129_compiling-clojurescript/</id>
-    <title>Compiling Clojurescript</title>
-    <published>2017-11-29T00:00:00Z</published>
-    <updated>2017-11-29T00:00:00Z</updated>
-    <link rel="alternate" href="https://nickivance.com/writing/20171129_compiling-clojurescript/" type="text/html"/>
-    <content type="html">&lt;h1 id="compiling-clojurescript"&gt;Compiling Clojurescript&lt;/h1&gt;
-
-&lt;p&gt;I am making little web games in Clojurescript and I want to be able to put them up on github so my friends can play them. So far I have been working in a live-reloading-dev environment so I haven’t given this problem any thought.&lt;/p&gt;
-
-&lt;p&gt;After a bit of fuss, trying to read lots of tutorials and looking at code my partner wrote for one of our projects, I figured it out. I’m writing it up here for two reasons.&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;
-    &lt;p&gt;So I can retrace my steps next time I need to set up compilation code in a Clojurescript project (it can vary each time!).&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;For anyone else who is looking for help.&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;I looked at these tutorials but neither gave me a working answer out-of-the-box.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href="https://clojurescript.org/guides/quick-start"&gt;https://clojurescript.org/guides/quick-start&lt;/a&gt; (I ran into a namespace error while following this tutorial. I think it was resolved by the bash code below that grabs the classpath from leiningen. Writing the correct classpaths when you have lots of pieces in multiple directories is hard!)&lt;/li&gt;
-  &lt;li&gt;&lt;a href="http://www.flyingmachinestudios.com/programming/how-clojure-babies-are-made-lein-run/"&gt;http://www.flyingmachinestudios.com/programming/how-clojure-babies-are-made-lein-run/&lt;/a&gt; (This has tons of great detail but is a lot of new concepts for me to handle.)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Don’t get me wrong - the guys who wrote these have created tons of awesome resources that are very accessible!&lt;/p&gt;
-
-&lt;h2 id="heres-what-worked-for-me"&gt;Here’s what worked for me!&lt;/h2&gt;
-
-&lt;p&gt;Make sure I have the following:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;source files (this is usually a directory and can contain multiple files that you want to be compiled)&lt;/li&gt;
-  &lt;li&gt;cljs.jar&lt;/li&gt;
-  &lt;li&gt;build.clj&lt;/li&gt;
-  &lt;li&gt;start.sh&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;The cljs.jar is a big library. I’m not 100% sure it’s a library because I just needed to make sure it was in the right place after I downloaded it. I didn’t need to edit it or open it.&lt;/p&gt;
-
-&lt;p&gt;The build.clj file is the clojure code that specifies what you want compiled. Mine contained:&lt;/p&gt;
-
-&lt;div class="language-clojure highlighter-coderay"&gt;&lt;div class="CodeRay"&gt;
-  &lt;div class="code"&gt;&lt;pre&gt;&lt;span class="line-numbers"&gt;&lt;a href="https://nickivance.com/writing/20171129_compiling-clojurescript/#n1" name="n1"&gt;1&lt;/a&gt;&lt;/span&gt;(&lt;span style="color:#080;font-weight:bold"&gt;require&lt;/span&gt; 'cljs.build.api)
-&lt;span class="line-numbers"&gt;&lt;a href="https://nickivance.com/writing/20171129_compiling-clojurescript/#n2" name="n2"&gt;2&lt;/a&gt;&lt;/span&gt;(cljs.build.api/build &lt;span style="background-color:hsla(0,100%,50%,0.05)"&gt;&lt;span style="color:#710"&gt;"&lt;/span&gt;&lt;span style="color:#D20"&gt;src&lt;/span&gt;&lt;span style="color:#710"&gt;"&lt;/span&gt;&lt;/span&gt; {&lt;span style="color:#A60"&gt;:output-to&lt;/span&gt; &lt;span style="background-color:hsla(0,100%,50%,0.05)"&gt;&lt;span style="color:#710"&gt;"&lt;/span&gt;&lt;span style="color:#D20"&gt;resources/public/js/outs/main.js&lt;/span&gt;&lt;span style="color:#710"&gt;"&lt;/span&gt;&lt;/span&gt;})
-&lt;/pre&gt;&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;p&gt;&lt;code&gt;src&lt;/code&gt; is the directory path that contains everything I want compiled.&lt;/p&gt;
-
-&lt;p&gt;The string after &lt;code&gt;:output-to&lt;/code&gt; is the directory path and file name that I want created. (It needs to be a javascript file because that’s what we’re outputting! But I haven’t tried anything else so I’m not sure what mischief might occur.)&lt;/p&gt;
-
-&lt;p&gt;The directory paths are relative to the location of the build.clj file. (BTW, you can name the build file other things, but “build” or “builds” seems common.)&lt;/p&gt;
-
-&lt;p&gt;The start.sh file makes using the terminal easier. It contains:&lt;/p&gt;
-
-&lt;div class="language-bash highlighter-coderay"&gt;&lt;div class="CodeRay"&gt;
-  &lt;div class="code"&gt;&lt;pre&gt;&lt;span class="line-numbers"&gt;&lt;a href="https://nickivance.com/writing/20171129_compiling-clojurescript/#n1" name="n1"&gt;1&lt;/a&gt;&lt;/span&gt;#!/bin/bash
-&lt;span class="line-numbers"&gt;&lt;a href="https://nickivance.com/writing/20171129_compiling-clojurescript/#n2" name="n2"&gt;2&lt;/a&gt;&lt;/span&gt;JVM_OPTIONS="
-&lt;span class="line-numbers"&gt;&lt;a href="https://nickivance.com/writing/20171129_compiling-clojurescript/#n3" name="n3"&gt;3&lt;/a&gt;&lt;/span&gt;  -cp `lein classpath`
-&lt;span class="line-numbers"&gt;&lt;a href="https://nickivance.com/writing/20171129_compiling-clojurescript/#n4" name="n4"&gt;4&lt;/a&gt;&lt;/span&gt;  -Djava.awt.headless=true
-&lt;span class="line-numbers"&gt;&lt;a href="https://nickivance.com/writing/20171129_compiling-clojurescript/#n5" name="n5"&gt;5&lt;/a&gt;&lt;/span&gt;  -client
-&lt;span class="line-numbers"&gt;&lt;a href="https://nickivance.com/writing/20171129_compiling-clojurescript/#n6" name="n6"&gt;6&lt;/a&gt;&lt;/span&gt;  -XX:+UseConcMarkSweepGC
-&lt;span class="line-numbers"&gt;&lt;a href="https://nickivance.com/writing/20171129_compiling-clojurescript/#n7" name="n7"&gt;7&lt;/a&gt;&lt;/span&gt;  -XX:+CMSClassUnloadingEnabled"
-&lt;span class="line-numbers"&gt;&lt;a href="https://nickivance.com/writing/20171129_compiling-clojurescript/#n8" name="n8"&gt;8&lt;/a&gt;&lt;/span&gt;rlwrap java $JVM_OPTIONS clojure.main build.clj development
-&lt;/pre&gt;&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;p&gt;I think the first line says, “hey, we’re talking in bash” so the terminal or shell (what’s the difference?) knows which language we’re in. I owe &lt;a href="https://kevinlynagh.com/"&gt;Kevin Lynagh&lt;/a&gt; for writing this file and most of this app set up.&lt;/p&gt;
-
-&lt;p&gt;I forget what rlwrap does. I use it for starting figwheel, too.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;code&gt;java&lt;/code&gt; is the command or program we’re invoking.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;The &lt;code&gt;$JVM_OPTIONS&lt;/code&gt; looks like a list of options for invoking &lt;code&gt;java&lt;/code&gt;.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;code&gt;clojure.main&lt;/code&gt; is not something I understand.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;code&gt;build.clj&lt;/code&gt; is the name of the build file you want to run.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;code&gt;development&lt;/code&gt; is…?&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Now that I have these files in place, I navigate to my project directory in the Terminal and run &lt;code&gt;./start.sh&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;This gets everything going!&lt;/p&gt;
-
-&lt;p&gt;You should see a folder labeled &lt;code&gt;out&lt;/code&gt; in your current directory. This contains all the code for the dependencies not in your source.
-You should also be able to find the .js file you defined as the output of your build.clj file.&lt;/p&gt;
-
-&lt;p&gt;You’ll need an index.html file that contains:&lt;/p&gt;
-
-&lt;p&gt;~~~html&lt;/p&gt;
-
-    
-      &lt;meta charset="utf-8"&gt;
-      &lt;link href="https://nickivance.com/writing/20171129_compiling-clojurescript/css/style.css" rel="stylesheet" type="text/css"&gt;
-    
-    
-      &lt;div id="container"&gt;&lt;/div&gt;
-      
-      
-      
-</content>
-  </entry>
-  <entry>
     <id>https://nickivance.com/writing/20171128_animating-tile-flip/</id>
     <title>Animating A Tile Flip For An Adventure Game With CSS</title>
     <published>2017-11-28T00:00:00Z</published>
@@ -2721,7 +2719,7 @@ You should also be able to find the .js file you defined as the output of your b
 
 &lt;p&gt;Then stop at this point because so far this sucks. The human spins like crazy when the dog is nearby because the human spins faster than it can move away from the dog.&lt;/p&gt;
 
-&lt;p&gt;[Sorry, I don’t have a video of this. I must’ve deleted the code before I got too dizzy.]&lt;/p&gt;
+&lt;p&gt;(Sorry, I don’t have a video of this. I must’ve deleted the code before I got too dizzy.)&lt;/p&gt;
 
 &lt;h2 id="side-tangent-about-the-programming-im-learning"&gt;Side tangent about the programming I’m learning&lt;/h2&gt;
 &lt;p&gt;Despite the stupid spinning human, I’m happy because I’d learned how to use threading macros in Clojure and was getting familiar with them.&lt;/p&gt;
@@ -2737,7 +2735,7 @@ You should also be able to find the .js file you defined as the output of your b
 
 &lt;p&gt;At first, I couldn’t see how these chained together or the order of the arguments. Is it &lt;code&gt;((3 * 2) + 1)&lt;/code&gt; or &lt;code&gt;(1 + (3 * 2))&lt;/code&gt;? There is a rule that determines this and you just have to learn it. Not so bad. Very useful.&lt;/p&gt;
 
-&lt;p&gt;[If you’re interested in Clojure, you can read about it in this article about threading macros. I didn’t show clojure code here because I think it would confuse most people I know – standard math notation is more familiar.]&lt;/p&gt;
+&lt;p&gt;(If you’re interested in Clojure, you can read about it in this article about threading macros. I didn’t show clojure code here because I think it would confuse most people I know – standard math notation is more familiar.)&lt;/p&gt;
 
 &lt;h2 id="building-a-grid"&gt;Building a grid&lt;/h2&gt;
 &lt;p&gt;I was a bit stumped about the spinning human.&lt;/p&gt;
@@ -2940,33 +2938,6 @@ I don’t think this prototype gives me a definitive “yes” but it doesn’t 
 </content>
   </entry>
   <entry>
-    <id>https://nickivance.com/writing/20170721_boat-animation/</id>
-    <title>Animating with Quicktime and nudging objects</title>
-    <published>2017-10-23T00:00:00Z</published>
-    <updated>2017-10-23T00:00:00Z</updated>
-    <link rel="alternate" href="https://nickivance.com/writing/20170721_boat-animation/" type="text/html"/>
-    <content type="html">&lt;h1 id="animating-with-quicktime-and-nudging-objects"&gt;Animating with Quicktime and nudging objects&lt;/h1&gt;
-
-&lt;figure style="max-width: 555px"&gt;
-  &lt;img src="https://nickivance.com/writing/20170721_boat-animation/boat_wake.gif" alt=""&gt;
-&lt;/figure&gt;
-
-&lt;p&gt;I wanted to make this animation based on a handkerchief I saw in a shop window.&lt;/p&gt;
-
-&lt;figure style="max-width: 555px"&gt;
-  &lt;img src="https://nickivance.com/writing/20170721_boat-animation/boat-inspiration.jpg" alt=""&gt;
-&lt;/figure&gt;
-
-&lt;p&gt;I recreated the basic shapes in Sketch, a vector drawing tool. At first, I thought I’d do this in the stop-animation style: draw each frame and join the frame pngs into a gif.&lt;/p&gt;
-
-&lt;p&gt;You know what’s easier? Build one image and film yourself nudging it across the screen.&lt;/p&gt;
-
-&lt;p&gt;There are a lot of tools that take a video file and output a gif. From what I’ve read and proved with my own experiments, gifs are actually larger than video files. A gif is an image file format. But a lot of websites where you might want to post your animation don’t support video upload, only image upload. I’ve heard this is because there are security concerns but I haven’t investigated.&lt;/p&gt;
-
-&lt;p&gt;This only took me 2 hours, start to finish. I’d like to try it again in the future. It would be nice if the boat could go at an angle to the water lines. And to create the little wave that boats push out in front of them. Or to generate this all programmatically. Next time! :)&lt;/p&gt;
-</content>
-  </entry>
-  <entry>
     <id>https://nickivance.com/writing/20171023_designing-interactive-tables/</id>
     <title>Designing interactive tables: keyboard navigation and selection</title>
     <published>2017-10-23T00:00:00Z</published>
@@ -3163,24 +3134,30 @@ I don’t think this prototype gives me a definitive “yes” but it doesn’t 
 </content>
   </entry>
   <entry>
-    <id>https://nickivance.com/writing/20171011_melbourne-move/</id>
-    <title>Living in Melbourne</title>
-    <published>2017-10-11T00:00:00Z</published>
-    <updated>2017-10-11T00:00:00Z</updated>
-    <link rel="alternate" href="https://nickivance.com/writing/20171011_melbourne-move/" type="text/html"/>
-    <content type="html">&lt;h1 id="living-in-melbourne"&gt;Living in Melbourne&lt;/h1&gt;
-
-&lt;p&gt;At the beginning of October, my partner and I began an extended stay in Australia. We’ll be in Melbourne for the next bit.&lt;/p&gt;
-
-&lt;p&gt;So far, I can say that I love how Australians shorten nouns into diminutives. Especially when I see it in formal contexts.&lt;/p&gt;
+    <id>https://nickivance.com/writing/20170721_boat-animation/</id>
+    <title>Animating with Quicktime and nudging objects</title>
+    <published>2017-10-23T00:00:00Z</published>
+    <updated>2017-10-23T00:00:00Z</updated>
+    <link rel="alternate" href="https://nickivance.com/writing/20170721_boat-animation/" type="text/html"/>
+    <content type="html">&lt;h1 id="animating-with-quicktime-and-nudging-objects"&gt;Animating with Quicktime and nudging objects&lt;/h1&gt;
 
 &lt;figure style="max-width: 555px"&gt;
-
-  &lt;img src="https://nickivance.com/writing/20171011_melbourne-move/posties.png" alt=""&gt;
-
-  &lt;figcaption&gt;The Australian Post career opportunities list "Postie" as an admirably gender neutral version of "postal delivery worker".&lt;/figcaption&gt;
-
+  &lt;img src="https://nickivance.com/writing/20170721_boat-animation/boat_wake.gif" alt=""&gt;
 &lt;/figure&gt;
+
+&lt;p&gt;I wanted to make this animation based on a handkerchief I saw in a shop window.&lt;/p&gt;
+
+&lt;figure style="max-width: 555px"&gt;
+  &lt;img src="https://nickivance.com/writing/20170721_boat-animation/boat-inspiration.jpg" alt=""&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;I recreated the basic shapes in Sketch, a vector drawing tool. At first, I thought I’d do this in the stop-animation style: draw each frame and join the frame pngs into a gif.&lt;/p&gt;
+
+&lt;p&gt;You know what’s easier? Build one image and film yourself nudging it across the screen.&lt;/p&gt;
+
+&lt;p&gt;There are a lot of tools that take a video file and output a gif. From what I’ve read and proved with my own experiments, gifs are actually larger than video files. A gif is an image file format. But a lot of websites where you might want to post your animation don’t support video upload, only image upload. I’ve heard this is because there are security concerns but I haven’t investigated.&lt;/p&gt;
+
+&lt;p&gt;This only took me 2 hours, start to finish. I’d like to try it again in the future. It would be nice if the boat could go at an angle to the water lines. And to create the little wave that boats push out in front of them. Or to generate this all programmatically. Next time! :)&lt;/p&gt;
 </content>
   </entry>
   <entry>
@@ -3600,25 +3577,6 @@ For example, I want people to be able to change the payee on a dozen bank transa
 </content>
   </entry>
   <entry>
-    <id>https://nickivance.com/writing/20160607_webvisions/</id>
-    <title>PDX Webvisions Conference 2016: My favorite talks from bearded men</title>
-    <published>2016-06-07T00:00:00Z</published>
-    <updated>2016-06-07T00:00:00Z</updated>
-    <link rel="alternate" href="https://nickivance.com/writing/20160607_webvisions/" type="text/html"/>
-    <content type="html">&lt;h1 id="pdx-webvisions-conference-2016-my-favorite-talks-from-bearded-men"&gt;PDX Webvisions Conference 2016: My favorite talks from bearded men&lt;/h1&gt;
-
-&lt;p&gt;I don’t know how many bearded men spoke at Webvisions in Portland this year but I went specifically to see Aaron Draplin and Mike Monteiro. Both were epic and inspiring and qualify for the “watch again” category.&lt;/p&gt;
-
-&lt;p&gt;Aaron Draplin is the pride of the Portland design scene because he is a prolific, well-known designer of logos, posters, and the creator of much-beloved Field Notes. I admit I thought maybe Portland overhyped him because he’s a hometown hero - but no, he’s explicatively fantastic. He gave a standard here’s-how-I-became-a-designer talk but it was awesome because it came with so much happiness, authentic gratitude, and love for the world. This guy loves the doing the design he does and he told a touching story about how he was able to help a guy out a tough spot with a good logo. I think he’s such a happy guy because he is doing what he loves doing and doesn’t take it for granted.&lt;/p&gt;
-
-&lt;p&gt;I feel lucky that I feel the same way. I’m going to be able to look back on my career and how it impacted my life in the same way. I feel like a rockstar because I get to do UX design as a job. I’ve felt that way since I got my first job, barely knew nothing, barely paid much, but totally in love with UX.&lt;/p&gt;
-
-&lt;p&gt;Mike Monteiro is a master at giving talks. His talks aren’t just good talks, they’re next level. He hits you in the gut with meaning and spins a bunch of tops that wobble around in your brain for days. His talk this year addressed a problem I didn’t even know existed. There’s a huge demand for designers and there aren’t enough good designers prepared for it. Sounds like a good problem to have. Except that our lives are spent interacting with designed products and services and we suffer when they aren’t designed well.&lt;/p&gt;
-
-&lt;p&gt;Mike covered how schools and industry aren’t doing enough to educate new designers. I paid a lot of attention here because, as a UX manager, I wondered a lot about whether the lack of satisfactory design candidates was a problem we should be solving by better educating new hires. The solution, Mike encouraged, was to give back by taking on this education, either formally with hires or informally through mentoring. I especially liked that he modeled a community attitude by explaining that when his teammates are ready to move on that he helps them find their next job. Even though it’s a loss to have someone outgrow your team, you’ve made a contribution. I’m very thankful that I had a couple good mentors and managers in particular that helped me learn in leaps and bounds.&lt;/p&gt;
-</content>
-  </entry>
-  <entry>
     <id>https://nickivance.com/writing/20160515_cabinet/</id>
     <title>A cabinet is a portal to the future - when you're still building it</title>
     <published>2016-05-15T00:00:00Z</published>
@@ -3790,46 +3748,6 @@ For example, I want people to be able to change the payee on a dozen bank transa
 &lt;/figure&gt;
 
 &lt;p&gt;Next time, I’ll work on the bottom again. I’m having a great time. So far I enjoy this a lot more than many of the other projects I’ve tried to do. I love the spatial problems of taking flat cloth and making 3D shapes. I also might enjoy it because I’m not worry about the details, or making sure this looks good. I’m happy to be prototyping.&lt;/p&gt;
-</content>
-  </entry>
-  <entry>
-    <id>https://nickivance.com/writing/20160328_leaving-citizen/</id>
-    <title>Leaving Citizen</title>
-    <published>2016-03-28T00:00:00Z</published>
-    <updated>2016-03-28T00:00:00Z</updated>
-    <link rel="alternate" href="https://nickivance.com/writing/20160328_leaving-citizen/" type="text/html"/>
-    <content type="html">&lt;h1 id="leaving-citizen"&gt;Leaving Citizen&lt;/h1&gt;
-
-&lt;p&gt;I left Citizen, Inc. a week ago. It was incredibly touching. I’ll miss everyone there.
-I decided that it was time for me to get out of my comfort zone. I want to learn how other people design digital products. And I want to know if I can find a work schedule where I have time for side projects, daily flexibility to stay healthy, and can travel frequently.
-It might not be possible. I’m not sure what form my ideal job would take. But I know I need to try to find out and the exploration makes me happy.&lt;/p&gt;
-
-&lt;p&gt;I’m going to take on some contract work. I’m taking interviews for full-time work and learning how to evaluate what a company has to offer. I might schedule a few weeks for strictly personal projects. TBD.&lt;/p&gt;
-
-&lt;figure style="max-width: 555px"&gt;
-
-  &lt;img src="https://nickivance.com/writing/20160328_leaving-citizen/citizen.jpeg" alt=""&gt;
-
-&lt;/figure&gt;
-</content>
-  </entry>
-  <entry>
-    <id>https://nickivance.com/writing/20151001_xoxo/</id>
-    <title>Heck Yes: XOXO 2015</title>
-    <published>2015-10-01T00:00:00Z</published>
-    <updated>2015-10-01T00:00:00Z</updated>
-    <link rel="alternate" href="https://nickivance.com/writing/20151001_xoxo/" type="text/html"/>
-    <content type="html">&lt;h1 id="heck-yes-xoxo-2015"&gt;Heck Yes: XOXO 2015&lt;/h1&gt;
-
-&lt;h2 id="background"&gt;Background&lt;/h2&gt;
-&lt;p&gt;&lt;a href="https://xoxofest.com/"&gt;XOXO&lt;/a&gt; is a Portland festival &amp;amp; conference that has been held four times already. The event organizers (two Andys) curate a selection of talks, films, storytelling events, music, and game demos that represent the best content the web has to offer made by people who’s efforts make the world a better place. It is also a well-designed experience that ensures everyone is happy, intellectually alive, and excited to meet strangers. It is a microcosm of an ideal culture; a culture that it is positive and self-aware, and always working to improve.&lt;/p&gt;
-
-&lt;h2 id="heck-yes"&gt;Heck Yes&lt;/h2&gt;
-&lt;p&gt;I go to XOXO because I can see real life examples of the kind of success I seek. I love that the people I see there are thoughtful and strong. Their projects offer more diverse content and help our culture become healthier.&lt;/p&gt;
-
-&lt;p&gt;My favorite parts are the talks and the video game arcade. I love the art and interaction in games. I design user interfaces so games represent the opportunity to design for enjoyment instead of task completion.&lt;/p&gt;
-
-&lt;p&gt;The talks blew me away because I identified with the many smart, articulate, and funny women who took the stage and shared their ideas of what it takes to make our lives better.&lt;/p&gt;
 </content>
   </entry>
 </feed>

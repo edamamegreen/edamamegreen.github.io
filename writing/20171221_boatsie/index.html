@@ -71,7 +71,7 @@
 
 <p>I ended up adding the rocking motion to the same animation that moves the boat side-to-side. I would like a way to combine multiple animations but I couldn’t because both animations used the same property, <code>transform</code>.</p>
 
-<p>In the side-to-side animation, I have <code>transform: rotateY()</code> and in the rocking, I have <code>transform: rotate()</code>. Even though <code>rotate</code> and <code>rotateY</code> are different, they still define the transform. If I created two separate animations and applied them to the same element, the CSS would use the transform instructions from the latter animation. The highest rule of CSS: there can be only one [of each property declaration]!</p>
+<p>In the side-to-side animation, I have <code>transform: rotateY()</code> and in the rocking, I have <code>transform: rotate()</code>. Even though <code>rotate</code> and <code>rotateY</code> are different, they still define the transform. If I created two separate animations and applied them to the same element, the CSS would use the transform instructions from the latter animation. The highest rule of CSS: there can be only one (of each property declaration)!</p>
 
 <h2 id="engine-smoke">Engine smoke</h2>
 
